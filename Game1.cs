@@ -10,7 +10,7 @@ namespace out_and_back
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        internal SpriteBatch spriteBatch;
 
         public Game1()
         {
@@ -27,7 +27,7 @@ namespace out_and_back
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            Projectile p = new Projectile(this, Team.Player, -3.14f, 1, new Vector2(100, 100));
             base.Initialize();
         }
 
@@ -39,6 +39,7 @@ namespace out_and_back
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            AssetManager.Initialize(this);
 
             // TODO: use this.Content to load your game content here
         }
@@ -76,8 +77,10 @@ namespace out_and_back
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-
+            spriteBatch.Begin();
+            AssetManager.Instance.PrintString("Apple", Vector2.Zero);
             base.Draw(gameTime);
+            spriteBatch.End();
         }
     }
 }
