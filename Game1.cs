@@ -29,7 +29,7 @@ namespace out_and_back
             Entity.DefaultRemovalEvent = EntityRemoved;
             Projectile p = new Projectile(this, Team.Player, MathHelper.Pi, 10, new Vector2(100, 100));
             Projectile q = new Projectile(this, Team.Enemy, MathHelper.PiOver2, 10, new Vector2(100, 100), 5000);
-
+            Player player = new Player(this, Team.Player, 0, 0, new Vector2(250, 250));
             base.Initialize();
         }
 
