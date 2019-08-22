@@ -4,21 +4,24 @@ using Microsoft.Xna.Framework.Input;
 
 namespace out_and_back
 {
+
     class Player : Entity
     {
 
 
         public int health;
+        public bool isCasting = false;
+
 
         /// <summary>
-        /// Basic constructor for a projectile entity.
+        /// Basic constructor for a player entity.
         /// </summary>
-        /// <param name="game">The game this projectile belongs to.</param>
-        /// <param name="team">The team this projectile belongs to.</param>
-        /// <param name="direction">The direction the projectile is moving in.</param>
-        /// <param name="speed">The speed the projectile is moving at.</param>
-        /// <param name="position">The starting position of the projectile.</param>
-        public Player(Game game, Team team, float direction, float speed, Vector2 position) : base(game, team, direction, speed, position)
+        /// <param name="game">The game this player belongs to.</param>
+        /// <param name="direction">The direction the player starts in.</param>
+        /// <param name="position">The starting position of the player.</param>
+        /// <param name="speed">The speed the player starts at, defaults to zero.</param>
+        /// <param name="team">The team this player belongs to.</param>
+        public Player(Game game, float direction, Vector2 position, float speed = 0, Team team = Team.Player) : base(game, team, direction, speed, position)
         {
             health = Globals.MAX_PLAYER_HEALTH;
         }
@@ -46,6 +49,7 @@ namespace out_and_back
                     Direction = Globals.LEFT_DIR;
                 Speed = Globals.MAX_PLAYER_SPEED;
             }
+
 
             if (Keyboard.GetState().IsKeyDown(Keys.S))
             {
@@ -78,10 +82,41 @@ namespace out_and_back
             }
         }
 
+        //Throws out the attack
+        private void CastWeapon(float mouseDirection, Vector2 playerPos)
+        {
+            Projectile weapon = new Projectile(this.Game, Team.Player, mouseDirection, Globals.MAX_WEAPON_SPEED, playerPos);
+            weapon.Removed += Weapon_Removed;
+        }
+
+
+        //Allows the player to cast again after the attack is done
+        private void Weapon_Removed(object sender, System.EventArgs e)
+        {
+            isCasting = false;
+        }
+
+        //Main drawing loop for the player
         public override void Draw(GameTime gameTime)
         {
             MovementInput();
-            AssetManager.Instance.PrintString("Player", Position, Color.White);
+
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed && isCasting == false)
+            {
+                double slope = (Mouse.GetState().Y - Position.Y) / (Mouse.GetState().X - Position.X);
+
+                float castDirection = (float)System.Math.Atan(slope);
+
+                if (Mouse.GetState().X < Position.X)
+                    castDirection = castDirection + Globals.PI;
+
+                CastWeapon(castDirection, Position);
+                isCasting = true;
+            }
+
+
+            //AssetManager.Instance.PrintString("Player", Position);
+            AssetManager.Instance.DrawCharSprite(Position);
         }
 
         protected override void HandleCollision(Entity other)
@@ -89,10 +124,11 @@ namespace out_and_back
             // It hits an entity on the same team, return.
             if (Team == other.Team) return;
 
-            // It's hit an entity - either Enemy or Player - and should therefore despawn.
+            // It's hit an entity either enemy or projectile - and should therefore lose health.
             health--;
             if (health <= 0)
             {
+                // TODO: end the game / bring up a game over UI
                 Dispose();
             }
             
