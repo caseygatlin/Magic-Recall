@@ -33,13 +33,13 @@ namespace out_and_back
         private SpriteFont Font;
         private SpriteBatch batch;
 
-        public void PrintString(string str, Vector2 position)
+        public void PrintString(string str, Vector2 position, Color color, float rotation = 0)
         {
             batch.DrawString(
                 Font,
                 str,
                 position,
-                Color.White);
+                color);
         }
     }
 }
