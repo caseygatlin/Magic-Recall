@@ -28,6 +28,7 @@ namespace out_and_back
         {
             // TODO: Add your initialization logic here
             Projectile p = new Projectile(this, Team.Player, -3.14f, 1, new Vector2(100, 100));
+            Player player = new Player(this, Team.Player, 0, 0, new Vector2(250, 250));
             base.Initialize();
         }
 
