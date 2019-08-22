@@ -7,6 +7,9 @@ namespace out_and_back
     /// </summary>
     class Projectile : Entity
     {
+        const int MAX_LIFETIME = 3000;
+        int lifetime = 0;
+
         /// <summary>
         /// Basic constructor for a projectile entity.
         /// </summary>
@@ -19,9 +22,17 @@ namespace out_and_back
         {
         }
 
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+            lifetime += gameTime.ElapsedGameTime.Milliseconds;
+            if (lifetime >= MAX_LIFETIME)
+                Remove(new System.EventArgs());
+        }
+
         public override void Draw(GameTime gameTime)
         {
-            AssetManager.Instance.PrintString("prj", Position);
+            AssetManager.Instance.PrintString("prj", Position, Team == Team.Enemy ? Color.Red : Color.Blue);
         }
 
         protected override void HandleCollision(Entity other)
@@ -31,7 +42,7 @@ namespace out_and_back
             // Ignore objects of the same team.
             if (Team == other.Team) return;
             // It's hit an entity - either Enemy or Player - and should therefore despawn.
-            Dispose();
+            Remove(new System.EventArgs());
         }
     }
 }

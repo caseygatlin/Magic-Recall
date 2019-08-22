@@ -13,6 +13,8 @@ namespace out_and_back
 
         public Team Team { get; private set; }
 
+        public static EventHandler DefaultRemovalEvent;
+
         private bool shouldDespawn;
         /// <summary>
         /// Whether or not this entity should be removed from the game.
@@ -54,6 +56,7 @@ namespace out_and_back
             Speed = speed;
             this.position = position;
             game.Components.Add(this);
+            Removed += DefaultRemovalEvent;
         }
 
         /// <summary>
@@ -132,5 +135,13 @@ namespace out_and_back
         /// </summary>
         /// <param name="other">The other entity colliding with this object.</param>
         protected abstract void HandleCollision(Entity other);
+
+        public event EventHandler Removed;
+
+        protected virtual void Remove(EventArgs e)
+        {
+            EventHandler handler = Removed;
+            handler?.Invoke(this, e);
+        }
     }
 }

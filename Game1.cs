@@ -26,10 +26,17 @@ namespace out_and_back
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-            Projectile p = new Projectile(this, Team.Player, -3.14f, 1, new Vector2(100, 100));
+            Entity.DefaultRemovalEvent = EntityRemoved;
+            Projectile p = new Projectile(this, Team.Player, MathHelper.Pi, 1, new Vector2(100, 100));
+            Projectile q = new Projectile(this, Team.Enemy, MathHelper.PiOver2, 10, new Vector2(100, 100));
             base.Initialize();
         }
+
+        private void EntityRemoved(object sender, System.EventArgs e)
+        {
+            Components.Remove((Entity)sender);
+        }
+        
 
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
@@ -78,7 +85,6 @@ namespace out_and_back
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-            AssetManager.Instance.PrintString("Apple", Vector2.Zero);
             base.Draw(gameTime);
             spriteBatch.End();
         }
