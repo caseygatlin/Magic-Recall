@@ -8,11 +8,13 @@ namespace out_and_back
     /// </summary>
     abstract class Entity : DrawableGameComponent
     {
-        Vector2 position;
         Vector2 movement;
 
         public Team Team { get; private set; }
 
+        /// <summary>
+        /// The default event handler that should be called 
+        /// </summary>
         public static EventHandler DefaultRemovalEvent;
 
         private bool shouldDespawn;
@@ -37,7 +39,7 @@ namespace out_and_back
         public Entity(Game game, Team team) : base(game)
         {
             movement = Vector2.Zero;
-            position = Vector2.Zero;
+            Position = Vector2.Zero;
             Team = team;
             game.Components.Add(this);
         }
@@ -54,7 +56,7 @@ namespace out_and_back
             Team = team;
             Direction = direction;
             Speed = speed;
-            this.position = position;
+            Position = position;
             game.Components.Add(this);
             Removed += DefaultRemovalEvent;
         }
@@ -83,7 +85,7 @@ namespace out_and_back
         /// </summary>
         public Vector2 Position
         {
-            get => position;
+            get; protected set;
         }
 
         /// <summary>
@@ -111,7 +113,7 @@ namespace out_and_back
                 Speed * (float)Math.Cos(Direction) * deltaTime / 1000,
                 Speed * (float)Math.Sin(Direction) * deltaTime / 1000
             );
-            position += deltas;
+            Position += deltas;
         }
 
         /// <summary>

@@ -27,11 +27,17 @@ namespace out_and_back
         protected override void Initialize()
         {
             Entity.DefaultRemovalEvent = EntityRemoved;
-            Projectile p = new Projectile(this, Team.Player, MathHelper.Pi, 1, new Vector2(100, 100));
-            Projectile q = new Projectile(this, Team.Enemy, MathHelper.PiOver2, 10, new Vector2(100, 100));
+            Projectile p = new Projectile(this, Team.Player, MathHelper.Pi, 10, new Vector2(100, 100));
+            Projectile q = new Projectile(this, Team.Enemy, MathHelper.PiOver2, 10, new Vector2(100, 100), 5000);
+
             base.Initialize();
         }
 
+        /// <summary>
+        /// Removes the entity from the game.
+        /// </summary>
+        /// <param name="sender">The entity that should be removed from the game. Should be of the Entity class.</param>
+        /// <param name="e">The event arguments that talk about the removal event.</param>
         private void EntityRemoved(object sender, System.EventArgs e)
         {
             Components.Remove((Entity)sender);
@@ -47,8 +53,6 @@ namespace out_and_back
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             AssetManager.Initialize(this);
-
-            // TODO: use this.Content to load your game content here
         }
 
         /// <summary>

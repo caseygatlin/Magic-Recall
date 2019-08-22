@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using out_and_back.MovementPatterns;
 
 namespace out_and_back
 {
@@ -7,8 +8,10 @@ namespace out_and_back
     /// </summary>
     class Projectile : Entity
     {
-        const int MAX_LIFETIME = 3000;
+        int maxLifetime;
         int lifetime = 0;
+
+        MovementPattern pattern;
 
         /// <summary>
         /// Basic constructor for a projectile entity.
@@ -18,16 +21,30 @@ namespace out_and_back
         /// <param name="direction">The direction the projectile is moving in.</param>
         /// <param name="speed">The speed the projectile is moving at.</param>
         /// <param name="position">The starting position of the projectile.</param>
-        public Projectile(Game game, Team team, float direction, float speed, Vector2 position) : base(game, team, direction, speed, position)
+        /// <param name="lifetime">The time, in milliseconds, that this object should exist.</param>
+        public Projectile(Game game, Team team, float direction, float speed, Vector2 position, int lifetime = -1) : base(game, team, direction, speed, position)
         {
+            maxLifetime = lifetime;
+            pattern = team == Team.Player ? MovementPattern.Yoyo(this) : MovementPattern.Straight(this);
+            if (pattern is YoyoMovementPattern)
+            {
+                pattern.MovementCompleted += YoyoMovementCompleted;
+            }
+        }
+
+        private void YoyoMovementCompleted(object sender, System.EventArgs e)
+        {
+            Remove(null);
         }
 
         public override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
+            //base.Update(gameTime);
+            pattern.Update(gameTime.ElapsedGameTime.Milliseconds);
+            Position = pattern.getPosition();
             lifetime += gameTime.ElapsedGameTime.Milliseconds;
-            if (lifetime >= MAX_LIFETIME)
-                Remove(new System.EventArgs());
+            if (lifetime >= maxLifetime && maxLifetime > 0)
+                Remove(null);
         }
 
         public override void Draw(GameTime gameTime)
@@ -42,7 +59,7 @@ namespace out_and_back
             // Ignore objects of the same team.
             if (Team == other.Team) return;
             // It's hit an entity - either Enemy or Player - and should therefore despawn.
-            Remove(new System.EventArgs());
+            Remove(null);
         }
     }
 }

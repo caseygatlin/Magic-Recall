@@ -44,6 +44,9 @@
     <Compile Include="AssetManager.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="MovementPatterns\MovementPattern.cs" />
+    <Compile Include="MovementPatterns\StraightMovementPattern.cs" />
+    <Compile Include="MovementPatterns\YoyoMovementPattern.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Projectile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
