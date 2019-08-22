@@ -1,11 +1,13 @@
 ﻿using System;
-using Microsoft.Xna.Framework;
 
 namespace out_and_back.MovementPatterns
 {
+    /// <summary>
+    /// Causes the projectile to move indefinitely in a single line.
+    /// </summary>
     class StraightMovementPattern : MovementPattern
     {
-        public StraightMovementPattern(Projectile parent) : base(parent)
+        internal StraightMovementPattern(Entity parent) : base(parent)
         {
             XParam = (int time) =>
             {

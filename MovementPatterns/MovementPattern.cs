@@ -12,11 +12,12 @@ namespace out_and_back.MovementPatterns
         protected float angle;
         protected float speed;
         private int lifetime = 0;
+        private int timeflow = 1;
 
         /// <summary>
         /// Right now, I see no reason for this to be wildly available.
         /// </summary>
-        public MovementPattern(Projectile parent)
+        public MovementPattern(Entity parent)
         {
             origin = parent.Position;
             angle = parent.Direction;
@@ -44,7 +45,7 @@ namespace out_and_back.MovementPatterns
 
         public virtual void Update(int deltaTime)
         {
-            lifetime += deltaTime;
+            lifetime += deltaTime * timeflow;
         }
 
         /// <summary>
@@ -54,12 +55,12 @@ namespace out_and_back.MovementPatterns
         /// <param name="angle">The starting angle of the object.</param>
         /// <param name="origin">The spawn location of the object.</param>
         /// <returns>A movement pattern that will move a projectile in a single direction.</returns>
-        public static MovementPattern Straight(Projectile parent)
+        public static MovementPattern Straight(Entity parent)
         {
             return new StraightMovementPattern(parent);
         }
 
-        public static MovementPattern Yoyo(Projectile parent)
+        public static MovementPattern Yoyo(Entity parent)
         {
             return new YoyoMovementPattern(parent);
         }
@@ -67,6 +68,11 @@ namespace out_and_back.MovementPatterns
         protected void resetTime()
         {
             lifetime = 0;
+        }
+
+        protected void reverseTime()
+        {
+            timeflow *= -1;
         }
 
         public event EventHandler MovementCompleted;
