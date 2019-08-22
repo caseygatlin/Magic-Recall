@@ -16,6 +16,7 @@ namespace out_and_back
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            IsMouseVisible = true;
         }
 
         /// <summary>
