@@ -30,7 +30,6 @@ namespace out_and_back
             {
                 pattern.MovementCompleted += YoyoMovementCompleted;
             }
-            aabb = new Rectangle((int)position.X, (int)position.Y, 10, 10);
         }
 
         private void YoyoMovementCompleted(object sender, System.EventArgs e)

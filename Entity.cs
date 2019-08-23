@@ -27,10 +27,7 @@ namespace out_and_back
             protected set => shouldDespawn = value;
         }
 
-        /// <summary>
-        /// The axis-aligned bounding box of this unit's hitbox.
-        /// </summary>
-        protected Rectangle aabb;
+        protected float hitRadius = 10;
 
         /// <summary>
         /// Creates an entity with the specified direction and speed values and the given position.
@@ -67,21 +64,13 @@ namespace out_and_back
             set => movement.Y = value;
         }
 
-        private Vector2 position;
         /// <summary>
         /// The position of this entity. It can only be set initially in the
         /// constructor, and is modified within the update function.
         /// </summary>
         public Vector2 Position
         {
-            get => position;
-            protected set
-            {
-                position = value;
-                // Unfortunately, we need to update the hitbox this way
-                aabb.X = (int)position.X;
-                aabb.Y = (int)position.Y;
-            }
+            get; protected set;
         }
 
         /// <summary>
@@ -118,10 +107,7 @@ namespace out_and_back
         /// <param name="other">The other entity to check against.</param>
         public bool CheckCollision(Entity other)
         {
-            // Normally, we'd want to do the more precise checks for 
-            // collision here. But for now, we're fine with just checking
-            // their aabbs.
-            return aabb.Intersects(other.aabb);
+            return Vector2.Distance(Position, other.Position) <= hitRadius;
         }
 
         /// <summary>
