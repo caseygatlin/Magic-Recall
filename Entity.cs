@@ -30,19 +30,7 @@ namespace out_and_back
         /// <summary>
         /// The axis-aligned bounding box of this unit's hitbox.
         /// </summary>
-        Rectangle aabb;
-
-        /// <summary>
-        /// Creates a basic entity with no velocity and at the origin.
-        /// </summary>
-        /// <param name="game">The game instance this entity belongs to.</param>
-        public Entity(Game game, Team team) : base(game)
-        {
-            movement = Vector2.Zero;
-            Position = Vector2.Zero;
-            Team = team;
-            game.Components.Add(this);
-        }
+        protected Rectangle aabb;
 
         /// <summary>
         /// Creates an entity with the specified direction and speed values and the given position.
@@ -51,13 +39,13 @@ namespace out_and_back
         /// <param name="direction">The direction the entity should be moving in.</param>
         /// <param name="speed">The speed of the entity.</param>
         /// <param name="position">The position on the world map where the entity is.</param>
-        public Entity(Game game, Team team, float direction, float speed, Vector2 position) : base(game)
+        public Entity(Game1 game, Team team, float direction, float speed, Vector2 position) : base(game)
         {
             Team = team;
             Direction = direction;
             Speed = speed;
             Position = position;
-            game.Components.Add(this);
+            game.Entities.Add(this);
             Removed += DefaultRemovalEvent;
         }
 
@@ -79,13 +67,21 @@ namespace out_and_back
             set => movement.Y = value;
         }
 
+        private Vector2 position;
         /// <summary>
         /// The position of this entity. It can only be set initially in the
         /// constructor, and is modified within the update function.
         /// </summary>
         public Vector2 Position
         {
-            get; protected set;
+            get => position;
+            protected set
+            {
+                position = value;
+                // Unfortunately, we need to update the hitbox this way
+                aabb.X = (int)position.X;
+                aabb.Y = (int)position.Y;
+            }
         }
 
         /// <summary>
@@ -120,12 +116,12 @@ namespace out_and_back
         /// Checks if this entity is colliding with another.
         /// </summary>
         /// <param name="other">The other entity to check against.</param>
-        public void CheckCollision(Entity other)
+        public bool CheckCollision(Entity other)
         {
             // Normally, we'd want to do the more precise checks for 
             // collision here. But for now, we're fine with just checking
             // their aabbs.
-            if (aabb.Intersects(other.aabb)) HandleCollision(other);
+            return aabb.Intersects(other.aabb);
         }
 
         /// <summary>
@@ -136,7 +132,7 @@ namespace out_and_back
         /// the behavior of intersecting with that other entity.
         /// </summary>
         /// <param name="other">The other entity colliding with this object.</param>
-        protected abstract void HandleCollision(Entity other);
+        public abstract void HandleCollision(Entity other);
 
         public event EventHandler Removed;
 

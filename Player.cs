@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace out_and_back
@@ -8,10 +7,8 @@ namespace out_and_back
     class Player : Entity
     {
 
-
         public int health;
         public bool isCasting = false;
-
 
         /// <summary>
         /// Basic constructor for a player entity.
@@ -21,7 +18,7 @@ namespace out_and_back
         /// <param name="position">The starting position of the player.</param>
         /// <param name="speed">The speed the player starts at, defaults to zero.</param>
         /// <param name="team">The team this player belongs to.</param>
-        public Player(Game game, float direction, Vector2 position, float speed = 0, Team team = Team.Player) : base(game, team, direction, speed, position)
+        public Player(Game1 game, float direction, Vector2 position, float speed = 0, Team team = Team.Player) : base(game, team, direction, speed, position)
         {
             health = Globals.MAX_PLAYER_HEALTH;
         }
@@ -85,7 +82,7 @@ namespace out_and_back
         //Throws out the attack
         private void CastWeapon(float mouseDirection, Vector2 playerPos)
         {
-            Projectile weapon = new Projectile(this.Game, Team.Player, mouseDirection, Globals.MAX_WEAPON_SPEED, playerPos);
+            Projectile weapon = new Projectile((Game1)Game, Team.Player, mouseDirection, Globals.MAX_WEAPON_SPEED, playerPos);
             weapon.Removed += Weapon_Removed;
         }
 
@@ -119,7 +116,7 @@ namespace out_and_back
             AssetManager.Instance.DrawCharSprite(Position);
         }
 
-        protected override void HandleCollision(Entity other)
+        public override void HandleCollision(Entity other)
         {
             // It hits an entity on the same team, return.
             if (Team == other.Team) return;
@@ -129,7 +126,7 @@ namespace out_and_back
             if (health <= 0)
             {
                 // TODO: end the game / bring up a game over UI
-                Dispose();
+                Remove(null);
             }
             
         }

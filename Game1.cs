@@ -12,11 +12,14 @@ namespace out_and_back
         GraphicsDeviceManager graphics;
         internal SpriteBatch spriteBatch;
 
+        internal EnitityManager Entities;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+            Entities = new EnitityManager(this);
         }
 
         /// <summary>
@@ -41,7 +44,7 @@ namespace out_and_back
         /// <param name="e">The event arguments that talk about the removal event.</param>
         private void EntityRemoved(object sender, System.EventArgs e)
         {
-            Components.Remove((Entity)sender);
+            Entities.RemoveEntity((Entity)sender);
         }
         
 
@@ -76,6 +79,7 @@ namespace out_and_back
                 Exit();
 
             // TODO: Add your update logic here
+            
 
             base.Update(gameTime);
         }
