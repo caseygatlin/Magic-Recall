@@ -48,15 +48,21 @@ namespace out_and_back
         /// Creates an entity with the specified direction and speed values and the given position.
         /// </summary>
         /// <param name="game">The game instance that this entity belongs to.</param>
+        /// <param name="team">The team for the entity (good or bad).</param>
         /// <param name="direction">The direction the entity should be moving in.</param>
         /// <param name="speed">The speed of the entity.</param>
         /// <param name="position">The position on the world map where the entity is.</param>
-        public Entity(Game game, Team team, float direction, float speed, Vector2 position) : base(game)
+        /// <param name="size">The hitbox dimensions of the entity.</param>
+        public Entity(Game game, Team team, float direction, float speed, Vector2 position, Vector2 size) : base(game)
         {
             Team = team;
             Direction = direction;
             Speed = speed;
             Position = position;
+            aabb.X = (int)Position.X;
+            aabb.Y = (int)Position.Y;
+            aabb.Width = (int)size.X;
+            aabb.Height = (int)size.Y;
             game.Components.Add(this);
             Removed += DefaultRemovalEvent;
         }
@@ -98,6 +104,8 @@ namespace out_and_back
         {
             base.Update(gameTime);
             Move(gameTime.ElapsedGameTime.Milliseconds);
+            aabb.X = (int)Position.X;
+            aabb.Y = (int)Position.Y;
         }
 
         /// <summary>

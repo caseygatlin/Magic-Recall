@@ -12,6 +12,9 @@ namespace out_and_back
         GraphicsDeviceManager graphics;
         internal SpriteBatch spriteBatch;
 
+        Player player;
+        Enemy enemy;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -28,9 +31,12 @@ namespace out_and_back
         protected override void Initialize()
         {
             Entity.DefaultRemovalEvent = EntityRemoved;
-            Projectile p = new Projectile(this, Team.Player, MathHelper.Pi, 10, new Vector2(100, 100));
-            Projectile q = new Projectile(this, Team.Enemy, MathHelper.PiOver2, 10, new Vector2(100, 100), 5000);
-            Player player = new Player(this, 0, new Vector2(250, 250));
+            Projectile p = new Projectile(this, Team.Player, MathHelper.Pi, 10, new Vector2(100, 100), new Vector2(10, 10));
+            Projectile q = new Projectile(this, Team.Enemy, MathHelper.PiOver2, 10, new Vector2(100, 100), new Vector2(10, 10), 5000);
+            player = new Player(this, 0, new Vector2(250, 250), new Vector2(50, 50));
+
+            enemy = Enemy.Ghost(this, MathHelper.PiOver2, new Vector2(250, 50));
+
             base.Initialize();
         }
 
@@ -75,7 +81,11 @@ namespace out_and_back
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            if (player.Enabled)
+            {
+                player.CheckCollision(enemy);
+                enemy.CheckCollision(player);//HELP: Right now, CheckCollision only makes the caller handle collision with the parameter, so we have to do both. HandleCollision's comment specifically says not to have it trigger the other/parameter's HandleCollision, but perhaps CheckCollision could? - Aaron
+            }
 
             base.Update(gameTime);
         }

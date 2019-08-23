@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -19,9 +20,10 @@ namespace out_and_back
         /// <param name="game">The game this player belongs to.</param>
         /// <param name="direction">The direction the player starts in.</param>
         /// <param name="position">The starting position of the player.</param>
+        /// <param name="size">The size of the player's hitbox.</param>
         /// <param name="speed">The speed the player starts at, defaults to zero.</param>
         /// <param name="team">The team this player belongs to.</param>
-        public Player(Game game, float direction, Vector2 position, float speed = 0, Team team = Team.Player) : base(game, team, direction, speed, position)
+        public Player(Game game, float direction, Vector2 position, Vector2 size, float speed = 0, Team team = Team.Player) : base(game, team, direction, speed, position, size)
         {
             health = Globals.MAX_PLAYER_HEALTH;
         }
@@ -85,7 +87,7 @@ namespace out_and_back
         //Throws out the attack
         private void CastWeapon(float mouseDirection, Vector2 playerPos)
         {
-            Projectile weapon = new Projectile(this.Game, Team.Player, mouseDirection, Globals.MAX_WEAPON_SPEED, playerPos);
+            Projectile weapon = new Projectile(this.Game, Team.Player, mouseDirection, Globals.MAX_WEAPON_SPEED, playerPos, new Vector2(10, 10));
             weapon.Removed += Weapon_Removed;
         }
 
@@ -128,10 +130,12 @@ namespace out_and_back
             health--;
             if (health <= 0)
             {
-                // TODO: end the game / bring up a game over UI
-                Dispose();
+                Console.WriteLine("You lose!");// TODO: end the game / bring up a game over UI
+                Dispose();      //HELP: Just dispose didn't make the player disappear, so... what is this doing? - Aaron
+                Enabled = false;   //So the Game update can stop checking for collisions... but shouldn't Dispose() do something like this? - Aaron
+                Remove(null);   //Projectile was doing this, and this does make the player disappear - Aaron
             }
-            
+
         }
     }
 

@@ -9,7 +9,7 @@ namespace out_and_back
     class Globals
     {
         //The speed of the player
-        public const float MAX_PLAYER_SPEED = 90;
+        public const float MAX_PLAYER_SPEED = 200;
 
         //How many hits the player can take
         public const int MAX_PLAYER_HEALTH = 1;
