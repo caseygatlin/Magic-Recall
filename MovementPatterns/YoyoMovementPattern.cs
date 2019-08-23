@@ -8,7 +8,6 @@ namespace out_and_back.MovementPatterns
     /// </summary>
     class YoyoMovementPattern : MovementPattern
     {
-        bool paused = false;
         bool limitReached = false;
         int maxDistance = 20;
         int multiplier = 1;
@@ -39,7 +38,6 @@ namespace out_and_back.MovementPatterns
         /// <param name="deltaTime">The amount of time, in milliseconds, that has passed since last update.</param>
         public override void Update(int deltaTime)
         {
-            if (paused) return;
             base.Update(deltaTime);
             Vector2 currentPos = getPosition();
             float distance = Vector2.Distance(origin, currentPos);

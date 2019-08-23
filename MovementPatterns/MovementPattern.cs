@@ -11,6 +11,7 @@ namespace out_and_back.MovementPatterns
         protected Vector2 origin;
         protected float angle;
         protected float speed;
+        protected bool paused = false;
         private int lifetime = 0;
         private int timeflow = 1;
 
@@ -45,7 +46,20 @@ namespace out_and_back.MovementPatterns
 
         public virtual void Update(int deltaTime)
         {
+            if (paused) return;
             lifetime += deltaTime * timeflow;
+        }
+
+        /// <summary>
+        /// While you could just set an entity's velocity to zero, this works just
+        /// as well, if not better, since there's no math being performed when finding
+        /// the location of the unit based on time.
+        /// </summary>
+        /// <param name="parent"></param>
+        /// <returns></returns>
+        public static MovementPattern Stationary(Entity parent)
+        {
+            return new StationaryMovementPattern(parent);
         }
 
         /// <summary>
@@ -78,6 +92,11 @@ namespace out_and_back.MovementPatterns
         protected void reverseTime()
         {
             timeflow *= -1;
+        }
+
+        protected void toggleTimePause()
+        {
+            paused = !paused;
         }
 
         public event EventHandler MovementCompleted;
