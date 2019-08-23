@@ -5,9 +5,10 @@ namespace out_and_back
 {
     class AssetManager
     {
-        //The player sprite
+        //The player and weapon sprites
         public Texture2D playerSprite;
         public Texture2D weaponSprite;
+        public Texture2D ghostSprite;
 
         //In case we need to scale anything, change targetX value to adjust scale
         public float targetX = 128;
@@ -40,8 +41,10 @@ namespace out_and_back
             Font = game.Content.Load<SpriteFont>("defaultFont");
             batch = game.spriteBatch;
 
-            //Loads up the player sprite
+            //Loads up the sprites
             playerSprite = game.Content.Load<Texture2D>("Wizard");
+            weaponSprite = game.Content.Load<Texture2D>("FireAttack(Forward)");
+            ghostSprite = game.Content.Load<Texture2D>("Ghost");
 
             //In case we need to scale anything, use scale variable
             scale = new Vector2(targetX / (float)playerSprite.Width, targetX / (float)playerSprite.Width);
@@ -61,18 +64,45 @@ namespace out_and_back
         }
 
         
-        //Draws the loaded character sprite to the screen
+        //Draws the loaded sprites to the screen
         public void DrawCharSprite(Vector2 playerPos)
         {
-            batch.Draw(playerSprite, playerPos, Color.White);
+            //Centers the character sprite around the player position
+            float spritePosX = playerPos.X - (float)playerSprite.Width / 2;
+            float spritePosY = playerPos.Y - (float)playerSprite.Height /2;
+            Vector2 spritePos = new Vector2(spritePosX, spritePosY);
+
+            //Draws the player sprite
+            batch.Draw(playerSprite, spritePos, Color.White);
         }
 
 
         //Draws the loaded weapon sprite to the screen
-        // TODO: Load the weapon sprite in The AssetManager function
-        public void DrawCharWeapon(Vector2 projectilePos)
+        public void DrawCharWeapon(Vector2 projectilePos, float projectileDir)
         {
-            batch.Draw(weaponSprite, projectilePos, Color.White);
+            //Centers the rotation position of the weapon sprite
+            Vector2 spriteOrigin = new Vector2((float)weaponSprite.Width / 2, (float)weaponSprite.Height / 2);
+
+            //Adjusts for the orientation of the sprite png
+            float weaponDir = projectileDir + Globals.PI / 2 - .2f;
+
+            //The rectangle that the sprite is drawn within
+            Rectangle destRect = new Rectangle((int)projectilePos.X, (int)projectilePos.Y, (int)weaponSprite.Width, (int)weaponSprite.Height);
+
+            //Draws the sprite
+            batch.Draw(weaponSprite, destRect, null, Color.White, weaponDir, origin: spriteOrigin, effects: SpriteEffects.None, layerDepth: 0f);
+        }
+
+        public void DrawGhost(Vector2 ghostPos)
+        {
+            //Centers the rotation position of the ghost
+            Vector2 spriteOrigin = new Vector2((float)ghostSprite.Width / 2, (float)ghostSprite.Height / 2);
+            
+            //The rectangle that the sprite is drawn within
+            Rectangle destRect = new Rectangle((int)ghostPos.X, (int)ghostPos.Y, (int)ghostSprite.Width, (int)ghostSprite.Height);
+
+            //Draws the sprite
+            batch.Draw(ghostSprite, destRect, null, Color.White, 0, origin: spriteOrigin, effects: SpriteEffects.None, layerDepth: 0f);
         }
 
     }

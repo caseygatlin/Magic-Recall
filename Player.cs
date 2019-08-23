@@ -11,6 +11,7 @@ namespace out_and_back
         const int PLAYER_WEAPON_RADIUS = 10;
         public int health;
         public bool isCasting = false;
+        private const int WEP_SPAWN_DIST = 50;
 
         /// <summary>
         /// Basic constructor for a player entity.
@@ -99,6 +100,7 @@ namespace out_and_back
         //Main drawing loop for the player
         public override void Draw(GameTime gameTime)
         {
+
             MovementInput();
 
             if (Mouse.GetState().LeftButton == ButtonState.Pressed && isCasting == false)
@@ -110,7 +112,13 @@ namespace out_and_back
                 if (Mouse.GetState().X < Position.X)
                     castDirection = castDirection + Globals.PI;
 
-                CastWeapon(castDirection, Position);
+                float castPosMultX = (float)System.Math.Cos(castDirection);
+                float castPosMultY = (float)System.Math.Sin(castDirection);
+                float castPosX = WEP_SPAWN_DIST * castPosMultX;
+                float castPosY = WEP_SPAWN_DIST * castPosMultY;
+                Vector2 castPos = new Vector2(castPosX + Position.X, castPosY + Position.Y);
+
+                CastWeapon(castDirection, castPos);
                 isCasting = true;
             }
 

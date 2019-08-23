@@ -35,7 +35,8 @@ namespace out_and_back
 
         public override void Draw(GameTime gameTime)
         {
-            AssetManager.Instance.PrintString("^_^", Position, Team == Team.Enemy ? Color.Red : Color.Blue);
+            //AssetManager.Instance.PrintString("^_^", Position, Team == Team.Enemy ? Color.Red : Color.Blue);
+            AssetManager.Instance.DrawGhost(Position);
         }
 
         public override void HandleCollision(Entity other)

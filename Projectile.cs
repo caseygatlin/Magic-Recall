@@ -46,7 +46,17 @@ namespace out_and_back
 
         public override void Draw(GameTime gameTime)
         {
-            AssetManager.Instance.PrintString("prj", Position, Team == Team.Enemy ? Color.Red : Color.Blue);
+            //If the projectile is on the same team as the player, draw the fireball
+            // TODO: if we have different attacks, probably make a class for each type so we know which sprite to load
+            
+            if (base.Team == Team.Player)
+            {
+                AssetManager.Instance.DrawCharWeapon(Position, Direction);
+            }
+            else
+            
+                AssetManager.Instance.PrintString("prj", Position, Team == Team.Enemy ? Color.Red : Color.Blue);
+            
         }
 
         public override void HandleCollision(Entity other)

@@ -26,6 +26,6 @@ namespace out_and_back
         public const float DOWN_LEFT_DIR = 3 * PI / 4;
 
         //Weapon speed
-        public const float MAX_WEAPON_SPEED = 75;
+        public const float MAX_WEAPON_SPEED = 150;
     }
 }

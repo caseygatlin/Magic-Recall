@@ -9,7 +9,7 @@ namespace out_and_back.MovementPatterns
     class YoyoMovementPattern : MovementPattern
     {
         bool limitReached = false;
-        int maxDistance = 20;
+        int maxDistance = 50;
         int multiplier = 1;
         int cycles;
         int cycleCount = 0;
