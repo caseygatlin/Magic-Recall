@@ -6,13 +6,8 @@ namespace out_and_back
     /// <summary>
     /// Represents an enemy in the game.
     /// </summary>
-    class Enemy : Entity
+    class Enemy : MovementManagedEntity
     {
-        /// <summary>
-        /// Tracks how the enemy will move
-        /// </summary>
-        MovementPattern pattern;
-
         /// <summary>
         /// Basic constructor for an enemy entity.
         /// </summary>

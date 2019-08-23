@@ -6,12 +6,10 @@ namespace out_and_back
     /// <summary>
     /// Represents some sort of projectile in the game.
     /// </summary>
-    class Projectile : Entity
+    class Projectile : MovementManagedEntity
     {
         int maxLifetime;
         int lifetime = 0;
-
-        MovementPattern pattern;
 
         /// <summary>
         /// Basic constructor for a projectile entity.
@@ -38,11 +36,10 @@ namespace out_and_back
             Remove(null);
         }
 
-        protected override void Move(int deltaTime)
+        public override void Update(GameTime gameTime)
         {
-            pattern.Update(deltaTime);
-            Position = pattern.getPosition();
-            lifetime += deltaTime;
+            base.Update(gameTime);
+            lifetime += gameTime.ElapsedGameTime.Milliseconds;
             if (lifetime >= maxLifetime && maxLifetime > 0)
                 Remove(null);
         }

@@ -46,6 +46,8 @@
     <Compile Include="EnitityManager.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="Globals.cs" />
+    <Compile Include="MovementManagedEntity.cs" />
+    <Compile Include="MovementPatterns\StationaryMovementPattern.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="Game1.cs" />
