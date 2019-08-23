@@ -31,9 +31,9 @@ namespace out_and_back
         protected override void Initialize()
         {
             Entity.DefaultRemovalEvent = EntityRemoved;
-            Projectile p = new Projectile(this, Team.Player, MathHelper.Pi, 10, new Vector2(100, 100));
-            Projectile q = new Projectile(this, Team.Enemy, MathHelper.PiOver2, 10, new Vector2(100, 100), 5000);
-            Player player = new Player(this, 0, new Vector2(250, 250));
+            Projectile p = new Projectile(this, Team.Player, MathHelper.Pi, 10, new Vector2(100, 100), new Vector2(10, 10));
+            Projectile q = new Projectile(this, Team.Enemy, MathHelper.PiOver2, 10, new Vector2(100, 100), new Vector2(10, 10), 5000);
+            Player player = new Player(this, 0, new Vector2(250, 250), new Vector2(50, 50));
             Enemy enemy = Enemy.Ghost(this, MathHelper.PiOver2, new Vector2(250, 50));
             base.Initialize();
         }

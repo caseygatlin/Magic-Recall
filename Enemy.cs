@@ -22,10 +22,10 @@ namespace out_and_back
         /// <param name="speed">The speed the enemy is moving at.</param>
         /// <param name="position">The starting position of the enemy.</param>
         /// <param name="size">The hitbox size of the enemy.</param>
-        internal Enemy(Game game, Team team, float direction, float speed, Vector2 position, Vector2 size) : base(game, team, direction, speed, position, size)
+        internal Enemy(Game1 game, Team team, float direction, float speed, Vector2 position, Vector2 size) : base(game, team, direction, speed, position, size)
         {
         }
-        public static Enemy Ghost(Game game, float direction, Vector2 position)
+        public static Enemy Ghost(Game1 game, float direction, Vector2 position)
         {
             Enemy g = new Enemy(game, Team.Enemy, direction, 100, position, new Vector2(30, 30));
             g.pattern = MovementPattern.Straight(g);
@@ -43,7 +43,7 @@ namespace out_and_back
             AssetManager.Instance.PrintString("^_^", Position, Team == Team.Enemy ? Color.Red : Color.Blue);
         }
 
-        protected override void HandleCollision(Entity other)
+        public override void HandleCollision(Entity other)
         {
             // Ignore objects of the same team.
             if (Team == other.Team) return;
