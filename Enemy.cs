@@ -47,10 +47,10 @@ namespace out_and_back
         {
             // Ignore objects of the same team.
             if (Team == other.Team) return;
-            if (other is Player)
+            if (other is Player || (other is Projectile && other.Team != Team))
             {
-                Dispose();      //HELP: Not sure what this one does... - Aaron
-                Remove(null);   //HELP: Projectile was doing this, and this does make the enemy disappear - Aaron
+                Dispose();
+                Remove(null);
             }
         }
     }
