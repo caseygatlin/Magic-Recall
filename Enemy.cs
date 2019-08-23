@@ -28,7 +28,7 @@ namespace out_and_back
         public static Enemy Ghost(Game1 game, float direction, Vector2 position)
         {
             Enemy g = new Enemy(game, Team.Enemy, direction, 100, position, 30);
-            g.pattern = MovementPattern.Straight(g);
+            g.pattern = MovementPattern.Straight(g, float.PositiveInfinity);
             return g;
         }
 

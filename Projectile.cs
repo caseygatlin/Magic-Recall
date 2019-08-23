@@ -26,7 +26,7 @@ namespace out_and_back
         public Projectile(Game1 game, Team team, float direction, float speed, Vector2 position, float radius, int lifetime = -1) : base(game, team, direction, speed, position, radius)
         {
             maxLifetime = lifetime;
-            pattern = team == Team.Player ? MovementPattern.Yoyo(this) : MovementPattern.Straight(this);
+            pattern = team == Team.Player ? MovementPattern.Yoyo(this, 1) : MovementPattern.Straight(this, float.PositiveInfinity);
             if (pattern is YoyoMovementPattern)
             {
                 pattern.MovementCompleted += YoyoMovementCompleted;
@@ -57,8 +57,8 @@ namespace out_and_back
             // Ignore other projectiles.
             if (other is Projectile) return;
             // Ignore objects of the same team.
-            if (Team == other.Team) return;
-            // It's hit an entity - either Enemy or Player - and should therefore despawn.
+            if (Team == other.Team || Team == Team.Player) return;
+            // It's hit an enemy and should therefore despawn.
             Remove(null);
         }
     }

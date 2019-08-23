@@ -12,9 +12,17 @@ namespace out_and_back.MovementPatterns
         bool limitReached = false;
         int maxDistance = 20;
         int multiplier = 1;
+        int cycles;
+        int cycleCount = 0;
 
-        internal YoyoMovementPattern(Entity parent) : base(parent)
+        /// <summary>
+        /// Creates a Yoyo Movement Pattern.
+        /// </summary>
+        /// <param name="parent">The entity this yoyo is being created for.</param>
+        /// <param name="cycles">The amount of times this pattern should be executed.</param>
+        internal YoyoMovementPattern(Entity parent, int cycles = 1) : base(parent)
         {
+            this.cycles = cycles;
             XParam = (int time) =>
             {
                 return speed * multiplier * (float)Math.Cos(angle) * time / 1000 + origin.X;
@@ -26,9 +34,9 @@ namespace out_and_back.MovementPatterns
         }
 
         /// <summary>
-        /// Updates the movement of this.sssssss
+        /// Updates the movement of this.
         /// </summary>
-        /// <param name="deltaTime"></param>
+        /// <param name="deltaTime">The amount of time, in milliseconds, that has passed since last update.</param>
         public override void Update(int deltaTime)
         {
             if (paused) return;
@@ -42,7 +50,13 @@ namespace out_and_back.MovementPatterns
             }
             else if (limitReached && distance < 0.1)
             {
-                CompleteMovement(null);
+                if (cycles > 0 && ++cycleCount == cycles)
+                    CompleteMovement(null);
+                else
+                {
+                    limitReached = false;
+                    reverseTime();
+                }
             }
         }
 

@@ -51,18 +51,23 @@ namespace out_and_back.MovementPatterns
         /// <summary>
         /// Creates a movement pattern that moves the object in a straight line.
         /// </summary>
-        /// <param name="speed">The speed at which the object moves.</param>
-        /// <param name="angle">The starting angle of the object.</param>
-        /// <param name="origin">The spawn location of the object.</param>
+        /// <param name="parent">The entity that is moving.</param>
+        /// <param name="limit">How far this movement pattern should take the unit before ending.</param>
         /// <returns>A movement pattern that will move a projectile in a single direction.</returns>
-        public static MovementPattern Straight(Entity parent)
+        public static MovementPattern Straight(Entity parent, float limit)
         {
-            return new StraightMovementPattern(parent);
+            return new StraightMovementPattern(parent, limit);
         }
 
-        public static MovementPattern Yoyo(Entity parent)
+        /// <summary>
+        /// Creates a Yoyo Movement Pattern that causes an object to move back and forth.
+        /// </summary>
+        /// <param name="parent">The entity that is moving.</param>
+        /// <param name="cycles">The amount of times the back and forth should occur. A non-positive number represents infinity.</param>
+        /// <returns>The YoyoMovementPattern.</returns>
+        public static MovementPattern Yoyo(Entity parent, int cycles)
         {
-            return new YoyoMovementPattern(parent);
+            return new YoyoMovementPattern(parent, cycles);
         }
 
         protected void resetTime()
