@@ -23,7 +23,7 @@ namespace out_and_back
         /// <param name="position">The starting position of the projectile.</param>
         /// <param name="size">The size of the projectile's hitbox.</param>
         /// <param name="lifetime">The time, in milliseconds, that this object should exist.</param>
-        public Projectile(Game game, Team team, float direction, float speed, Vector2 position, Vector2 size, int lifetime = -1) : base(game, team, direction, speed, position, size)
+        public Projectile(Game1 game, Team team, float direction, float speed, Vector2 position, Vector2 size, int lifetime = -1) : base(game, team, direction, speed, position, size)
         {
             maxLifetime = lifetime;
             pattern = team == Team.Player ? MovementPattern.Yoyo(this) : MovementPattern.Straight(this);
@@ -52,7 +52,7 @@ namespace out_and_back
             AssetManager.Instance.PrintString("prj", Position, Team == Team.Enemy ? Color.Red : Color.Blue);
         }
 
-        protected override void HandleCollision(Entity other)
+        public override void HandleCollision(Entity other)
         {
             // Ignore other projectiles.
             if (other is Projectile) return;

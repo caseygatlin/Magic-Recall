@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace out_and_back
@@ -9,10 +8,8 @@ namespace out_and_back
     class Player : Entity
     {
 
-
         public int health;
         public bool isCasting = false;
-
 
         /// <summary>
         /// Basic constructor for a player entity.
@@ -23,7 +20,7 @@ namespace out_and_back
         /// <param name="size">The size of the player's hitbox.</param>
         /// <param name="speed">The speed the player starts at, defaults to zero.</param>
         /// <param name="team">The team this player belongs to.</param>
-        public Player(Game game, float direction, Vector2 position, Vector2 size, float speed = 0, Team team = Team.Player) : base(game, team, direction, speed, position, size)
+        public Player(Game1 game, float direction, Vector2 position, Vector2 size, float speed = 0, Team team = Team.Player) : base(game, team, direction, speed, position, size)
         {
             health = Globals.MAX_PLAYER_HEALTH;
         }
@@ -87,7 +84,7 @@ namespace out_and_back
         //Throws out the attack
         private void CastWeapon(float mouseDirection, Vector2 playerPos)
         {
-            Projectile weapon = new Projectile(this.Game, Team.Player, mouseDirection, Globals.MAX_WEAPON_SPEED, playerPos, new Vector2(10, 10));
+            Projectile weapon = new Projectile((Game1)Game, Team.Player, mouseDirection, Globals.MAX_WEAPON_SPEED, playerPos, new Vector2(10, 10));
             weapon.Removed += Weapon_Removed;
         }
 
@@ -121,7 +118,7 @@ namespace out_and_back
             AssetManager.Instance.DrawCharSprite(Position);
         }
 
-        protected override void HandleCollision(Entity other)
+        public override void HandleCollision(Entity other)
         {
             // It hits an entity on the same team, return.
             if (Team == other.Team) return;
@@ -130,10 +127,8 @@ namespace out_and_back
             health--;
             if (health <= 0)
             {
-                Console.WriteLine("You lose!");// TODO: end the game / bring up a game over UI
-                Dispose();      //HELP: Just dispose didn't make the player disappear, so... what is this doing? - Aaron
-                Enabled = false;   //So the Game update can stop checking for collisions... but shouldn't Dispose() do something like this? - Aaron
-                Remove(null);   //Projectile was doing this, and this does make the player disappear - Aaron
+                // TODO: end the game / bring up a game over UI
+                Remove(null);
             }
 
         }

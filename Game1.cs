@@ -12,14 +12,14 @@ namespace out_and_back
         GraphicsDeviceManager graphics;
         internal SpriteBatch spriteBatch;
 
-        Player player;
-        Enemy enemy;
+        internal EnitityManager Entities;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+            Entities = new EnitityManager(this);
         }
 
         /// <summary>
@@ -31,12 +31,10 @@ namespace out_and_back
         protected override void Initialize()
         {
             Entity.DefaultRemovalEvent = EntityRemoved;
-            Projectile p = new Projectile(this, Team.Player, MathHelper.Pi, 10, new Vector2(100, 100), new Vector2(10, 10));
-            Projectile q = new Projectile(this, Team.Enemy, MathHelper.PiOver2, 10, new Vector2(100, 100), new Vector2(10, 10), 5000);
-            player = new Player(this, 0, new Vector2(250, 250), new Vector2(50, 50));
-
-            enemy = Enemy.Ghost(this, MathHelper.PiOver2, new Vector2(250, 50));
-
+            Projectile p = new Projectile(this, Team.Player, MathHelper.Pi, 10, new Vector2(100, 100));
+            Projectile q = new Projectile(this, Team.Enemy, MathHelper.PiOver2, 10, new Vector2(100, 100), 5000);
+            Player player = new Player(this, 0, new Vector2(250, 250));
+            Enemy enemy = Enemy.Ghost(this, MathHelper.PiOver2, new Vector2(250, 50));
             base.Initialize();
         }
 
@@ -47,7 +45,7 @@ namespace out_and_back
         /// <param name="e">The event arguments that talk about the removal event.</param>
         private void EntityRemoved(object sender, System.EventArgs e)
         {
-            Components.Remove((Entity)sender);
+            Entities.RemoveEntity((Entity)sender);
         }
         
 
@@ -81,11 +79,7 @@ namespace out_and_back
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            if (player.Enabled)
-            {
-                player.CheckCollision(enemy);
-                enemy.CheckCollision(player);//HELP: Right now, CheckCollision only makes the caller handle collision with the parameter, so we have to do both. HandleCollision's comment specifically says not to have it trigger the other/parameter's HandleCollision, but perhaps CheckCollision could? - Aaron
-            }
+            // TODO: Add your update logic here
 
             base.Update(gameTime);
         }
