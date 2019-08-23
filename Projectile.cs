@@ -21,8 +21,9 @@ namespace out_and_back
         /// <param name="direction">The direction the projectile is moving in.</param>
         /// <param name="speed">The speed the projectile is moving at.</param>
         /// <param name="position">The starting position of the projectile.</param>
+        /// <param name="size">The size of the projectile's hitbox.</param>
         /// <param name="lifetime">The time, in milliseconds, that this object should exist.</param>
-        public Projectile(Game1 game, Team team, float direction, float speed, Vector2 position, int lifetime = -1) : base(game, team, direction, speed, position)
+        public Projectile(Game1 game, Team team, float direction, float speed, Vector2 position, float radius, int lifetime = -1) : base(game, team, direction, speed, position, radius)
         {
             maxLifetime = lifetime;
             pattern = team == Team.Player ? MovementPattern.Yoyo(this) : MovementPattern.Straight(this);
@@ -37,12 +38,11 @@ namespace out_and_back
             Remove(null);
         }
 
-        public override void Update(GameTime gameTime)
+        protected override void Move(int deltaTime)
         {
-            //base.Update(gameTime);
-            pattern.Update(gameTime.ElapsedGameTime.Milliseconds);
+            pattern.Update(deltaTime);
             Position = pattern.getPosition();
-            lifetime += gameTime.ElapsedGameTime.Milliseconds;
+            lifetime += deltaTime;
             if (lifetime >= maxLifetime && maxLifetime > 0)
                 Remove(null);
         }

@@ -44,6 +44,7 @@
     <Compile Include="AssetManager.cs" />
     <Compile Include="Collider.cs" />
     <Compile Include="EnitityManager.cs" />
+    <Compile Include="Enemy.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Entity.cs" />

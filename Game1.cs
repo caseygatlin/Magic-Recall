@@ -31,9 +31,10 @@ namespace out_and_back
         protected override void Initialize()
         {
             Entity.DefaultRemovalEvent = EntityRemoved;
-            Projectile p = new Projectile(this, Team.Player, MathHelper.Pi, 10, new Vector2(100, 100));
-            Projectile q = new Projectile(this, Team.Enemy, MathHelper.PiOver2, 10, new Vector2(100, 100), 5000);
+            Projectile p = new Projectile(this, Team.Player, MathHelper.Pi, 10, new Vector2(100, 100), 10);
+            Projectile q = new Projectile(this, Team.Enemy, MathHelper.PiOver2, 10, new Vector2(100, 100), 10, 5000);
             Player player = new Player(this, 0, new Vector2(250, 250));
+            Enemy enemy = Enemy.Ghost(this, MathHelper.PiOver2, new Vector2(250, 50));
             base.Initialize();
         }
 
@@ -79,7 +80,6 @@ namespace out_and_back
                 Exit();
 
             // TODO: Add your update logic here
-            
 
             base.Update(gameTime);
         }

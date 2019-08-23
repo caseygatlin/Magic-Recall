@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 namespace out_and_back
@@ -6,7 +7,8 @@ namespace out_and_back
 
     class Player : Entity
     {
-
+        const int PLAYER_RADIUS = 30;
+        const int PLAYER_WEAPON_RADIUS = 10;
         public int health;
         public bool isCasting = false;
 
@@ -16,9 +18,10 @@ namespace out_and_back
         /// <param name="game">The game this player belongs to.</param>
         /// <param name="direction">The direction the player starts in.</param>
         /// <param name="position">The starting position of the player.</param>
+        /// <param name="size">The size of the player's hitbox.</param>
         /// <param name="speed">The speed the player starts at, defaults to zero.</param>
         /// <param name="team">The team this player belongs to.</param>
-        public Player(Game1 game, float direction, Vector2 position, float speed = 0, Team team = Team.Player) : base(game, team, direction, speed, position)
+        public Player(Game1 game, float direction, Vector2 position, float speed = 0, Team team = Team.Player) : base(game, team, direction, speed, position, PLAYER_RADIUS)
         {
             health = Globals.MAX_PLAYER_HEALTH;
         }
@@ -82,7 +85,7 @@ namespace out_and_back
         //Throws out the attack
         private void CastWeapon(float mouseDirection, Vector2 playerPos)
         {
-            Projectile weapon = new Projectile((Game1)Game, Team.Player, mouseDirection, Globals.MAX_WEAPON_SPEED, playerPos);
+            Projectile weapon = new Projectile((Game1)Game, Team.Player, mouseDirection, Globals.MAX_WEAPON_SPEED, playerPos, PLAYER_WEAPON_RADIUS);
             weapon.Removed += Weapon_Removed;
         }
 
@@ -128,7 +131,7 @@ namespace out_and_back
                 // TODO: end the game / bring up a game over UI
                 Remove(null);
             }
-            
+
         }
     }
 
