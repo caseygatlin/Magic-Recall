@@ -110,7 +110,7 @@ namespace out_and_back
         /// <param name="other">The other entity to check against.</param>
         public bool CheckCollision(Entity other)
         {
-            return Vector2.Distance(Position, other.Position) <= hitRadius;
+            return Vector2.Distance(Position, other.Position) <= hitRadius + other.hitRadius;
         }
 
         /// <summary>
