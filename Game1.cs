@@ -13,6 +13,7 @@ namespace out_and_back
         internal SpriteBatch spriteBatch;
 
         internal EnitityManager Entities;
+        Level level;
 
         public Game1()
         {
@@ -32,7 +33,7 @@ namespace out_and_back
         {
             Entity.DefaultRemovalEvent = EntityRemoved;
             Player player = new Player(this, 0, new Vector2(250, 250));
-            Enemy enemy = Enemy.Ghost(this, MathHelper.PiOver2, new Vector2(250, 50));
+            level = Level.Level1(this);
             base.Initialize();
         }
 
@@ -78,6 +79,7 @@ namespace out_and_back
                 Exit();
 
             // TODO: Add your update logic here
+            level.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -92,6 +94,7 @@ namespace out_and_back
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
+            level.Draw(gameTime);
             base.Draw(gameTime);
             spriteBatch.End();
         }

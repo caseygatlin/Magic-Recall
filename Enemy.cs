@@ -31,6 +31,14 @@ namespace out_and_back
         {
             pattern.Update(deltaTime);
             Position = pattern.getPosition();
+
+            //If an enemy goes waaaay out of bounds, we should kill it so it doesn't run away forever
+            if (Position.X > Globals.SCREEN_WIDTH * 2 || Position.X < -Globals.SCREEN_WIDTH
+                || Position.Y > Globals.SCREEN_HEIGHT * 2 || Position.Y < -Globals.SCREEN_HEIGHT)
+            {
+                Dispose();
+                Remove(null);
+            }
         }
 
         public override void Draw(GameTime gameTime)

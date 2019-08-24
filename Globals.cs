@@ -25,6 +25,10 @@ namespace out_and_back
         public const float UP_LEFT_DIR = 5 * PI / 4;
         public const float DOWN_LEFT_DIR = 3 * PI / 4;
 
+        //Screen dimensions
+        public const int SCREEN_WIDTH = 800;
+        public const int SCREEN_HEIGHT = 480;
+
         //Weapon speed
         public const float MAX_WEAPON_SPEED = 150;
     }
