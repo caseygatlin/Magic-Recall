@@ -27,6 +27,7 @@ namespace out_and_back
             health = Globals.MAX_PLAYER_HEALTH;
         }
 
+        //Detects input from WASD and assigns speed and direction
         public void MovementInput()
         {
             if (Keyboard.GetState().IsKeyDown(Keys.W))
@@ -49,6 +50,7 @@ namespace out_and_back
                 else
                     Direction = Globals.LEFT_DIR;
                 Speed = Globals.MAX_PLAYER_SPEED;
+
             }
 
 
@@ -61,6 +63,9 @@ namespace out_and_back
                 else
                     Direction = Globals.DOWN_DIR;
                 Speed = Globals.MAX_PLAYER_SPEED;
+
+
+             
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.D))
@@ -83,6 +88,24 @@ namespace out_and_back
             }
         }
 
+        //Keeps the player on the bounds of the viewport
+        private void KeepOnScreen()
+        {
+            float bufferLR = (float)AssetManager.Instance.playerSprite.Width / 2;
+            float bufferUD = (float)AssetManager.Instance.playerSprite.Height / 2;
+            float screenHeight = GraphicsDevice.Viewport.Height;
+            float screenWidth = GraphicsDevice.Viewport.Width;
+
+            if (Position.X - bufferLR <= 0)
+                Position = new Vector2(bufferLR, Position.Y);
+            if (Position.Y + bufferUD >= screenHeight)
+                Position = new Vector2(Position.X, screenHeight - bufferUD);
+            if (Position.X + bufferLR >= screenWidth)
+                Position = new Vector2(screenWidth - bufferLR, Position.Y);
+            if (Position.Y - bufferUD <= 0)
+                Position = new Vector2(Position.X, bufferUD);
+        }
+
         //Throws out the attack
         private void CastWeapon(float mouseDirection, Vector2 playerPos)
         {
@@ -101,7 +124,12 @@ namespace out_and_back
         public override void Draw(GameTime gameTime)
         {
 
-            MovementInput();
+            if (!isCasting)
+                MovementInput();
+            else
+                Speed = 0;
+
+            KeepOnScreen();
 
             if (Mouse.GetState().LeftButton == ButtonState.Pressed && isCasting == false)
             {
