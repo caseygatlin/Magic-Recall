@@ -16,7 +16,7 @@ namespace out_and_back
         /// <param name="direction">The direction the enemy is moving in.</param>
         /// <param name="speed">The speed the enemy is moving at.</param>
         /// <param name="position">The starting position of the enemy.</param>
-        /// <param name="size">The hitbox size of the enemy.</param>
+        /// <param name="radius">The hitbox radius of the enemy.</param>
         internal Enemy(Game1 game, Team team, float direction, float speed, Vector2 position, float radius) : base(game, team, direction, speed, position, radius)
         {
         }

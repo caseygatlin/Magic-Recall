@@ -19,7 +19,6 @@ namespace out_and_back
         /// <param name="game">The game this player belongs to.</param>
         /// <param name="direction">The direction the player starts in.</param>
         /// <param name="position">The starting position of the player.</param>
-        /// <param name="size">The size of the player's hitbox.</param>
         /// <param name="speed">The speed the player starts at, defaults to zero.</param>
         /// <param name="team">The team this player belongs to.</param>
         public Player(Game1 game, float direction, Vector2 position, float speed = 0, Team team = Team.Player) : base(game, team, direction, speed, position, PLAYER_RADIUS)
