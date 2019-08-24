@@ -26,7 +26,7 @@ namespace out_and_back.MovementPatterns
         public override void Update(int deltaTime)
         {
             base.Update(deltaTime);
-            if (Vector2.Distance(origin, getPosition()) > maxDistance)
+            if (Vector2.Distance(origin, getPosition()) >= maxDistance)
                 CompleteMovement(null);
         }
     }

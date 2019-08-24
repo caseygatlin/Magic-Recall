@@ -23,14 +23,14 @@ namespace out_and_back
         public static Enemy Ghost(Game1 game, float direction, Vector2 position)
         {
             Enemy g = new Enemy(game, Team.Enemy, direction, 100, position, 30);
-            g.pattern = MovementPattern.Straight(g, float.PositiveInfinity);
+            g.AddPattern(MovementPattern.Straight(g, float.PositiveInfinity));
             return g;
         }
 
         protected override void Move(int deltaTime)
         {
-            pattern.Update(deltaTime);
-            Position = pattern.getPosition();
+            Pattern.Update(deltaTime);
+            Position = Pattern.getPosition();
 
             //If an enemy goes waaaay out of bounds, we should kill it so it doesn't run away forever
             if (Position.X > Globals.SCREEN_WIDTH * 2 || Position.X < -Globals.SCREEN_WIDTH

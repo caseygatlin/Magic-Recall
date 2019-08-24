@@ -24,16 +24,18 @@ namespace out_and_back
         public Projectile(Game1 game, Team team, float direction, float speed, Vector2 position, float radius, int lifetime = -1) : base(game, team, direction, speed, position, radius)
         {
             maxLifetime = lifetime;
-            pattern = team == Team.Player ? MovementPattern.Yoyo(this, 1) : MovementPattern.Straight(this, float.PositiveInfinity);
-            if (pattern is YoyoMovementPattern)
+            AddPattern(team == Team.Player ? MovementPattern.Yoyo(this, 1) : MovementPattern.Straight(this, float.PositiveInfinity));
+            /*if (Pattern is YoyoMovementPattern)
             {
-                pattern.MovementCompleted += YoyoMovementCompleted;
-            }
+                AddPattern(MovementPattern.Straight(this, 100));
+            }*/
         }
 
-        private void YoyoMovementCompleted(object sender, System.EventArgs e)
+        protected override void PatternComplete(object sender, System.EventArgs e)
         {
-            Remove(null);
+            base.PatternComplete(sender, e);
+            if (Pattern == null)
+                Remove(null);
         }
 
         public override void Update(GameTime gameTime)
