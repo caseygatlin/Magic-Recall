@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 
 namespace out_and_back.AttackPatterns
@@ -65,10 +66,19 @@ namespace out_and_back.AttackPatterns
 
         private void GenerateProjectiles()
         {
-            foreach (Projectile proj in CreateProjectiles())
+            foreach (Projectile proj in MakeProjectiles())
                 ((Game1)parent.Game).Entities.Add(proj);
+            CreateProjectiles(new EventArgs());
         }
 
-        protected abstract IEnumerable<Projectile> CreateProjectiles();
+        protected abstract IEnumerable<Projectile> MakeProjectiles();
+
+        public event EventHandler ProjectilesCreated;
+
+        protected virtual void CreateProjectiles(EventArgs e)
+        {
+            var handler = ProjectilesCreated;
+            handler?.Invoke(this, e);
+        }
     }
 }
