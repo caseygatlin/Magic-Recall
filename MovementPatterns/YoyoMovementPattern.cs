@@ -44,7 +44,7 @@ namespace out_and_back.MovementPatterns
             if (distance >= maxDistance && !limitReached)
             {
                 limitReached = true;
-                reverseTime();
+                ReverseTime();
             }
             else if (limitReached && distance < 0.1)
             {
@@ -53,7 +53,7 @@ namespace out_and_back.MovementPatterns
                 else
                 {
                     limitReached = false;
-                    reverseTime();
+                    ReverseTime();
                 }
             }
         }

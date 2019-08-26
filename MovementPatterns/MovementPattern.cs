@@ -38,7 +38,10 @@ namespace out_and_back.MovementPatterns
         /// </summary>
         protected Func<int, float> YParam;
 
-
+        /// <summary>
+        /// Retrieves the position of where this object should be at the current time.
+        /// </summary>
+        /// <returns>The position the thing should be at.</returns>
         public Vector2 getPosition()
         {
             return new Vector2(XParam(lifetime), YParam(lifetime));
@@ -89,17 +92,22 @@ namespace out_and_back.MovementPatterns
             return new YoyoMovementPatternFollow(parent, game);
         }
 
-        protected void resetTime()
+        public static MovementPattern Spiral(Entity parent, Game1 game)
+        {
+            return new SpiralMovementPattern(parent, 2.5f, 0.1f);
+        }
+
+        protected void ResetTime()
         {
             lifetime = 0;
         }
 
-        protected void reverseTime()
+        protected void ReverseTime()
         {
             timeflow *= -1;
         }
 
-        protected void toggleTimePause()
+        protected void ToggleTimePause()
         {
             paused = !paused;
         }

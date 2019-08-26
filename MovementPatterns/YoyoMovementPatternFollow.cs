@@ -54,7 +54,7 @@ namespace out_and_back.MovementPatterns
             {
                 destination = new Vector2(currentPos.X, currentPos.Y);
                 limitReached = true;
-                reverseTime();             
+                ReverseTime();             
 
                 XParam = (int time) =>
                 {
