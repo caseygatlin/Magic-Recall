@@ -137,12 +137,8 @@ namespace out_and_back
 
             if (Mouse.GetState().LeftButton == ButtonState.Pressed && isCasting == false)
             {
-                double slope = (Mouse.GetState().Y - Position.Y) / (Mouse.GetState().X - Position.X);
-
-                float castDirection = (float)System.Math.Atan(slope);
-
-                if (Mouse.GetState().X < Position.X)
-                    castDirection = castDirection + Globals.PI;
+                Vector2 mousePos = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
+                float castDirection = Globals.getDirection(Position, mousePos);
 
                 float castPosMultX = (float)System.Math.Cos(castDirection);
                 float castPosMultY = (float)System.Math.Sin(castDirection);

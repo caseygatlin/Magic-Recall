@@ -34,7 +34,7 @@ namespace out_and_back.AttackPatterns
             float angle = angleOffset;
             for (int i = 0; i < count; ++i)
             {
-                Projectile p = new Projectile((Game1)parent.Game, parent.Team, angle, projSpd, parent.Position, projRad);
+                Projectile p = new Projectile((Game1)parent.Game, parent.Team, angle, projSpd, parent.Position, projRad,-1, Projectile.ProjectileType.GHOST_FLAME);
                 angle += angleDiff;
                 projectiles.Add(p);
             }

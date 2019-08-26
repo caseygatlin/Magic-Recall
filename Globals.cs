@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 
 namespace out_and_back
 {
@@ -31,5 +32,19 @@ namespace out_and_back
 
         //Weapon speed
         public const float MAX_WEAPON_SPEED = 150;
+
+
+        //Returns the direction such that an object at point1 faces point2
+        public static float getDirection(Vector2 point1, Vector2 point2)
+        {
+            double slope = (point2.Y - point1.Y) / (point2.X - point1.X);
+
+            float direction = (float)System.Math.Atan(slope);
+
+            if (point2.X < point1.X)
+                direction = direction + Globals.PI;
+
+            return direction;
+        }
     }
 }
