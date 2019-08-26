@@ -26,7 +26,7 @@ namespace out_and_back
         {
             Enemy g = new Enemy(game, Team.Enemy, direction, 100, position, 30);
             g.AddPattern(MovementPattern.Straight(g, float.PositiveInfinity));
-            g.SetAttackPattern(new AttackPatterns.FanAttackPattern(g, 3, 0, null, null, null));
+            g.SetAttackPattern(new AttackPatterns.FanAttackPattern(g, 4, MathHelper.PiOver4, 0, null, null, null));
             return g;
         }
 
