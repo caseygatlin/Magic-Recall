@@ -8,6 +8,8 @@ namespace out_and_back
     /// </summary>
     class Enemy : MovementManagedEntity
     {
+        AttackPatterns.AttackPattern attackPattern;
+
         /// <summary>
         /// Basic constructor for an enemy entity.
         /// </summary>
@@ -24,7 +26,14 @@ namespace out_and_back
         {
             Enemy g = new Enemy(game, Team.Enemy, direction, 100, position, 30);
             g.AddPattern(MovementPattern.Straight(g, float.PositiveInfinity));
+            g.SetAttackPattern(new AttackPatterns.FanAttackPattern(g, 3, 0, null, null, null));
             return g;
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+            attackPattern.Update(gameTime);
         }
 
         protected override void Move(int deltaTime)
@@ -43,7 +52,6 @@ namespace out_and_back
 
         public override void Draw(GameTime gameTime)
         {
-            //AssetManager.Instance.PrintString("^_^", Position, Team == Team.Enemy ? Color.Red : Color.Blue);
             AssetManager.Instance.DrawGhost(Position);
         }
 
@@ -56,6 +64,15 @@ namespace out_and_back
                 Dispose();
                 Remove(null);
             }
+        }
+
+        /// <summary>
+        /// Sets this enemy's attack pattern.
+        /// </summary>
+        /// <param name="pattern">The attack pattern to use.</param>
+        private void SetAttackPattern(AttackPatterns.AttackPattern pattern)
+        {
+            attackPattern = pattern;
         }
     }
 }
