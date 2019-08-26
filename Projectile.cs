@@ -8,8 +8,19 @@ namespace out_and_back
     /// </summary>
     class Projectile : MovementManagedEntity
     {
+        public enum ProjectileType
+        {
+            UNDEFINED,
+            FIREBALL,
+            GHOST_FLAME
+        }
+
+        private ProjectileType type;
+
         int maxLifetime;
         int lifetime = 0;
+
+
 
         /// <summary>
         /// Basic constructor for a projectile entity.
@@ -21,9 +32,10 @@ namespace out_and_back
         /// <param name="position">The starting position of the projectile.</param>
         /// <param name="radius">The size of the projectile's hitbox.</param>
         /// <param name="lifetime">The time, in milliseconds, that this object should exist.</param>
-        public Projectile(Game1 game, Team team, float direction, float speed, Vector2 position, float radius, int lifetime = -1) : base(game, team, direction, speed, position, radius)
+        public Projectile(Game1 game, Team team, float direction, float speed, Vector2 position, float radius, int lifetime = -1, ProjectileType projType = ProjectileType.UNDEFINED) : base(game, team, direction, speed, position, radius)
         {
             maxLifetime = lifetime;
+            type = projType;
 
             //Use if you want yoyo to follow the player on its return
             AddPattern(team == Team.Player ? MovementPattern.YoyoFollow(this, game) : MovementPattern.Straight(this, float.PositiveInfinity));
@@ -62,10 +74,14 @@ namespace out_and_back
             {
                 AssetManager.Instance.DrawCharWeapon(Position, Direction);
             }
-            else
-            
+            else if (type == ProjectileType.GHOST_FLAME)
+            {
+                AssetManager.Instance.PrintString("Flame", Position, Team == Team.Enemy ? Color.Red : Color.Blue);
+            }
+            else if (type == ProjectileType.UNDEFINED)
+            {
                 AssetManager.Instance.PrintString("prj", Position, Team == Team.Enemy ? Color.Red : Color.Blue);
-            
+            }
         }
 
         public override void HandleCollision(Entity other)

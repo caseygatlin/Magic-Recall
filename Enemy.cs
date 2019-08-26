@@ -22,13 +22,40 @@ namespace out_and_back
         internal Enemy(Game1 game, Team team, float direction, float speed, Vector2 position, float radius) : base(game, team, direction, speed, position, radius)
         {
         }
+
+        //An enum for detecting differences between enemy types
+        public enum EnemyType
+        {
+            GHOST,
+            SLIME
+        }
+
+        private EnemyType type;
+        public void setType(EnemyType enemyType)
+        {
+            type = enemyType;
+        }
+
         public static Enemy Ghost(Game1 game, float direction, Vector2 position)
         {
             Enemy g = new Enemy(game, Team.Enemy, direction, 100, position, 30);
             g.AddPattern(MovementPattern.Straight(g, float.PositiveInfinity));
+            g.setType(EnemyType.GHOST);
             g.SetAttackPattern(new AttackPatterns.FanAttackPattern(g, 3, 0, null, null, null));
             return g;
+
         }
+
+        
+
+        public static Enemy Slime(Game1 game, float direction, Vector2 position)
+        {
+            Enemy s = new Enemy(game, Team.Enemy, direction, 50, position, 30);
+            s.AddPattern(MovementPattern.Straight(s, 200));
+            s.setType(EnemyType.SLIME);
+            return s;
+        }
+
 
         public override void Update(GameTime gameTime)
         {
@@ -39,6 +66,9 @@ namespace out_and_back
         protected override void Move(int deltaTime)
         {
             Pattern.Update(deltaTime);
+
+            Pattern.MovementCompleted += Pattern_MovementCompleted;
+
             Position = Pattern.getPosition();
 
             //If an enemy goes waaaay out of bounds, we should kill it so it doesn't run away forever
@@ -50,9 +80,19 @@ namespace out_and_back
             }
         }
 
+        private void Pattern_MovementCompleted(object sender, System.EventArgs e)
+        {
+            if (type == EnemyType.SLIME)
+                Dispose();
+        }
+
         public override void Draw(GameTime gameTime)
         {
-            AssetManager.Instance.DrawGhost(Position);
+            //AssetManager.Instance.PrintString("^_^", Position, Team == Team.Enemy ? Color.Red : Color.Blue);
+            if (type == EnemyType.GHOST)
+                AssetManager.Instance.DrawGhost(Position);
+            else if (type == EnemyType.SLIME)
+                AssetManager.Instance.PrintString("^_^", Position, Team == Team.Enemy ? Color.Red : Color.Blue);
         }
 
         public override void HandleCollision(Entity other)

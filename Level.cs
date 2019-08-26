@@ -60,7 +60,10 @@ namespace out_and_back
 
             //Wave 1: A single ghost down the middle
             waves.AddLast(new Wave(0));
+            //waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Slime, Globals.UP_DIR, new Vector2(500, 500)));
             waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Ghost, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH/2, -OFF_SCREEN_OFFSET)));
+
+            
 
             //Wave 2: Two ghosts from left and right
             waves.AddLast(new Wave(5));
