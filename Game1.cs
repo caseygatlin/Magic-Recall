@@ -14,6 +14,7 @@ namespace out_and_back
 
         internal EnitityManager Entities;
         Level level;
+        Player player;
 
         public Game1()
         {
@@ -32,9 +33,14 @@ namespace out_and_back
         protected override void Initialize()
         {
             Entity.DefaultRemovalEvent = EntityRemoved;
-            Player player = new Player(this, 0, new Vector2(250, 250));
+            player = new Player(this, 0, new Vector2(250, 250));
             level = Level.Level1(this);
             base.Initialize();
+        }
+
+        public Vector2 getPlayerPos()
+        {
+            return player.Position;
         }
 
         /// <summary>

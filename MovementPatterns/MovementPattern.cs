@@ -84,6 +84,11 @@ namespace out_and_back.MovementPatterns
             return new YoyoMovementPattern(parent, cycles);
         }
 
+        public static MovementPattern YoyoFollow(Entity parent, Game1 game)
+        {
+            return new YoyoMovementPatternFollow(parent, game);
+        }
+
         protected void resetTime()
         {
             lifetime = 0;

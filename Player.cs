@@ -122,11 +122,16 @@ namespace out_and_back
         //Main drawing loop for the player
         public override void Draw(GameTime gameTime)
         {
-
+            //Enable if you want player stationary while attacking
+            /*
             if (!isCasting)
                 MovementInput();
             else
                 Speed = 0;
+            */
+
+            //Enable if you want player to move while attacking
+            MovementInput();
 
             KeepOnScreen();
 

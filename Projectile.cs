@@ -24,7 +24,14 @@ namespace out_and_back
         public Projectile(Game1 game, Team team, float direction, float speed, Vector2 position, float radius, int lifetime = -1) : base(game, team, direction, speed, position, radius)
         {
             maxLifetime = lifetime;
-            AddPattern(team == Team.Player ? MovementPattern.Yoyo(this, 1) : MovementPattern.Straight(this, float.PositiveInfinity));
+
+            //Use if you want yoyo to follow the player on its return
+            AddPattern(team == Team.Player ? MovementPattern.YoyoFollow(this, game) : MovementPattern.Straight(this, float.PositiveInfinity));
+
+            //Use if you want straight back and forth
+            //AddPattern(team == Team.Player ? MovementPattern.Yoyo(this, 1) : MovementPattern.Straight(this, float.PositiveInfinity));
+            
+            
             /*if (Pattern is YoyoMovementPattern)
             {
                 AddPattern(MovementPattern.Straight(this, 100));
