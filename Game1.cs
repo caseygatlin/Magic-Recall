@@ -1,6 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+﻿#define RUN_LEVEL
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+
 
 namespace out_and_back
 {
@@ -13,7 +16,9 @@ namespace out_and_back
         internal SpriteBatch spriteBatch;
 
         internal EnitityManager Entities;
+#if RUN_LEVEL
         Level level;
+#endif
         internal Player Player
         {
             get;
@@ -38,7 +43,9 @@ namespace out_and_back
         {
             Entity.DefaultRemovalEvent = EntityRemoved;
             Player = new Player(this, 0, new Vector2(250, 250));
+#if RUN_LEVEL
             level = Level.Level1(this);
+#endif
             base.Initialize();
         }
 
@@ -84,8 +91,9 @@ namespace out_and_back
                 Exit();
 
             // TODO: Add your update logic here
+#if RUN_LEVEL
             level.Update(gameTime);
-
+#endif
             base.Update(gameTime);
         }
 
@@ -99,7 +107,9 @@ namespace out_and_back
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
+#if RUN_LEVEL
             level.Draw(gameTime);
+#endif
             base.Draw(gameTime);
             spriteBatch.End();
         }

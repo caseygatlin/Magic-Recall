@@ -38,7 +38,7 @@ namespace out_and_back
             type = projType;
 
             //Use if you want yoyo to follow the player on its return
-            AddPattern(team == Team.Player ? MovementPattern.YoyoFollow(this, game) : MovementPattern.Straight(this, float.PositiveInfinity));
+            AddPattern(team == Team.Player ? MovementPattern.YoyoFollow(this) : MovementPattern.Straight(this, float.PositiveInfinity));
 
             //Use if you want straight back and forth
             //AddPattern(team == Team.Player ? MovementPattern.Yoyo(this, 1) : MovementPattern.Straight(this, float.PositiveInfinity));
@@ -70,13 +70,13 @@ namespace out_and_back
             //If the projectile is on the same team as the player, draw the fireball
             // TODO: if we have different attacks, probably make a class for each type so we know which sprite to load
             
-            if (base.Team == Team.Player)
+            if (Team == Team.Player)
             {
-                AssetManager.Instance.DrawSprite(this, AssetManager.Instance.weaponSprite, Globals.PI / 2 - .2f);
+                AssetManager.Instance.DrawSprite(this, AssetManager.Instance.weaponSprite, MathHelper.Pi / 2 - .2f);
             }
             else if (type == ProjectileType.GHOST_FLAME)
             {
-                AssetManager.Instance.DrawSprite(this, AssetManager.Instance.ghostAtkSprite, 3 * Globals.PI / 2);
+                AssetManager.Instance.DrawSprite(this, AssetManager.Instance.ghostAtkSprite, 3 * MathHelper.Pi / 2);
             }
             else if (type == ProjectileType.UNDEFINED)
             {
