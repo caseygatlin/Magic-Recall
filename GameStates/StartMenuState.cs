@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 
 namespace out_and_back.GameStates
@@ -30,7 +27,10 @@ namespace out_and_back.GameStates
 
         public override void Update(Game1 game, GameTime gameTime)
         {
-            //if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            {
+                
+            }
         }
     }
 }

@@ -9,19 +9,17 @@ namespace out_and_back
     /// </summary>
     public class Game1 : Game
     {
+        internal GameStates.AbstractGameState state;
+
         GraphicsDeviceManager graphics;
         internal SpriteBatch spriteBatch;
-
         internal EnitityManager Entities;
-        Level level;
-        Player player;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            IsMouseVisible = true;
-            Entities = new EnitityManager(this);
+            IsMouseVisible = true;      
         }
 
 
@@ -33,28 +31,21 @@ namespace out_and_back
         /// </summary> 
         protected override void Initialize()
         {
-            Entity.DefaultRemovalEvent = EntityRemoved;
-            player = new Player(this, 0, new Vector2(250, 250));
-            level = Level.Level1(this);
-            base.Initialize();
-            
+            Entities = new EnitityManager(this);
+            Entity.DefaultRemovalEvent += EntityRemoved;
+            state = new GameStates.InLevelState(this);
+            base.Initialize(); 
         }
 
-        
-
-        public Vector2 getPlayerPos()
-        {
-            return player.Position;
-        }
-
-        /// <summary>
-        /// Removes the entity from the game.
-        /// </summary>
-        /// <param name="sender">The entity that should be removed from the game. Should be of the Entity class.</param>
-        /// <param name="e">The event arguments that talk about the removal event.</param>
         private void EntityRemoved(object sender, System.EventArgs e)
         {
             Entities.RemoveEntity((Entity)sender);
+        }
+
+
+        public Vector2 getPlayerPos()
+        {
+            return state.getPlayerPos();
         }
         
 
@@ -88,11 +79,7 @@ namespace out_and_back
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-
-
-            // TODO: Add your update logic here
-            level.Update(gameTime);
-
+            state.Update(this, gameTime);
             base.Update(gameTime);
         }
 
@@ -107,9 +94,7 @@ namespace out_and_back
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-            spriteBatch.Draw(AssetManager.Instance.background, Vector2.Zero, Color.White);
-            
-            level.Draw(gameTime);
+            state.Draw(this, gameTime);
             base.Draw(gameTime);
             spriteBatch.End();
         }
