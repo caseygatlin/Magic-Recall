@@ -87,26 +87,47 @@ namespace out_and_back.MovementPatterns
             return new YoyoMovementPattern(parent, cycles);
         }
 
-        public static MovementPattern YoyoFollow(Entity parent, Game1 game)
+        /// <summary>
+        /// Creates a movement pattern that 
+        /// </summary>
+        /// <param name="parent">The entity that is using this movement pattern.</param>
+        /// <param name="game">The game the entity exists in.</param>
+        /// <returns></returns>
+        public static MovementPattern YoyoFollow(Entity parent)
         {
-            return new YoyoMovementPatternFollow(parent, game);
+            return new YoyoMovementPatternFollow(parent);
         }
 
-        public static MovementPattern Spiral(Entity parent, Game1 game)
+        /// <summary>
+        /// Creates a spiral movement pattern.
+        /// </summary>
+        /// <param name="parent">The entity owning this movement pattern.</param>
+        /// <param name="game">The game this pattern is working in.</param>
+        /// <returns>A Spiral Movement Pattern.</returns>
+        public static MovementPattern Spiral(Entity parent)
         {
             return new SpiralMovementPattern(parent, 2.5f, 0.1f);
         }
 
+        /// <summary>
+        /// Resets the lifetime of this pattern.
+        /// </summary>
         protected void ResetTime()
         {
             lifetime = 0;
         }
 
+        /// <summary>
+        /// Reverses the flow of time for this movement pattern.
+        /// </summary>
         protected void ReverseTime()
         {
             timeflow *= -1;
         }
 
+        /// <summary>
+        /// Causes the projectile to become paused.
+        /// </summary>
         protected void ToggleTimePause()
         {
             paused = !paused;
