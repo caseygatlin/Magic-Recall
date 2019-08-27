@@ -13,13 +13,13 @@ namespace out_and_back.MovementPatterns
         internal StraightMovementPattern(Entity parent, float maxDistance = float.PositiveInfinity) : base(parent)
         {
             this.maxDistance = maxDistance;
-            XParam = (int time) =>
+            XParam = (float time) =>
             {
-                return speed * (float)Math.Cos(angle) * time / 1000 + origin.X;
+                return speed * (float)Math.Cos(angle) * time + origin.X;
             };
-            YParam = (int time) =>
+            YParam = (float time) =>
             {
-                return speed * (float)Math.Sin(angle) * time / 1000 + origin.Y;
+                return speed * (float)Math.Sin(angle) * time + origin.Y;
             };
         }
 

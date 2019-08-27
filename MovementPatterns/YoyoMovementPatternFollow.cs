@@ -21,13 +21,13 @@ namespace out_and_back.MovementPatterns
         {
             game = (Game1)parent.Game;
 
-            XParam = (int time) =>
+            XParam = (float time) =>
             {
-                return speed * multiplier * (float)Math.Cos(angle) * time / 1000 + origin.X;
+                return speed * multiplier * (float)Math.Cos(angle) * time + origin.X;
             };
-            YParam = (int time) =>
+            YParam = (float time) =>
             {
-                return speed * multiplier * (float)Math.Sin(angle) * time / 1000 + origin.Y;
+                return speed * multiplier * (float)Math.Sin(angle) * time + origin.Y;
             };
         }
 
@@ -52,13 +52,13 @@ namespace out_and_back.MovementPatterns
                 limitReached = true;
                 ReverseTime();             
 
-                XParam = (int time) =>
+                XParam = (float time) =>
                 {
                     oldRange = time;
 
                     return Vector2.Lerp(playerPos, destination, 1f).X;
                 };
-                YParam = (int time) =>
+                YParam = (float time) =>
                 {
                     return Vector2.Lerp(playerPos, destination, 1f).Y;
                 };
@@ -70,13 +70,13 @@ namespace out_and_back.MovementPatterns
             else if (limitReached)
             {
 
-                XParam = (int time) =>
+                XParam = (float time) =>
                 {
                     float newTimeInRange = time / oldRange;
 
                     return Vector2.Lerp(playerPos, destination, newTimeInRange).X;
                 };
-                YParam = (int time) =>
+                YParam = (float time) =>
                 {
                     float newTimeInRange = time / oldRange;
 

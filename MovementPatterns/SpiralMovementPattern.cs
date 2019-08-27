@@ -18,13 +18,12 @@ namespace out_and_back.MovementPatterns
         {
             this.t = t;
 
-            float x(int time) => (float)time / 1000 * 1/t *
-                    (float)Math.Cos((float)time / 1000) * speed;
-            float y(int time) => (float)time / 1000 * 1/t *
-                    (float)Math.Sin((float)time / 1000) * speed;
+            float x(float time) => time * 1/t *
+                    (float)Math.Cos(time) * speed;
+            float y(float time) => time * 1/t *
+                    (float)Math.Sin(time) * speed;
 
-            XParam = (int time) => x(time) * (float)Math.Cos(angle) - y(time) * (float)Math.Sin(angle) + origin.X;
-            YParam = (int time) => x(time) * (float)Math.Sin(angle) + y(time) * (float)Math.Cos(angle) + origin.Y;
+            Rotate(x, y);
         }
     }
 }

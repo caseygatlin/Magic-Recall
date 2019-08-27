@@ -22,13 +22,13 @@ namespace out_and_back.MovementPatterns
         internal YoyoMovementPattern(Entity parent, int cycles = 1) : base(parent)
         {
             this.cycles = cycles;
-            XParam = (int time) =>
+            XParam = (float time) =>
             {
-                return speed * multiplier * (float)Math.Cos(angle) * time / 1000 + origin.X;
+                return speed * multiplier * (float)Math.Cos(angle) * time + origin.X;
             };
-            YParam = (int time) =>
+            YParam = (float time) =>
             {
-                return speed * multiplier * (float)Math.Sin(angle) * time / 1000 + origin.Y;
+                return speed * multiplier * (float)Math.Sin(angle) * time + origin.Y;
             };
         }
 

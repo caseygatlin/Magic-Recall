@@ -7,8 +7,8 @@
     {
         public StationaryMovementPattern(Entity parent) : base(parent)
         {
-            XParam = (int time) => { return origin.X; };
-            YParam = (int time) => { return origin.Y; };
+            XParam = (float time) => { return origin.X; };
+            YParam = (float time) => { return origin.Y; };
             // Make the update function even faster.
             paused = true;
         }
