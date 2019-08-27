@@ -50,6 +50,7 @@
     <Compile Include="Globals.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="MovementManagedEntity.cs" />
+    <Compile Include="MovementPatterns\LimaconMovementPattern.cs" />
     <Compile Include="MovementPatterns\SpiralMovementPattern.cs" />
     <Compile Include="MovementPatterns\YoyoMovementPatternFollow.cs" />
     <Compile Include="MovementPatterns\StationaryMovementPattern.cs" />

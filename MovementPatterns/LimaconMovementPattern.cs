@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 
 namespace out_and_back.MovementPatterns
 {
@@ -18,11 +19,17 @@ namespace out_and_back.MovementPatterns
         /// <param name="b">Affects how far out the looping goes.</param>
         public LimaconMovementPattern(Entity parent, int a, int b) : base(parent)
         {
-            float x(int time) => (a + b * (float)Math.Cos(time)) * (float)Math.Cos(time);
-            float y(int time) => (a + b * (float)Math.Cos(time)) * (float)Math.Sin(time);
+            float x(int time) => (a + b * (float)Math.Cos((float)time / 1000)) * (float)Math.Cos((float)time / 1000);
+            float y(int time) => (a + b * (float)Math.Cos((float)time / 1000)) * (float)Math.Sin((float)time / 1000);
 
             XParam = (int time) => x(time) * (float)Math.Cos(angle) - y(time) * (float)Math.Sin(angle) + origin.X;
             YParam = (int time) => x(time) * (float)Math.Sin(angle) + y(time) * (float)Math.Cos(angle) + origin.Y;
+        }
+
+        public override void Update(int deltaTime)
+        {
+            base.Update(deltaTime);
+            // TODO: At 2Pi, the limacon is done.
         }
     }
 }
