@@ -11,8 +11,9 @@ namespace out_and_back.GameStates
         AssetManager assetManager;
         Texture2D titleIcon;
 
-        public StartMenuState()
+        public StartMenuState(Game1 game)
         {
+            AssetManager.Initialize(game);
             assetManager = AssetManager.Instance;
             titleIcon = assetManager.titleIcon;
         }
@@ -23,13 +24,15 @@ namespace out_and_back.GameStates
                 assetManager.DrawIcon(titleIcon, titlePos);
             else
                 assetManager.PrintString("Magic Recall", titlePos, Color.White);
+
+            assetManager.PrintString("Press space to start", new Vector2(330, 350), Color.White);
         }
 
         public override void Update(Game1 game, GameTime gameTime)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Space))
             {
-                
+                game.state = new GameStates.InLevelState(game);
             }
         }
     }

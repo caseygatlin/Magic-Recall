@@ -1,5 +1,3 @@
-#define RUN_LEVEL
-
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -42,8 +40,6 @@ namespace out_and_back
         {
             Entities = new EnitityManager(this);
             Entity.DefaultRemovalEvent += EntityRemoved;
-            state = new GameStates.InLevelState(this);
-            Player = state.Player; //I couldn't figure out a better way to work through this
             base.Initialize(); 
         }
 
@@ -60,7 +56,7 @@ namespace out_and_back
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            AssetManager.Initialize(this);
+            state = new GameStates.StartMenuState(this);
         }
 
         /// <summary>
@@ -82,7 +78,8 @@ namespace out_and_back
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            state.Update(this, gameTime);            
+            state.Update(this, gameTime);
+            Player = state.Player; //I couldn't figure out a better way to work through this
             base.Update(gameTime);
         }
 

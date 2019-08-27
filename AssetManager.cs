@@ -58,6 +58,7 @@ namespace out_and_back
             slimeSprite = game.Content.Load<Texture2D>("Slime");
             background = game.Content.Load<Texture2D>("BG2");
             backgroundSmaller = game.Content.Load<Texture2D>("BG");
+            titleIcon = game.Content.Load<Texture2D>("Title");
             
 
             //In case we need to scale anything, use scale variable
