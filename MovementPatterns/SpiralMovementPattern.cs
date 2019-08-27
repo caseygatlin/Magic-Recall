@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace out_and_back.MovementPatterns
 {
-    class SpiralMovementPattern : MovementPattern
+    class SpiralMovementPattern : ParameterizedMovementPattern
     {
         private float a;
         private float t;

@@ -6,7 +6,7 @@ namespace out_and_back.MovementPatterns
     /// <summary>
     /// Causes the projectile to move indefinitely in a single line.
     /// </summary>
-    class StraightMovementPattern : MovementPattern
+    class StraightMovementPattern : ParameterizedMovementPattern
     {
         private float maxDistance;
 

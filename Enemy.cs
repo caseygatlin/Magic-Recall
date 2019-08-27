@@ -10,6 +10,7 @@ namespace out_and_back
     class Enemy : MovementManagedEntity
     {
         AttackPatterns.AttackPattern attackPattern;
+        Texture2D sprite;
 
         /// <summary>
         /// Basic constructor for an enemy entity.
@@ -24,40 +25,23 @@ namespace out_and_back
         {
         }
 
-        //An enum for detecting differences between enemy types
-        public enum EnemyType
-        {
-            GHOST,
-            SLIME
-        }
-
-        Texture2D sprite;
-
-        private EnemyType type;
-        public void setType(EnemyType enemyType)
-        {
-            type = enemyType;
-        }
-
-        //Ghost enemy. Moves in a straight line and shoots a spread of bullets
+        //Ghost enemy. Moves in a straight line and shoots a small spread of bullets.
         public static Enemy Ghost(Game1 game, float direction, Vector2 position)
         {
             Enemy g = new Enemy(game, Team.Enemy, direction, 100, position, 30);
-            g.AddPattern(MovementPattern.Straight(g, float.PositiveInfinity));
+            g.AddPattern(MovementPattern.Straight(g));
             g.SetAttackPattern(new AttackPatterns.FanAttackPattern(g, 2, direction + MathHelper.PiOver2, 0, null, null, null));
-            g.setType(EnemyType.GHOST);
             g.sprite = AssetManager.Instance.ghostSprite;
             return g;
 
         }
 
-        
-        //Slime enemy. Moves in a straight line, but stops every so often to 
+
+        //Slime enemy. Pursues the player.
         public static Enemy Slime(Game1 game, float direction, Vector2 position)
         {
             Enemy s = new Enemy(game, Team.Enemy, direction, 50, position, 30);
-            s.AddPattern(MovementPattern.Straight(s, 10));
-            s.setType(EnemyType.SLIME);
+            s.AddPattern(MovementPattern.PursueEntity(s, game.Player));
             s.sprite = AssetManager.Instance.slimeSprite;
             return s;
         }
@@ -73,16 +57,7 @@ namespace out_and_back
 
         protected override void Move(int deltaTime)
         {
-            if (type == EnemyType.SLIME && Pattern == null)
-            {
-                Direction = Globals.getDirection(Position, currentGame.getPlayerPos());
-                AddPattern(MovementPattern.Straight(this, 10));
-            }
-
-            Pattern.Update(deltaTime);
-
-            if (Pattern != null)
-                Position = Pattern.getPosition();
+            base.Move(deltaTime);
 
             //If an enemy goes waaaay out of bounds, we should kill it so it doesn't run away forever
             if (Position.X > Globals.SCREEN_WIDTH * 2 || Position.X < -Globals.SCREEN_WIDTH

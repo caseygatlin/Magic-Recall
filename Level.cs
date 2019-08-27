@@ -62,13 +62,6 @@ namespace out_and_back
             waves.AddLast(new Wave(0));
             waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Ghost, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH/2, -OFF_SCREEN_OFFSET)));
 
-
-
-            //Note: Slime is ready to be placed into level
-            
-
-
-
             //Wave 2: Two ghosts from left and right
             waves.AddLast(new Wave(5));
             waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Ghost, Globals.RIGHT_DIR, new Vector2(-OFF_SCREEN_OFFSET, Globals.SCREEN_HEIGHT*1/3)));
@@ -79,8 +72,6 @@ namespace out_and_back
             waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Slime, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH / 2, -OFF_SCREEN_OFFSET)));
             waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Ghost, Globals.RIGHT_DIR, new Vector2(-OFF_SCREEN_OFFSET, Globals.SCREEN_HEIGHT * 6 / 7)));
             waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Slime, Globals.RIGHT_DIR, new Vector2(-OFF_SCREEN_OFFSET, Globals.SCREEN_HEIGHT * 1 / 3)));
-
-
 
             //Wave 3: Four ghosts from all around!
             waves.AddLast(new Wave(6));

@@ -4,54 +4,20 @@ using System;
 namespace out_and_back.MovementPatterns
 {
     /// <summary>
-    /// Helps determine the movement of a projectile.
+    /// Helps determine the movement of projectiles and enemies.
     /// </summary>
     internal abstract class MovementPattern
     {
-        protected Vector2 origin;
-        protected float angle;
         protected float speed;
         protected bool paused = false;
-        private int lifetime = 0;
-        private int timeflow = 1;
 
-        /// <summary>
-        /// Right now, I see no reason for this to be wildly available.
-        /// </summary>
         public MovementPattern(Entity parent)
         {
-            origin = parent.Position;
-            angle = parent.Direction;
             speed = parent.Speed;
         }
 
-        /// <summary>
-        /// The function that determines the movement in the X direction.
-        /// The first parameter is the total time in milliseconds that the
-        /// attack has been out, and the output is the x position at that time.
-        /// </summary>
-        protected Func<int, float> XParam;
-        /// <summary>
-        /// The function that determines the movement in the Y direction.
-        /// The first parameter is the total time in milliseconds that the
-        /// attack has been out, and the output is the y position at that time.
-        /// </summary>
-        protected Func<int, float> YParam;
-
-        /// <summary>
-        /// Retrieves the position of where this object should be at the current time.
-        /// </summary>
-        /// <returns>The position the thing should be at.</returns>
-        public Vector2 getPosition()
-        {
-            return new Vector2(XParam(lifetime), YParam(lifetime));
-        }
-
-        public virtual void Update(int deltaTime)
-        {
-            if (paused) return;
-            lifetime += deltaTime * timeflow;
-        }
+        public abstract Vector2 getPosition();
+        public abstract void Update(int deltaTime);
 
         /// <summary>
         /// While you could just set an entity's velocity to zero, this works just
@@ -71,7 +37,7 @@ namespace out_and_back.MovementPatterns
         /// <param name="parent">The entity that is moving.</param>
         /// <param name="limit">How far this movement pattern should take the unit before ending.</param>
         /// <returns>A movement pattern that will move a projectile in a single direction.</returns>
-        public static MovementPattern Straight(Entity parent, float limit)
+        public static MovementPattern Straight(Entity parent, float limit = float.PositiveInfinity)
         {
             return new StraightMovementPattern(parent, limit);
         }
@@ -97,14 +63,9 @@ namespace out_and_back.MovementPatterns
             return new SpiralMovementPattern(parent, 2.5f, 0.1f);
         }
 
-        protected void ResetTime()
+        public static MovementPattern PursueEntity(Entity parent, Entity target)
         {
-            lifetime = 0;
-        }
-
-        protected void ReverseTime()
-        {
-            timeflow *= -1;
+            return new PursueEntityPattern(parent, target);
         }
 
         protected void ToggleTimePause()

@@ -6,7 +6,7 @@ namespace out_and_back.MovementPatterns
     /// <summary>
     /// Causes a projectile to move in a back and forth pattern.
     /// </summary>
-    class YoyoMovementPattern : MovementPattern
+    class YoyoMovementPattern : ParameterizedMovementPattern
     {
         bool limitReached = false;
         int maxDistance = 50;

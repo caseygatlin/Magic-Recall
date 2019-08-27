@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 namespace out_and_back.MovementPatterns
 {
-    class YoyoMovementPatternFollow : MovementPattern
+    class YoyoMovementPatternFollow : ParameterizedMovementPattern
     {
         bool limitReached = false;
         int maxDistance = 50;
@@ -41,7 +41,7 @@ namespace out_and_back.MovementPatterns
         /// <param name="deltaTime">The amount of time, in milliseconds, that has passed since last update.</param>
         public override void Update(int deltaTime)
         {
-            Vector2 playerPos = game.getPlayerPos();
+            Vector2 playerPos = game.Player.Position;
             base.Update(deltaTime);
             Vector2 currentPos = getPosition();
 
