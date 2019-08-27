@@ -47,6 +47,8 @@
     <Compile Include="Collider.cs" />
     <Compile Include="EnitityManager.cs" />
     <Compile Include="Enemy.cs" />
+    <Compile Include="GameStates\AbstractGameState.cs" />
+    <Compile Include="GameStates\StartMenuState.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="MovementManagedEntity.cs" />

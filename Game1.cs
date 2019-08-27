@@ -24,6 +24,7 @@ namespace out_and_back
             Entities = new EnitityManager(this);
         }
 
+
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
@@ -36,7 +37,10 @@ namespace out_and_back
             player = new Player(this, 0, new Vector2(250, 250));
             level = Level.Level1(this);
             base.Initialize();
+            
         }
+
+        
 
         public Vector2 getPlayerPos()
         {
@@ -84,6 +88,8 @@ namespace out_and_back
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+
+
             // TODO: Add your update logic here
             level.Update(gameTime);
 
@@ -98,8 +104,11 @@ namespace out_and_back
         {
             GraphicsDevice.Clear(Color.DarkSalmon);
 
+
             // TODO: Add your drawing code here
             spriteBatch.Begin();
+            spriteBatch.Draw(AssetManager.Instance.background, Vector2.Zero, Color.White);
+            
             level.Draw(gameTime);
             base.Draw(gameTime);
             spriteBatch.End();
