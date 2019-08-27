@@ -3,13 +3,11 @@ using Microsoft.Xna.Framework;
 
 namespace out_and_back.MovementPatterns
 {
-    class YoyoMovementPatternFollow : MovementPattern
+    class YoyoMovementPatternFollow : ParameterizedMovementPattern
     {
         bool limitReached = false;
         int maxDistance = 50;
         int multiplier = 1;
-        int cycles;
-        int cycleCount = 0;
         Game1 game;
         private Vector2 destination;
         private float oldRange;
@@ -19,12 +17,10 @@ namespace out_and_back.MovementPatterns
         /// </summary>
         /// <param name="parent">The entity this yoyo is being created for.</param>
         /// <param name="cycles">The amount of times this pattern should be executed.</param>
-        internal YoyoMovementPatternFollow(Entity parent, Game1 currentGame) : base(parent)
+        internal YoyoMovementPatternFollow(Entity parent) : base(parent)
         {
-            game = currentGame;
+            game = (Game1)parent.Game;
 
-
-            this.cycles = cycles;
             XParam = (int time) =>
             {
                 return speed * multiplier * (float)Math.Cos(angle) * time / 1000 + origin.X;
@@ -41,7 +37,7 @@ namespace out_and_back.MovementPatterns
         /// <param name="deltaTime">The amount of time, in milliseconds, that has passed since last update.</param>
         public override void Update(int deltaTime)
         {
-            Vector2 playerPos = game.getPlayerPos();
+            Vector2 playerPos = game.Player.Position;
             base.Update(deltaTime);
             Vector2 currentPos = getPosition();
 

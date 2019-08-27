@@ -4,53 +4,42 @@ using System;
 namespace out_and_back.MovementPatterns
 {
     /// <summary>
-    /// Helps determine the movement of a projectile.
+    /// Helps determine the movement of projectiles and enemies.
     /// </summary>
     internal abstract class MovementPattern
     {
-        protected Vector2 origin;
-        protected float angle;
         protected float speed;
         protected bool paused = false;
-        private int lifetime = 0;
-        private int timeflow = 1;
 
-        /// <summary>
-        /// Right now, I see no reason for this to be wildly available.
-        /// </summary>
         public MovementPattern(Entity parent)
         {
-            origin = parent.Position;
-            angle = parent.Direction;
             speed = parent.Speed;
         }
 
-        /// <summary>
-        /// The function that determines the movement in the X direction.
-        /// The first parameter is the total time in milliseconds that the
-        /// attack has been out, and the output is the x position at that time.
-        /// </summary>
-        protected Func<int, float> XParam;
-        /// <summary>
-        /// The function that determines the movement in the Y direction.
-        /// The first parameter is the total time in milliseconds that the
-        /// attack has been out, and the output is the y position at that time.
-        /// </summary>
-        protected Func<int, float> YParam;
+        public abstract Vector2 getPosition();
+        public abstract void Update(int deltaTime);
 
         /// <summary>
-        /// Retrieves the position of where this object should be at the current time.
+        /// Creates a limacon movement pattern.
         /// </summary>
-        /// <returns>The position the thing should be at.</returns>
-        public Vector2 getPosition()
+        /// <param name="parent">The entity being moved.</param>
+        /// <param name="a">Affects the shape of the loop.</param>
+        /// <param name="b">Affects how far out the loop reaches.</param>
+        /// <returns>A Limacon movement pattern.</returns>
+        public static MovementPattern Limacon(Entity parent, int a, int b)
         {
-            return new Vector2(XParam(lifetime), YParam(lifetime));
+            return new LimaconMovementPattern(parent, a, b);
         }
 
-        public virtual void Update(int deltaTime)
+        /// <summary>
+        /// Creates a spiral movement pattern.
+        /// </summary>
+        /// <param name="parent">The entity owning this movement pattern.</param>
+        /// <param name="game">The game this pattern is working in.</param>
+        /// <returns>A Spiral Movement Pattern.</returns>
+        public static MovementPattern Spiral(Entity parent)
         {
-            if (paused) return;
-            lifetime += deltaTime * timeflow;
+            return new SpiralMovementPattern(parent, 1);
         }
 
         /// <summary>
@@ -71,7 +60,7 @@ namespace out_and_back.MovementPatterns
         /// <param name="parent">The entity that is moving.</param>
         /// <param name="limit">How far this movement pattern should take the unit before ending.</param>
         /// <returns>A movement pattern that will move a projectile in a single direction.</returns>
-        public static MovementPattern Straight(Entity parent, float limit)
+        public static MovementPattern Straight(Entity parent, float limit = float.PositiveInfinity)
         {
             return new StraightMovementPattern(parent, limit);
         }
@@ -87,26 +76,25 @@ namespace out_and_back.MovementPatterns
             return new YoyoMovementPattern(parent, cycles);
         }
 
-        public static MovementPattern YoyoFollow(Entity parent, Game1 game)
+        /// <summary>
+        /// Creates a movement pattern that 
+        /// </summary>
+        /// <param name="parent">The entity that is using this movement pattern.</param>
+        /// <param name="game">The game the entity exists in.</param>
+        /// <returns></returns>
+        public static MovementPattern YoyoFollow(Entity parent)
         {
-            return new YoyoMovementPatternFollow(parent, game);
+            return new YoyoMovementPatternFollow(parent);
         }
 
-        public static MovementPattern Spiral(Entity parent, Game1 game)
+        public static MovementPattern PursueEntity(Entity parent, Entity target)
         {
-            return new SpiralMovementPattern(parent, 2.5f, 0.1f);
+            return new PursueEntityPattern(parent, target);
         }
 
-        protected void ResetTime()
-        {
-            lifetime = 0;
-        }
-
-        protected void ReverseTime()
-        {
-            timeflow *= -1;
-        }
-
+        /// <summary>
+        /// Causes the projectile to become paused.
+        /// </summary>
         protected void ToggleTimePause()
         {
             paused = !paused;

@@ -73,8 +73,6 @@ namespace out_and_back
             waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Ghost, Globals.RIGHT_DIR, new Vector2(-OFF_SCREEN_OFFSET, Globals.SCREEN_HEIGHT * 6 / 7)));
             waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Slime, Globals.RIGHT_DIR, new Vector2(-OFF_SCREEN_OFFSET, Globals.SCREEN_HEIGHT * 1 / 3)));
 
-
-
             //Wave 3: Four ghosts from all around!
             waves.AddLast(new Wave(6));
             waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Ghost, Globals.DOWN_RIGHT_DIR, new Vector2(-OFF_SCREEN_OFFSET, -OFF_SCREEN_OFFSET)));
