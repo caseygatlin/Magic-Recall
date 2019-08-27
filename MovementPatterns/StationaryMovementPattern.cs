@@ -3,7 +3,7 @@
     /// <summary>
     /// A pattern for entities that don't move at all.
     /// </summary>
-    class StationaryMovementPattern : MovementPattern
+    class StationaryMovementPattern : ParameterizedMovementPattern
     {
         public StationaryMovementPattern(Entity parent) : base(parent)
         {

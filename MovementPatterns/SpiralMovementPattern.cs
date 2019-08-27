@@ -5,7 +5,7 @@ namespace out_and_back.MovementPatterns
     /// <summary>
     /// A movement pattern that will move an entity in a spiral shape.
     /// </summary>
-    class SpiralMovementPattern : MovementPattern
+    class SpiralMovementPattern : ParameterizedMovementPattern
     {
         private float t;
 

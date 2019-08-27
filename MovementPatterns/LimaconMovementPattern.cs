@@ -6,7 +6,7 @@ namespace out_and_back.MovementPatterns
     /// <summary>
     /// Creates a pattern that moves objects in a Limacon shape.
     /// </summary>
-    class LimaconMovementPattern : MovementPattern
+    class LimaconMovementPattern : ParameterizedMovementPattern
     {
         private readonly int a;
         private readonly int b;
@@ -19,8 +19,11 @@ namespace out_and_back.MovementPatterns
         /// <param name="b">Affects how far out the looping goes.</param>
         public LimaconMovementPattern(Entity parent, int a, int b) : base(parent)
         {
-            float x(int time) => (a + b * (float)Math.Cos((float)time / 1000)) * (float)Math.Cos((float)time / 1000);
-            float y(int time) => (a + b * (float)Math.Cos((float)time / 1000)) * (float)Math.Sin((float)time / 1000);
+            this.a = a;
+            this.b = b;
+
+            float x(int time) => (this.a + this.b * (float)Math.Cos((float)time / 1000)) * (float)Math.Cos((float)time / 1000);
+            float y(int time) => (this.a + this.b * (float)Math.Cos((float)time / 1000)) * (float)Math.Sin((float)time / 1000);
 
             XParam = (int time) => x(time) * (float)Math.Cos(angle) - y(time) * (float)Math.Sin(angle) + origin.X;
             YParam = (int time) => x(time) * (float)Math.Sin(angle) + y(time) * (float)Math.Cos(angle) + origin.Y;
