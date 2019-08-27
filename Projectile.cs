@@ -72,11 +72,11 @@ namespace out_and_back
             
             if (base.Team == Team.Player)
             {
-                AssetManager.Instance.DrawCharWeapon(Position, Direction);
+                AssetManager.Instance.DrawSprite(this, AssetManager.Instance.weaponSprite, Globals.PI / 2 - .2f);
             }
             else if (type == ProjectileType.GHOST_FLAME)
             {
-                AssetManager.Instance.PrintString("Flame", Position, Team == Team.Enemy ? Color.Red : Color.Blue);
+                AssetManager.Instance.DrawSprite(this, AssetManager.Instance.ghostAtkSprite, 3 * Globals.PI / 2);
             }
             else if (type == ProjectileType.UNDEFINED)
             {

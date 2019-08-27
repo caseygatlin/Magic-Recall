@@ -9,6 +9,7 @@ namespace out_and_back
     abstract class Entity : DrawableGameComponent
     {
         Vector2 movement;
+        protected Game1 currentGame;
 
         public Team Team { get; private set; }
 
@@ -46,6 +47,7 @@ namespace out_and_back
             Position = position;
             hitRadius = radius;
             game.Entities.Add(this);
+            currentGame = game;
             Removed += DefaultRemovalEvent;
         }
 

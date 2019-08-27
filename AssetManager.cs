@@ -9,6 +9,8 @@ namespace out_and_back
         public Texture2D playerSprite;
         public Texture2D weaponSprite;
         public Texture2D ghostSprite;
+        public Texture2D ghostAtkSprite;
+        public Texture2D slimeSprite;
 
         //In case we need to scale anything, change targetX value to adjust scale
         public float targetX = 128;
@@ -45,6 +47,8 @@ namespace out_and_back
             playerSprite = game.Content.Load<Texture2D>("Wizard");
             weaponSprite = game.Content.Load<Texture2D>("FireAttack(Forward)");
             ghostSprite = game.Content.Load<Texture2D>("Ghost");
+            ghostAtkSprite = game.Content.Load<Texture2D>("GhostAttack");
+            slimeSprite = game.Content.Load<Texture2D>("Slime");
 
             //In case we need to scale anything, use scale variable
             scale = new Vector2(targetX / (float)playerSprite.Width, targetX / (float)playerSprite.Width);
@@ -65,45 +69,21 @@ namespace out_and_back
 
         
         //Draws the loaded sprites to the screen
-        public void DrawCharSprite(Vector2 playerPos)
+        public void DrawSprite(Entity parent, Texture2D sprite, float rotationCorr = 0f)
         {
-            //Centers the character sprite around the player position
-            float spritePosX = playerPos.X - (float)playerSprite.Width / 2;
-            float spritePosY = playerPos.Y - (float)playerSprite.Height /2;
-            Vector2 spritePos = new Vector2(spritePosX, spritePosY);
+            //If the sprite needs rotation correction, apply it, otherwise set sprite rotation to zero
+            float spriteDir = 0f;
+            if (rotationCorr != 0)
+                spriteDir = parent.Direction + rotationCorr;
 
-            //Draws the player sprite
-            batch.Draw(playerSprite, spritePos, Color.White);
-        }
+            //Set the pivot around where the sprite rotates
+            Vector2 spriteOrigin = new Vector2((float)sprite.Width / 2, (float)sprite.Height / 2);
 
-
-        //Draws the loaded weapon sprite to the screen
-        public void DrawCharWeapon(Vector2 projectilePos, float projectileDir)
-        {
-            //Centers the rotation position of the weapon sprite
-            Vector2 spriteOrigin = new Vector2((float)weaponSprite.Width / 2, (float)weaponSprite.Height / 2);
-
-            //Adjusts for the orientation of the sprite png
-            float weaponDir = projectileDir + Globals.PI / 2 - .2f;
-
-            //The rectangle that the sprite is drawn within
-            Rectangle destRect = new Rectangle((int)projectilePos.X, (int)projectilePos.Y, (int)weaponSprite.Width, (int)weaponSprite.Height);
+            //Sets the location where the sprite is drawn, relative to the entity's position
+            Rectangle destRect = new Rectangle((int)parent.Position.X, (int)parent.Position.Y, (int)sprite.Width, (int)sprite.Height);
 
             //Draws the sprite
-            batch.Draw(weaponSprite, destRect, null, Color.White, weaponDir, origin: spriteOrigin, effects: SpriteEffects.None, layerDepth: 0f);
+            batch.Draw(sprite, destRect, null, Color.White, spriteDir, origin: spriteOrigin, effects: SpriteEffects.None, layerDepth: 0f);
         }
-
-        public void DrawGhost(Vector2 ghostPos)
-        {
-            //Centers the rotation position of the ghost
-            Vector2 spriteOrigin = new Vector2((float)ghostSprite.Width / 2, (float)ghostSprite.Height / 2);
-            
-            //The rectangle that the sprite is drawn within
-            Rectangle destRect = new Rectangle((int)ghostPos.X, (int)ghostPos.Y, (int)ghostSprite.Width, (int)ghostSprite.Height);
-
-            //Draws the sprite
-            batch.Draw(ghostSprite, destRect, null, Color.White, 0, origin: spriteOrigin, effects: SpriteEffects.None, layerDepth: 0f);
-        }
-
     }
 }

@@ -60,18 +60,30 @@ namespace out_and_back
 
             //Wave 1: A single ghost down the middle
             waves.AddLast(new Wave(0));
-            //waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Slime, Globals.UP_DIR, new Vector2(500, 500)));
             waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Ghost, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH/2, -OFF_SCREEN_OFFSET)));
 
+
+
+            //Note: Slime is ready to be placed into level
             
+
+
 
             //Wave 2: Two ghosts from left and right
             waves.AddLast(new Wave(5));
             waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Ghost, Globals.RIGHT_DIR, new Vector2(-OFF_SCREEN_OFFSET, Globals.SCREEN_HEIGHT*1/3)));
             waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Ghost, Globals.LEFT_DIR, new Vector2(Globals.SCREEN_WIDTH + OFF_SCREEN_OFFSET, Globals.SCREEN_HEIGHT * 2 / 3)));
 
-            //Wave 3: Four ghosts from all around!
+            //Wave 3: Two slimes from the top and a ghost across the bottom
             waves.AddLast(new Wave(5));
+            waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Slime, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH / 2, -OFF_SCREEN_OFFSET)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Ghost, Globals.RIGHT_DIR, new Vector2(-OFF_SCREEN_OFFSET, Globals.SCREEN_HEIGHT * 6 / 7)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Slime, Globals.RIGHT_DIR, new Vector2(-OFF_SCREEN_OFFSET, Globals.SCREEN_HEIGHT * 1 / 3)));
+
+
+
+            //Wave 3: Four ghosts from all around!
+            waves.AddLast(new Wave(6));
             waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Ghost, Globals.DOWN_RIGHT_DIR, new Vector2(-OFF_SCREEN_OFFSET, -OFF_SCREEN_OFFSET)));
             waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Ghost, Globals.UP_LEFT_DIR, new Vector2(Globals.SCREEN_WIDTH + OFF_SCREEN_OFFSET, Globals.SCREEN_HEIGHT + OFF_SCREEN_OFFSET)));
             waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Ghost, Globals.UP_RIGHT_DIR, new Vector2(-OFF_SCREEN_OFFSET, Globals.SCREEN_HEIGHT + OFF_SCREEN_OFFSET)));

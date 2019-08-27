@@ -152,7 +152,7 @@ namespace out_and_back
 
 
             //AssetManager.Instance.PrintString("Player", Position);
-            AssetManager.Instance.DrawCharSprite(Position);
+            AssetManager.Instance.DrawSprite(this, AssetManager.Instance.playerSprite);
         }
 
         public override void HandleCollision(Entity other)
