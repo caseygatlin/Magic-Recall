@@ -23,14 +23,8 @@ namespace out_and_back.MovementPatterns
             float y(int time) => (float)time / 1000 * 1/t *
                     (float)Math.Sin((float)time / 1000) * speed;
 
-            XParam = (int time) =>
-            {
-                return x(time) * (float)Math.Cos(angle) - y(time) * (float)Math.Sin(angle) + origin.X;
-            };
-            YParam = (int time) =>
-            {
-                return x(time) * (float)Math.Sin(angle) + y(time) * (float)Math.Cos(angle) + origin.Y;
-            };   
+            XParam = (int time) => x(time) * (float)Math.Cos(angle) - y(time) * (float)Math.Sin(angle) + origin.X;
+            YParam = (int time) => x(time) * (float)Math.Sin(angle) + y(time) * (float)Math.Cos(angle) + origin.Y;
         }
     }
 }

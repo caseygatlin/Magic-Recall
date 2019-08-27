@@ -54,6 +54,29 @@ namespace out_and_back.MovementPatterns
         }
 
         /// <summary>
+        /// Creates a limacon movement pattern.
+        /// </summary>
+        /// <param name="parent">The entity being moved.</param>
+        /// <param name="a">Affects the shape of the loop.</param>
+        /// <param name="b">Affects how far out the loop reaches.</param>
+        /// <returns>A Limacon movement pattern.</returns>
+        public static MovementPattern Limacon(Entity parent, int a, int b)
+        {
+            return new LimaconMovementPattern(parent, a, b);
+        }
+
+        /// <summary>
+        /// Creates a spiral movement pattern.
+        /// </summary>
+        /// <param name="parent">The entity owning this movement pattern.</param>
+        /// <param name="game">The game this pattern is working in.</param>
+        /// <returns>A Spiral Movement Pattern.</returns>
+        public static MovementPattern Spiral(Entity parent)
+        {
+            return new SpiralMovementPattern(parent, 1);
+        }
+
+        /// <summary>
         /// While you could just set an entity's velocity to zero, this works just
         /// as well, if not better, since there's no math being performed when finding
         /// the location of the unit based on time.
@@ -96,17 +119,6 @@ namespace out_and_back.MovementPatterns
         public static MovementPattern YoyoFollow(Entity parent)
         {
             return new YoyoMovementPatternFollow(parent);
-        }
-
-        /// <summary>
-        /// Creates a spiral movement pattern.
-        /// </summary>
-        /// <param name="parent">The entity owning this movement pattern.</param>
-        /// <param name="game">The game this pattern is working in.</param>
-        /// <returns>A Spiral Movement Pattern.</returns>
-        public static MovementPattern Spiral(Entity parent)
-        {
-            return new SpiralMovementPattern(parent, 1);
         }
 
         /// <summary>
