@@ -106,7 +106,7 @@ namespace out_and_back.MovementPatterns
         /// <returns>A Spiral Movement Pattern.</returns>
         public static MovementPattern Spiral(Entity parent)
         {
-            return new SpiralMovementPattern(parent, 2.5f, 0.1f);
+            return new SpiralMovementPattern(parent, 1);
         }
 
         /// <summary>

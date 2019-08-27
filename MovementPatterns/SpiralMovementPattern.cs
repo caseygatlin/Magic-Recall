@@ -1,36 +1,36 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace out_and_back.MovementPatterns
 {
+    /// <summary>
+    /// A movement pattern that will move an entity in a spiral shape.
+    /// </summary>
     class SpiralMovementPattern : MovementPattern
     {
-        private float a;
         private float t;
 
-        private double current_r;
-
-        public SpiralMovementPattern(Entity parent, float a, float t) : base(parent)
+        /// <summary>
+        /// Creates a spiral movement pattern.
+        /// </summary>
+        /// <param name="parent">The object whose movement is defined by this pattern.</param>
+        /// <param name="t">How tight the loop should be. Lower is tighter.</param>
+        public SpiralMovementPattern(Entity parent, float t) : base(parent)
         {
+            this.t = t;
+
+            float x(int time) => (float)time / 1000 * 1/t *
+                    (float)Math.Cos((float)time / 1000) * speed;
+            float y(int time) => (float)time / 1000 * 1/t *
+                    (float)Math.Sin((float)time / 1000) * speed;
+
             XParam = (int time) =>
             {
-                float theta = speed * time;
-                return (int)(getR(theta) * Math.Cos(theta));
+                return x(time) * (float)Math.Cos(angle) - y(time) * (float)Math.Sin(angle) + origin.X;
             };
             YParam = (int time) =>
             {
-                float theta = speed * time;
-                return (int)(getR(time) * Math.Sin(time));
-            };
-        }
-
-        private double getR(float theta)
-        {
-            current_r = Math.Pow(a, theta * t) - 1;
-            return current_r;
+                return x(time) * (float)Math.Sin(angle) + y(time) * (float)Math.Cos(angle) + origin.Y;
+            };   
         }
     }
 }
