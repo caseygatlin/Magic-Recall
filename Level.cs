@@ -7,15 +7,15 @@ using System.Linq;
 namespace out_and_back
 {
     /// <summary>
-    /// A collective set of enemies to spawn all at once after a certain delay (in seconds)
+    /// A collective set of enemies to spawn all at once and how long the waves should wait for this one.
     /// </summary>
     internal class Wave
     {
-        public int delay;
+        public int duration;//In seconds
         public LinkedList<Spawn> spawns;
-        public Wave(int delay)
+        public Wave(int duration)
         {
-            this.delay = delay;
+            this.duration = duration;
             spawns = new LinkedList<Spawn>();
         }
     }
@@ -44,7 +44,7 @@ namespace out_and_back
         protected Game1 game;
         protected LinkedList<Wave> waves;
         protected int spawned_and_removed = 0;
-        protected int time_since_last_wave = 0;
+        protected int current_wave_timer = 0;
         protected int total_to_spawn;
         protected const int OFF_SCREEN_OFFSET = 100;
         protected Level(Game1 game, LinkedList<Wave> waves) : base(game)
@@ -58,23 +58,36 @@ namespace out_and_back
             //Set up each wave of spawns
             LinkedList<Wave> waves = new LinkedList<Wave>();
 
-            //Wave 1: A single ghost down the middle
-            waves.AddLast(new Wave(0));
+            //Wave 0: Give the player a little bit of time to orient themselves
+            waves.AddLast(new Wave(5));
+
+            //Wave 1: A single slime
+            waves.AddLast(new Wave(8));
+            waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Slime, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH / 2, -OFF_SCREEN_OFFSET)));
+
+            //Wave 2: Three slimes!
+            waves.AddLast(new Wave(10));
+            waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Slime, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH / 2, Globals.SCREEN_HEIGHT + OFF_SCREEN_OFFSET)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Slime, Globals.RIGHT_DIR, new Vector2(-OFF_SCREEN_OFFSET, Globals.SCREEN_HEIGHT / 2)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Slime, Globals.LEFT_DIR, new Vector2(Globals.SCREEN_WIDTH + OFF_SCREEN_OFFSET, Globals.SCREEN_HEIGHT / 2)));
+
+            //Wave 3: A single ghost down the middle
+            waves.AddLast(new Wave(10));
             waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Ghost, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH/2, -OFF_SCREEN_OFFSET)));
 
-            //Wave 2: Two ghosts from left and right
-            waves.AddLast(new Wave(5));
+            //Wave 4: Two ghosts from left and right
+            waves.AddLast(new Wave(8));
             waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Ghost, Globals.RIGHT_DIR, new Vector2(-OFF_SCREEN_OFFSET, Globals.SCREEN_HEIGHT*1/3)));
             waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Ghost, Globals.LEFT_DIR, new Vector2(Globals.SCREEN_WIDTH + OFF_SCREEN_OFFSET, Globals.SCREEN_HEIGHT * 2 / 3)));
 
-            //Wave 3: Two slimes from the top and a ghost across the bottom
-            waves.AddLast(new Wave(5));
+            //Wave 5: Two slimes from the top and a ghost across the bottom
+            waves.AddLast(new Wave(8));
             waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Slime, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH / 2, -OFF_SCREEN_OFFSET)));
             waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Ghost, Globals.RIGHT_DIR, new Vector2(-OFF_SCREEN_OFFSET, Globals.SCREEN_HEIGHT * 6 / 7)));
             waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Slime, Globals.RIGHT_DIR, new Vector2(-OFF_SCREEN_OFFSET, Globals.SCREEN_HEIGHT * 1 / 3)));
 
-            //Wave 3: Four ghosts from all around!
-            waves.AddLast(new Wave(6));
+            //Wave 6: Four ghosts from all around!
+            waves.AddLast(new Wave(10));
             waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Ghost, Globals.DOWN_RIGHT_DIR, new Vector2(-OFF_SCREEN_OFFSET, -OFF_SCREEN_OFFSET)));
             waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Ghost, Globals.UP_LEFT_DIR, new Vector2(Globals.SCREEN_WIDTH + OFF_SCREEN_OFFSET, Globals.SCREEN_HEIGHT + OFF_SCREEN_OFFSET)));
             waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Ghost, Globals.UP_RIGHT_DIR, new Vector2(-OFF_SCREEN_OFFSET, Globals.SCREEN_HEIGHT + OFF_SCREEN_OFFSET)));
@@ -85,15 +98,15 @@ namespace out_and_back
 
         public override void Update(GameTime gameTime)
         {
-            //Track how long this frame has been; spawn next wave if it's been long enough
+            //Tick down on the current wave's duration; once it's <0, spawn the next wave
             if (waves.Any())
             {
-                time_since_last_wave += gameTime.ElapsedGameTime.Milliseconds;
-                if (time_since_last_wave / 1000 >= waves.First.Value.delay)
+                current_wave_timer -= gameTime.ElapsedGameTime.Milliseconds;
+                if (current_wave_timer < 0)
                 {
-                    //Get next wave and clean data
-                    time_since_last_wave = 0;
+                    //Get next wave and remove it from the list
                     Wave wave = waves.First.Value;
+                    current_wave_timer = wave.duration * 1000;//Duration in seconds, timer in ms
                     waves.RemoveFirst();
 
                     //Spawn the current wave
