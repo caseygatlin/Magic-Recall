@@ -19,6 +19,9 @@ namespace out_and_back
         //Start menu sprites
         public Texture2D titleIcon;
 
+        //Base sprite for simple rectangles (nice for UI)
+        public Texture2D uiRect;
+
         //In case we need to scale anything, change targetX value to adjust scale
         public float targetX = 128;
         public float targetY;
@@ -59,7 +62,8 @@ namespace out_and_back
             background = game.Content.Load<Texture2D>("BG2");
             backgroundSmaller = game.Content.Load<Texture2D>("BG");
             titleIcon = game.Content.Load<Texture2D>("Title");
-            
+            uiRect = new Texture2D(game.GraphicsDevice, 1, 1);
+            uiRect.SetData(new Color[] { Color.White });
 
             //In case we need to scale anything, use scale variable
             scale = new Vector2(targetX / (float)playerSprite.Width, targetX / (float)playerSprite.Width);
@@ -69,16 +73,12 @@ namespace out_and_back
         private SpriteFont Font;
         private SpriteBatch batch;
 
-        public void PrintString(string str, Vector2 position, Color color, float rotation = 0)
+        public void PrintString(string str, Vector2 position, Color color)
         {
-            batch.DrawString(
-                Font,
-                str,
-                position,
-                color);
+            batch.DrawString(Font, str, position, color);
         }
 
-        
+
         //Draws the loaded sprites to the screen
         public void DrawSprite(Entity parent, Texture2D sprite, float rotationCorr = 0f)
         {
@@ -103,6 +103,12 @@ namespace out_and_back
             Vector2 iconOrigin = new Vector2((float)icon.Width / 2, (float)icon.Height / 2);
             Rectangle destRect = new Rectangle((int)position.X, (int)position.Y, (int)icon.Width, (int)icon.Height);
             batch.Draw(icon, destRect, null, Color.White, 0, origin: iconOrigin, effects: SpriteEffects.None, layerDepth: 0f);
+        }
+
+        //Draws a rectangle of a given size and color; nice for UI.
+        public void DrawRectangle(Rectangle rect, Color color)
+        {
+            batch.Draw(uiRect, rect, color);
         }
     }
 }
