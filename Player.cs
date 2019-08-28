@@ -11,6 +11,7 @@ namespace out_and_back
         const int PLAYER_WEAPON_RADIUS = 10;
         public int health;
         public bool isCasting = false;
+        public int invincibility_time = 0;
         private const int WEP_SPAWN_DIST = 50;
 
         /// <summary>
@@ -151,12 +152,29 @@ namespace out_and_back
             }
 
 
-            //AssetManager.Instance.PrintString("Player", Position);
-            AssetManager.Instance.DrawSprite(this, AssetManager.Instance.playerSprite);
+            //Draw the player
+            //TODO: Remove once the real wizard invincibility sprite is in
+            if (isInvincible())
+            {
+                AssetManager.Instance.DrawSprite(this, AssetManager.Instance.playerInvincibleSprite);
+                AssetManager.Instance.DrawRectangle(new Rectangle((int)Position.X-10, (int)Position.Y-10, 20, 20), Color.Red);
+            }
+            else
+                AssetManager.Instance.DrawSprite(this, AssetManager.Instance.playerSprite);
+            //TODO: Use this instead of all the stuff above
+            //AssetManager.Instance.DrawSprite(this, isInvincible ? AssetManager.Instance.playerInvincibleSprite : AssetManager.Instance.playerSprite);
+
+            //Draw the player's health
+            AssetManager.Instance.DrawRectangle(new Rectangle(Globals.SCREEN_WIDTH - 83, 8, 75, 50), Color.White);
+            AssetManager.Instance.DrawSprite(new Vector2(Globals.SCREEN_WIDTH - 90, 10), AssetManager.Instance.playerHealthIconSprite);
+            AssetManager.Instance.PrintString("x" + health, new Vector2(Globals.SCREEN_WIDTH - 28, 40), Color.Black);
         }
 
         public override void HandleCollision(Entity other)
         {
+            //If invincible, return.
+            if (isInvincible()) return;
+
             // It hits an entity on the same team, return.
             if (Team == other.Team) return;
 
@@ -167,10 +185,24 @@ namespace out_and_back
                 // TODO: end the game / bring up a game over UI
                 Remove(null);
             }
+            else
+            {
+                invincibility_time = Globals.INVINCIBILITY_DURATION;
+            }
+        }
 
+        public bool isInvincible()
+        {
+            return invincibility_time > 0;
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+            if (isInvincible())
+            {
+                invincibility_time = Math.Max(invincibility_time - gameTime.ElapsedGameTime.Milliseconds, 0);
+            }
         }
     }
-
-
-
 }

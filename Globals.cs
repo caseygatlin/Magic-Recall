@@ -13,7 +13,8 @@ namespace out_and_back
         public const float MAX_PLAYER_SPEED = 200;
 
         //How many hits the player can take
-        public const int MAX_PLAYER_HEALTH = 1;
+        public const int MAX_PLAYER_HEALTH = 5;
+        public const int INVINCIBILITY_DURATION = 3000;//ms
 
         //Direction constants
         public const float PI = 3.14f;

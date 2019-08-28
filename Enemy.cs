@@ -82,6 +82,11 @@ namespace out_and_back
         {
             // Ignore objects of the same team.
             if (Team == other.Team) return;
+
+            //Ignore invincible players
+            if (other is Player && ((Player)other).isInvincible()) return;
+
+            //Die on player or projectiles from the opposite team
             if (other is Player || (other is Projectile && other.Team != Team))
             {
                 Dispose();

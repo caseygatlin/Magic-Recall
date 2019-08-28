@@ -7,6 +7,8 @@ namespace out_and_back
     {
         //The player and weapon sprites
         public Texture2D playerSprite;
+        public Texture2D playerInvincibleSprite;
+        public Texture2D playerHealthIconSprite;
         public Texture2D weaponSprite;
         public Texture2D ghostSprite;
         public Texture2D ghostAtkSprite;
@@ -55,6 +57,8 @@ namespace out_and_back
 
             //Loads up the sprites
             playerSprite = game.Content.Load<Texture2D>("Wizard");
+            playerInvincibleSprite = game.Content.Load<Texture2D>("Wizard");    //TODO: make this WizardInvincible once we have it
+            playerHealthIconSprite = game.Content.Load<Texture2D>("Wizard");    //TODO: make this WizardHealth once we have it
             weaponSprite = game.Content.Load<Texture2D>("FireAttack(Forward)");
             ghostSprite = game.Content.Load<Texture2D>("Ghost");
             ghostAtkSprite = game.Content.Load<Texture2D>("GhostAttack");
@@ -95,6 +99,10 @@ namespace out_and_back
 
             //Draws the sprite
             batch.Draw(sprite, destRect, null, Color.White, spriteDir, origin: spriteOrigin, effects: SpriteEffects.None, layerDepth: 0f);
+        }
+        public void DrawSprite(Vector2 position, Texture2D sprite)
+        {
+            batch.Draw(sprite, position, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
         }
 
         //Draws a stationary sprite to the screen at a position

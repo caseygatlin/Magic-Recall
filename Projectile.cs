@@ -88,8 +88,13 @@ namespace out_and_back
         {
             // Ignore other projectiles.
             if (other is Projectile) return;
+
             // Ignore objects of the same team.
             if (Team == other.Team || Team == Team.Player) return;
+
+            //Ignore invincible players
+            if (other is Player && ((Player)other).isInvincible()) return;
+
             // It's hit an enemy and should therefore despawn.
             Remove(null);
         }
