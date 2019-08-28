@@ -34,7 +34,8 @@ namespace out_and_back.MovementPatterns
         }
         /// <summary>
         /// Computes how the current position should change (ie, the delta) each frame.
-        /// This can return Vector2.Zero if there is no change or the movement is being completed.
+        /// This should return Vector2.Zero if there is no change or the movement is being completed
+        /// (for example, the ComputeDelta is calling CompleteMovement).
         /// </summary>
         /// <param name="deltaTime">The time since the previous frame (in milliseconds).</param>
         protected abstract Vector2 ComputeDelta(int deltaTime);

@@ -38,7 +38,7 @@ namespace out_and_back
             type = projType;
 
             //Use if you want yoyo to follow the player on its return
-            AddPattern(team == Team.Player ? MovementPattern.YoyoFollow(this) : MovementPattern.Straight(this, float.PositiveInfinity));
+            AddPattern(team == Team.Player ? MovementPattern.YoyoFollow(this) : MovementPattern.Straight(this));
 
             //Use if you want straight back and forth
             //AddPattern(team == Team.Player ? MovementPattern.Yoyo(this, 1) : MovementPattern.Straight(this, float.PositiveInfinity));

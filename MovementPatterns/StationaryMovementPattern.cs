@@ -1,16 +1,18 @@
-﻿namespace out_and_back.MovementPatterns
+﻿using Microsoft.Xna.Framework;
+
+namespace out_and_back.MovementPatterns
 {
     /// <summary>
     /// A pattern for entities that don't move at all.
     /// </summary>
-    class StationaryMovementPattern : ParameterizedMovementPattern
+    class StationaryMovementPattern : DeltaMovementPattern
     {
         public StationaryMovementPattern(Entity parent) : base(parent)
         {
-            XParam = (float time) => { return origin.X; };
-            YParam = (float time) => { return origin.Y; };
-            // Make the update function even faster.
-            paused = true;
+        }
+        protected override Vector2 ComputeDelta(int deltaTime)
+        {
+            return Vector2.Zero;
         }
     }
 }
