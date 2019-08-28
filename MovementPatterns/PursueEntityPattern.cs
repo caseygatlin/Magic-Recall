@@ -15,17 +15,21 @@ namespace out_and_back.MovementPatterns
             target.Removed += OnTargetRemoved;
         }
 
-        public override void UpdateCurrentPosition(int deltaTime)
+        protected override Vector2 ComputeDelta(int deltaTime)
         {
             //Move toward the target entity
             float distance = Vector2.Distance(target.Position, current_position);
             float composite_speed = speed * deltaTime / 1000 / distance;
-            current_position.X += composite_speed * (target.Position.X - current_position.X);
-            current_position.Y += composite_speed * (target.Position.Y - current_position.Y);
+            float delta_x = composite_speed * (target.Position.X - current_position.X);
+            float delta_y = composite_speed * (target.Position.Y - current_position.Y);
 
-            //Failsafe: if you reach the target exactly, stop
+            //Failsafe: if you've reach the target exactly, stop
             if (target.Position == current_position)
+            {
                 CompleteMovement(null);
+                return Vector2.Zero;
+            }
+            return new Vector2(delta_x, delta_y);
         }
 
         private void OnTargetRemoved(object sender, EventArgs e)

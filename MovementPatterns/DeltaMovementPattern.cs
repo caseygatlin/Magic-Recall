@@ -24,18 +24,19 @@ namespace out_and_back.MovementPatterns
         }
 
         /// <summary>
-        /// Calls UpdateCurrentPosition if the game isn't paused.
+        /// Calls ComputeDelta to move the current position (if the game isn't paused).
         /// </summary>
         /// <param name="deltaTime"></param>
         public sealed override void Update(int deltaTime)
         {
             if (paused) return;
-            UpdateCurrentPosition(deltaTime);
+            current_position += ComputeDelta(deltaTime);
         }
         /// <summary>
-        /// Computes where the current position should be for the next frame.
+        /// Computes how the current position should change (ie, the delta) each frame.
+        /// This can return Vector2.Zero if there is no change or the movement is being completed.
         /// </summary>
         /// <param name="deltaTime">The time since the previous frame (in milliseconds).</param>
-        public abstract void UpdateCurrentPosition(int deltaTime);
+        protected abstract Vector2 ComputeDelta(int deltaTime);
     }
 }
