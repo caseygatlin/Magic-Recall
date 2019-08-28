@@ -44,7 +44,16 @@ namespace out_and_back
         /// <param name="e"></param>
         protected virtual void PatternComplete(object sender, System.EventArgs e)
         {
-            patternQueue.Dequeue();
+            /*
+             * ERROR
+             * There's a scenario I don't understand that causes this method to
+             * be called when patternQueue is empty. I'm not sure how, but calling
+             * Dequeue() on an empty queue crashes the game. If this weren't a
+             * prototype, I'd want to look into it more, but I think it should be
+             * okay just to suppress/ignore the issue for now. - Aaron
+             */
+            if(patternQueue.Count > 0)
+                patternQueue.Dequeue();
         }
     }
 }
