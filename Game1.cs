@@ -34,9 +34,11 @@ namespace out_and_back
 
         public Game1()
         {
-            graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferHeight = 450;
-            graphics.PreferredBackBufferWidth = 800;
+            graphics = new GraphicsDeviceManager(this)
+            {
+                PreferredBackBufferHeight = Globals.SCREEN_HEIGHT,
+                PreferredBackBufferWidth = Globals.SCREEN_WIDTH,
+            };
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             paused = false;
