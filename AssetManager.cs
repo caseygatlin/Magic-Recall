@@ -61,8 +61,8 @@ namespace out_and_back
 
             //Loads up the sprites
             playerSprite = game.Content.Load<Texture2D>("Wizard");
-            playerInvincibleSprite = game.Content.Load<Texture2D>("WizardInvincible");    //TODO: make this WizardInvincible once we have it
-            playerHealthIconSprite = game.Content.Load<Texture2D>("Wizard");    //TODO: make this WizardHealth once we have it
+            playerInvincibleSprite = game.Content.Load<Texture2D>("WizardInvincible");
+            playerHealthIconSprite = game.Content.Load<Texture2D>("WizardHealth");
             weaponSprite = game.Content.Load<Texture2D>("FireAttack(Forward)");
             ghostSprite = game.Content.Load<Texture2D>("Ghost");
             ghostAtkSprite = game.Content.Load<Texture2D>("GhostAttack");

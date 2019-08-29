@@ -150,23 +150,13 @@ namespace out_and_back
                 isCasting = true;
             }
 
-
             //Draw the player
-            //TODO: Remove once the real wizard invincibility sprite is in
-            if (isInvincible())
-            {
-                AssetManager.Instance.DrawSprite(this, AssetManager.Instance.playerInvincibleSprite);
-                //AssetManager.Instance.DrawRectangle(new Rectangle((int)Position.X-10, (int)Position.Y-10, 20, 20), Color.Red);
-            }
-            else
-                AssetManager.Instance.DrawSprite(this, AssetManager.Instance.playerSprite);
-            //TODO: Use this instead of all the stuff above
-            //AssetManager.Instance.DrawSprite(this, isInvincible ? AssetManager.Instance.playerInvincibleSprite : AssetManager.Instance.playerSprite);
+            AssetManager.Instance.DrawSprite(this, isInvincible() ? AssetManager.Instance.playerInvincibleSprite : AssetManager.Instance.playerSprite);
 
             //Draw the player's health
-            AssetManager.Instance.DrawRectangle(new Rectangle(Globals.SCREEN_WIDTH - 88, 8, 80, 40), Color.Black);
-            AssetManager.Instance.DrawSprite(new Vector2(Globals.SCREEN_WIDTH - 90, 10), AssetManager.Instance.playerHealthIconSprite, 0.1f);
-            AssetManager.Instance.PrintString("x" + health, new Vector2(Globals.SCREEN_WIDTH - 45, 20), Color.White);
+            AssetManager.Instance.DrawRectangle(new Rectangle(Globals.SCREEN_WIDTH - 80, 8, 72, 40), Color.Black);
+            AssetManager.Instance.DrawSprite(new Vector2(Globals.SCREEN_WIDTH - 87, 10), AssetManager.Instance.playerHealthIconSprite, 0.1f);
+            AssetManager.Instance.PrintString("x" + health, new Vector2(Globals.SCREEN_WIDTH - 35, 30), Color.White);
         }
 
         public override void HandleCollision(Entity other)
