@@ -16,7 +16,7 @@ namespace out_and_back
         private const int DEFAULT_RANGE = 50;
         private const float DEFAULT_WEAPON_SPEED = Globals.MAX_WEAPON_SPEED;
         private float rangeModifier = 1;
-
+        private Projectile primaryProjectile;
 
         public float AttackRange
         {
@@ -136,37 +136,6 @@ namespace out_and_back
         //Main drawing loop for the player
         public override void Draw(GameTime gameTime)
         {
-            //Enable if you want player stationary while attacking
-            /*
-            if (!isCasting)
-                MovementInput();
-            else
-                Speed = 0;
-            */
-
-            //Enable if you want player to move while attacking
-            MovementInput();
-
-            KeepOnScreen();
-
-            if (Mouse.GetState().LeftButton == ButtonState.Pressed && isCasting == false)
-            {
-                Game1 g = (Game1)Game;
-                Vector2 mousePos = new Vector2(Mouse.GetState().X / g.Scale.X, Mouse.GetState().Y / g.Scale.Y);
-                float castDirection = Globals.getDirection(Position, mousePos);
-
-                float castPosMultX = (float)Math.Cos(castDirection);
-                float castPosMultY = (float)Math.Sin(castDirection);
-                float castPosX = WEP_SPAWN_DIST * castPosMultX;
-                float castPosY = WEP_SPAWN_DIST * castPosMultY;
-                Vector2 castPos = new Vector2(castPosX + Position.X, castPosY + Position.Y);
-
-                CastWeapon(castDirection, castPos);
-                CastWeapon(castDirection - MathHelper.PiOver4, castPos);
-                CastWeapon(castDirection + MathHelper.PiOver4, castPos);
-                isCasting = true;
-            }
-
             //Draw the player
             AssetManager.Instance.DrawSprite(this, isInvincible() ? AssetManager.Instance.playerInvincibleSprite : AssetManager.Instance.playerSprite);
 
@@ -205,6 +174,29 @@ namespace out_and_back
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+
+            MovementInput();
+            KeepOnScreen();
+
+            // Projectile firing code
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed && isCasting == false)
+            {
+                Game1 g = (Game1)Game;
+                Vector2 mousePos = new Vector2(Mouse.GetState().X / g.Scale.X, Mouse.GetState().Y / g.Scale.Y);
+                float castDirection = Globals.getDirection(Position, mousePos);
+
+                float castPosMultX = (float)Math.Cos(castDirection);
+                float castPosMultY = (float)Math.Sin(castDirection);
+                float castPosX = WEP_SPAWN_DIST * castPosMultX;
+                float castPosY = WEP_SPAWN_DIST * castPosMultY;
+                Vector2 castPos = new Vector2(castPosX + Position.X, castPosY + Position.Y);
+
+                CastWeapon(castDirection, castPos);
+                //CastWeapon(castDirection - MathHelper.PiOver4, castPos);
+                //CastWeapon(castDirection + MathHelper.PiOver4, castPos);
+                isCasting = true;
+            }
+
             if (isInvincible())
             {
                 invincibility_time = Math.Max(invincibility_time - gameTime.ElapsedGameTime.Milliseconds, 0);
