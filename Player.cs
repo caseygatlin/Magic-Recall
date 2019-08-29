@@ -63,9 +63,6 @@ namespace out_and_back
                 else
                     Direction = Globals.DOWN_DIR;
                 Speed = Globals.MAX_PLAYER_SPEED;
-
-
-             
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.D))
@@ -110,6 +107,7 @@ namespace out_and_back
         private void CastWeapon(float mouseDirection, Vector2 playerPos)
         {
             Projectile weapon = new Projectile((Game1)Game, Team.Player, mouseDirection, Globals.MAX_WEAPON_SPEED, playerPos, PLAYER_WEAPON_RADIUS);
+            weapon.AddPattern(MovementPatterns.MovementPattern.YoyoFollow(weapon));
             weapon.Removed += Weapon_Removed;
         }
 
@@ -138,11 +136,12 @@ namespace out_and_back
 
             if (Mouse.GetState().LeftButton == ButtonState.Pressed && isCasting == false)
             {
-                Vector2 mousePos = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
+                Game1 g = (Game1)Game;
+                Vector2 mousePos = new Vector2(Mouse.GetState().X / g.Scale.X, Mouse.GetState().Y / g.Scale.Y);
                 float castDirection = Globals.getDirection(Position, mousePos);
 
-                float castPosMultX = (float)System.Math.Cos(castDirection);
-                float castPosMultY = (float)System.Math.Sin(castDirection);
+                float castPosMultX = (float)Math.Cos(castDirection);
+                float castPosMultY = (float)Math.Sin(castDirection);
                 float castPosX = WEP_SPAWN_DIST * castPosMultX;
                 float castPosY = WEP_SPAWN_DIST * castPosMultY;
                 Vector2 castPos = new Vector2(castPosX + Position.X, castPosY + Position.Y);
