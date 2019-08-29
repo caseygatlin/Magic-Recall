@@ -104,8 +104,8 @@ namespace out_and_back
         {
             float bufferLR = (float)AssetManager.Instance.playerSprite.Width / 2;
             float bufferUD = (float)AssetManager.Instance.playerSprite.Height / 2;
-            float screenHeight = GraphicsDevice.Viewport.Height;
-            float screenWidth = GraphicsDevice.Viewport.Width;
+            float screenHeight = Globals.SCREEN_HEIGHT;
+            float screenWidth = Globals.SCREEN_WIDTH;
 
             if (Position.X - bufferLR <= 0)
                 Position = new Vector2(bufferLR, Position.Y);
