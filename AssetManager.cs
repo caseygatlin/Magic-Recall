@@ -68,7 +68,7 @@ namespace out_and_back
             ghostSprite = game.Content.Load<Texture2D>("Ghost");
             ghostAtkSprite = game.Content.Load<Texture2D>("GhostAttack");
             slimeSprite = game.Content.Load<Texture2D>("Slime");
-            background = game.Content.Load<Texture2D>("BG2");
+            background = game.Content.Load<Texture2D>("BG16-9");
             backgroundSmaller = game.Content.Load<Texture2D>("BG");
             titleIcon = game.Content.Load<Texture2D>("Title");
             uiRect = new Texture2D(game.GraphicsDevice, 1, 1);

@@ -25,6 +25,18 @@
 /processorParam:TextureFormat=Color
 /build:BG.png
 
+#begin BG16-9.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:BG16-9.png
+
 #begin BG2.png
 /importer:TextureImporter
 /processor:TextureProcessor
