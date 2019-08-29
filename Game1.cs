@@ -19,6 +19,8 @@ namespace out_and_back
         internal EnitityManager Entities;
         //Song song;
 
+        public Vector2 Scale = Vector2.One;
+
         public bool paused
         {
             get;
@@ -34,6 +36,8 @@ namespace out_and_back
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferHeight = 450;
+            graphics.PreferredBackBufferWidth = 800;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             paused = false;
@@ -91,7 +95,24 @@ namespace out_and_back
                 Exit();
 
             if (Keyboard.GetState().IsKeyDown(Keys.F11))
+            {
                 graphics.ToggleFullScreen();
+                if (graphics.IsFullScreen)
+                {
+                    graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+                    graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+                }
+                else
+                {
+                    graphics.PreferredBackBufferHeight = 450;
+                    graphics.PreferredBackBufferWidth = 800;
+                }
+                graphics.ApplyChanges();
+                float xScale = graphics.PreferredBackBufferWidth / Globals.SCREEN_WIDTH;
+                float yScale = graphics.PreferredBackBufferHeight / Globals.SCREEN_HEIGHT;
+                Scale = new Vector2(xScale, yScale);
+
+            }
 
             state.Update(this, gameTime);
             Player = state.Player; //I couldn't figure out a better way to work through this
@@ -108,7 +129,8 @@ namespace out_and_back
 
 
             // TODO: Add your drawing code here
-            spriteBatch.Begin(SpriteSortMode.BackToFront);
+            
+            spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, Matrix.CreateScale(Scale.X, Scale.Y, 1));
             state.Draw(this, gameTime);
             base.Draw(gameTime);
             spriteBatch.End();

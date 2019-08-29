@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 
 namespace out_and_back
@@ -17,19 +13,19 @@ namespace out_and_back
         public const int INVINCIBILITY_DURATION = 3000;//ms
 
         //Direction constants
-        public const float PI = 3.14f;
-        public const float UP_DIR = 3 * PI / 2;
-        public const float DOWN_DIR = PI / 2;
-        public const float LEFT_DIR = PI;
+        public const float PI = MathHelper.Pi;
+        public const float UP_DIR = 3 * MathHelper.PiOver2;
+        public const float DOWN_DIR = MathHelper.PiOver2;
+        public const float LEFT_DIR = MathHelper.Pi;
         public const float RIGHT_DIR = 0;
-        public const float UP_RIGHT_DIR = 7 * PI / 4;
-        public const float DOWN_RIGHT_DIR = PI / 4;
-        public const float UP_LEFT_DIR = 5 * PI / 4;
-        public const float DOWN_LEFT_DIR = 3 * PI / 4;
+        public const float UP_RIGHT_DIR = 7 * MathHelper.PiOver4;
+        public const float DOWN_RIGHT_DIR = MathHelper.PiOver4;
+        public const float UP_LEFT_DIR = 5 * MathHelper.PiOver4;
+        public const float DOWN_LEFT_DIR = 3 * MathHelper.PiOver4;
 
         //Screen dimensions
         public const int SCREEN_WIDTH = 800;
-        public const int SCREEN_HEIGHT = 480;
+        public const int SCREEN_HEIGHT = 450;
 
         //Weapon speed
         public const float MAX_WEAPON_SPEED = 150;
@@ -40,10 +36,10 @@ namespace out_and_back
         {
             double slope = (point2.Y - point1.Y) / (point2.X - point1.X);
 
-            float direction = (float)System.Math.Atan(slope);
+            float direction = (float)Math.Atan(slope);
 
             if (point2.X < point1.X)
-                direction = direction + Globals.PI;
+                direction = direction + PI;
 
             return direction;
         }

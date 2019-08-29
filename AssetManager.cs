@@ -32,7 +32,6 @@ namespace out_and_back
         public float targetY;
         public Vector2 scale;
 
-
         private static AssetManager instance;
         public static AssetManager Instance
         {
@@ -76,7 +75,7 @@ namespace out_and_back
             uiOverlay = game.Content.Load<Texture2D>("DarkOverlay");
 
             //In case we need to scale anything, use scale variable
-            scale = new Vector2(targetX / (float)playerSprite.Width, targetX / (float)playerSprite.Width);
+            scale = new Vector2(targetX / playerSprite.Width, targetX / playerSprite.Width);
             targetY = playerSprite.Height * scale.Y;
         }
 
@@ -95,7 +94,6 @@ namespace out_and_back
         {
             Vector2 stringSize = font.MeasureString(str);
             Vector2 centerPos = new Vector2(position.X - stringSize.X / 2, position.Y - stringSize.Y / 2);
-            //batch.DrawString(font, str, centerPos, color);
             batch.DrawString(font, str, centerPos, color, 0, Vector2.Zero, 1f, effects: SpriteEffects.None, layerDepth: .1f);
         }
 
@@ -125,7 +123,7 @@ namespace out_and_back
         public void DrawIcon(Texture2D icon, Vector2 position, float depth = .3f)
         {
             Vector2 iconOrigin = new Vector2((float)icon.Width / 2, (float)icon.Height / 2);
-            Rectangle destRect = new Rectangle((int)position.X, (int)position.Y, (int)icon.Width, (int)icon.Height);
+            Rectangle destRect = new Rectangle((int)position.X, (int)position.Y, icon.Width, icon.Height);
             batch.Draw(icon, destRect, null, Color.White, 0, origin: iconOrigin, effects: SpriteEffects.None, layerDepth: depth);
         }
 
