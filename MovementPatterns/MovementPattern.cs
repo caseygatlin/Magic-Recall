@@ -104,6 +104,11 @@ namespace out_and_back.MovementPatterns
             return new YoyoMovementPatternFollow(parent);
         }
 
+        public static MovementPattern YoyoFollow(Entity parent, float maxDistance)
+        {
+            return new YoyoMovementPatternFollow(parent, maxDistance);
+        }
+
         public static MovementPattern PursueEntity(Entity parent, Entity target)
         {
             return new PursueEntityPattern(parent, target);
