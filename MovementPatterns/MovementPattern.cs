@@ -10,14 +10,21 @@ namespace out_and_back.MovementPatterns
     {
         protected float speed;
         protected bool paused = false;
+        private Entity parentEntity;
 
         public MovementPattern(Entity parent)
         {
             speed = parent.Speed;
+            parentEntity = parent;
         }
 
         public abstract Vector2 getPosition();
         public abstract void Update(int deltaTime);
+
+        protected void checkForPaused()
+        {
+            paused = parentEntity.currentGame.paused;
+        }
 
         /// <summary>
         /// Creates a limacon movement pattern.

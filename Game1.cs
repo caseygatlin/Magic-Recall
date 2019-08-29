@@ -15,6 +15,11 @@ namespace out_and_back
         GraphicsDeviceManager graphics;
         internal SpriteBatch spriteBatch;
         internal EnitityManager Entities;
+        public bool paused
+        {
+            get;
+            internal set;
+        }
 
         internal Player Player
         {
@@ -26,7 +31,8 @@ namespace out_and_back
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            IsMouseVisible = true;      
+            IsMouseVisible = true;
+            paused = false;
         }
 
 
@@ -89,7 +95,7 @@ namespace out_and_back
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.DarkSalmon);
+            GraphicsDevice.Clear(Color.Black);
 
 
             // TODO: Add your drawing code here

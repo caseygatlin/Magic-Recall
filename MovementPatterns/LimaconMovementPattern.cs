@@ -30,6 +30,7 @@ namespace out_and_back.MovementPatterns
 
         public override void Update(int deltaTime)
         {
+            checkForPaused();
             base.Update(deltaTime);
             // TODO: At 2Pi, the limacon is done.
             if (Lifetime > MathHelper.TwoPi)

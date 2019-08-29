@@ -37,6 +37,7 @@ namespace out_and_back.MovementPatterns
         /// <param name="deltaTime">The amount of time, in milliseconds, that has passed since last update.</param>
         public override void Update(int deltaTime)
         {
+            checkForPaused();
             Vector2 playerPos = game.Player.Position;
             base.Update(deltaTime);
             Vector2 currentPos = getPosition();

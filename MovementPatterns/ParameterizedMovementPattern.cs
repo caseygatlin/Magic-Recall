@@ -51,6 +51,7 @@ namespace out_and_back.MovementPatterns
 
         public override void Update(int deltaTime)
         {
+            checkForPaused();
             if (paused) return;
             Lifetime += deltaTime * timeflow;
         }

@@ -9,7 +9,7 @@ namespace out_and_back
     abstract class Entity : DrawableGameComponent
     {
         Vector2 movement;
-        protected Game1 currentGame;
+        internal Game1 currentGame;
 
         public Team Team { get; private set; }
 

@@ -63,6 +63,7 @@
     <Compile Include="EnitityManager.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="GameStates\AbstractGameState.cs" />
+    <Compile Include="GameStates\GameOverState.cs" />
     <Compile Include="GameStates\InLevelState.cs" />
     <Compile Include="GameStates\StartMenuState.cs" />
     <Compile Include="Globals.cs" />

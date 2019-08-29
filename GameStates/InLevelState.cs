@@ -33,13 +33,15 @@ namespace out_and_back.GameStates
 
         public override void Update(Game1 game, GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            if (Player.health <= 0)
             {
-                game.state = new GameStates.InLevelState(game);
-                return;
+                game.paused = true;
+                game.state = new GameStates.GameOverState(game);
             }
+
 #if RUN_LEVEL
-            level.Update(gameTime);
+            if (!game.paused)
+                level.Update(gameTime);
 #endif
         }
 

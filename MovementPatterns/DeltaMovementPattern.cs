@@ -29,6 +29,7 @@ namespace out_and_back.MovementPatterns
         /// <param name="deltaTime"></param>
         public sealed override void Update(int deltaTime)
         {
+            checkForPaused();
             if (paused) return;
             current_position += ComputeDelta(deltaTime);
         }

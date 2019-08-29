@@ -52,7 +52,9 @@ namespace out_and_back
 
         private AssetManager(Game1 game)
         {
-            Font = game.Content.Load<SpriteFont>("defaultFont");
+            defualtFont = game.Content.Load<SpriteFont>("defaultFont");
+            retroFontSmall = game.Content.Load<SpriteFont>("RetroFontSmall");
+            retroFontLarge = game.Content.Load<SpriteFont>("RetroFontLarge");
             batch = game.spriteBatch;
 
             //Loads up the sprites
@@ -74,14 +76,22 @@ namespace out_and_back
             targetY = playerSprite.Height * scale.Y;
         }
 
-        private SpriteFont Font;
+        public SpriteFont defualtFont;
+        public SpriteFont retroFontSmall;
+        public SpriteFont retroFontLarge;
         private SpriteBatch batch;
 
         public void PrintString(string str, Vector2 position, Color color)
         {
-            batch.DrawString(Font, str, position, color);
+            batch.DrawString(retroFontSmall, str, position, color);
         }
 
+        public void PrintStringCenter(string str, Vector2 position, Color color, SpriteFont font)
+        {
+            Vector2 stringSize = font.MeasureString(str);
+            Vector2 centerPos = new Vector2(position.X - stringSize.X / 2, position.Y - stringSize.Y / 2);
+            batch.DrawString(font, str, centerPos, color);
+        }
 
         //Draws the loaded sprites to the screen
         public void DrawSprite(Entity parent, Texture2D sprite, float rotationCorr = 0f)
