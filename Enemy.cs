@@ -46,6 +46,15 @@ namespace out_and_back
             return s;
         }
 
+        public static Enemy Eye(Game1 game, float direction, float limit, float stationaryTime, Vector2 position)
+        {
+            Enemy e = new Enemy(game, Team.Enemy, direction, 25, position, 30);
+            e.SetAttackPattern(new AttackPatterns.FanAttackPattern(e, 3, null, null, 2000, null, null));
+            e.AddPattern(MovementPattern.Straight(e, limit));
+            e.AddPattern(MovementPattern.Stationary(e));
+            e.AddPattern(MovementPattern.Straight(e));
+            return e;
+        }
 
         public override void Update(GameTime gameTime)
         {

@@ -7,9 +7,9 @@ namespace out_and_back.AttackPatterns
     /// </summary>
     class FanAttackPattern : AttackPattern
     {
-        float angleDiff;
-        float angleOffset;
-        int count;
+        readonly float angleDiff;
+        readonly float angleOffset;
+        readonly int count;
 
         /// <summary>
         /// Creates an attack pattern that shoots n attacks, evenly spaced, in a circle around the entity.
