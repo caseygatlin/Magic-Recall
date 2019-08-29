@@ -122,6 +122,7 @@ namespace out_and_back
         {
             Projectile weapon = new Projectile((Game1)Game, Team.Player, mouseDirection, AttackSpeed, playerPos, PLAYER_WEAPON_RADIUS);
             weapon.AddPattern(MovementPatterns.MovementPattern.YoyoFollow(weapon, AttackRange));
+            // Todo: Set this to check the brazier
             weapon.Removed += Weapon_Removed;
         }
 
@@ -161,6 +162,8 @@ namespace out_and_back
                 Vector2 castPos = new Vector2(castPosX + Position.X, castPosY + Position.Y);
 
                 CastWeapon(castDirection, castPos);
+                CastWeapon(castDirection - MathHelper.PiOver4, castPos);
+                CastWeapon(castDirection + MathHelper.PiOver4, castPos);
                 isCasting = true;
             }
 
