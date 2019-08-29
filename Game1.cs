@@ -40,6 +40,7 @@ namespace out_and_back
             IsMouseVisible = true;
             paused = false;
             //song = Content.Load<Song>("Music");
+            Window.Title = "Magic Recall";
         }
 
 
