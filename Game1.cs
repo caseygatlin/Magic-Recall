@@ -17,7 +17,9 @@ namespace out_and_back
         GraphicsDeviceManager graphics;
         internal SpriteBatch spriteBatch;
         internal EnitityManager Entities;
+        internal bool wonGame = false;
         //Song song;
+
 
         public bool paused
         {

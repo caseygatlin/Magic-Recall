@@ -19,7 +19,12 @@ namespace out_and_back.GameStates
         public override void Draw(Game1 game, GameTime gameTime)
         {
             assetManager.DrawSprite(Vector2.Zero, AssetManager.Instance.background);
-            assetManager.PrintStringCenter("Game Over", new Vector2(Globals.SCREEN_WIDTH / 2, Globals.SCREEN_HEIGHT / 3), Color.White, assetManager.retroFontLarge);
+
+            if (!game.wonGame)
+                assetManager.PrintStringCenter("Game Over", new Vector2(Globals.SCREEN_WIDTH / 2, Globals.SCREEN_HEIGHT / 3), Color.White, assetManager.retroFontLarge);
+            else
+                assetManager.PrintStringCenter("Enemies Defeated: ALL OF THEM", new Vector2(Globals.SCREEN_WIDTH / 2, Globals.SCREEN_HEIGHT / 3), Color.White, assetManager.retroFontLarge);
+
             assetManager.PrintStringCenter("Press Space to restart", new Vector2(Globals.SCREEN_WIDTH / 2, Globals.SCREEN_HEIGHT * 3 / 4), Color.White, assetManager.retroFontSmall);
             assetManager.DrawDarkOverlay();
         }
@@ -29,6 +34,7 @@ namespace out_and_back.GameStates
             if (Keyboard.GetState().IsKeyDown(Keys.Space))
             {
                 game.Entities.ClearAll();
+                game.wonGame = false;
                 game.paused = false;                
                 game.state = new GameStates.InLevelState(game);
             }
