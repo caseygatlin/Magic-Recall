@@ -67,9 +67,14 @@ namespace out_and_back.MovementPatterns
         /// <param name="parent">The entity that is moving.</param>
         /// <param name="limit">How far this movement pattern should take the unit before ending.</param>
         /// <returns>A movement pattern that will move a projectile in a single direction.</returns>
-        public static MovementPattern Straight(Entity parent, float limit = float.PositiveInfinity)
+        public static MovementPattern Straight(Entity parent, float limit)
         {
             return new StraightMovementPattern(parent, limit);
+        }
+
+        public static MovementPattern Straight(Entity parent)
+        {
+            return Straight(parent, float.PositiveInfinity);
         }
 
         /// <summary>
@@ -81,6 +86,11 @@ namespace out_and_back.MovementPatterns
         public static MovementPattern Yoyo(Entity parent, int cycles)
         {
             return new YoyoMovementPattern(parent, cycles);
+        }
+
+        public static MovementPattern Yoyo(Entity parent)
+        {
+            return Yoyo(parent, 1);
         }
 
         /// <summary>

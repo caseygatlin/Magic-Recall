@@ -30,10 +30,9 @@ namespace out_and_back
         {
             Enemy g = new Enemy(game, Team.Enemy, direction, 100, position, 30);
             g.AddPattern(MovementPattern.Straight(g));
-            g.SetAttackPattern(new AttackPatterns.FanAttackPattern(g, 2, direction + MathHelper.PiOver2, 0, null, null, null));
+            g.SetAttackPattern(new AttackPatterns.FanAttackPattern(g, 2, direction + MathHelper.PiOver2, 0, null, null, null, Projectile.ProjectileType.GHOST_FLAME));
             g.sprite = AssetManager.Instance.ghostSprite;
             return g;
-
         }
 
 
@@ -46,11 +45,13 @@ namespace out_and_back
             return s;
         }
 
-        public static Enemy Eye(Game1 game, float direction, float limit, float stationaryTime, Vector2 position)
+        public static Enemy Eye(Game1 game, float direction, Vector2 position)
         {
             Enemy e = new Enemy(game, Team.Enemy, direction, 25, position, 30);
-            e.SetAttackPattern(new AttackPatterns.FanAttackPattern(e, 3, null, null, 2000, null, null));
-            e.AddPattern(MovementPattern.Straight(e, limit));
+            var eyeAttackPattern = new AttackPatterns.FanAttackPattern(e, 3, null, null, 2000, null, null, Projectile.ProjectileType.FIREBALL);
+            eyeAttackPattern.SetMovementPattern(MovementPattern.Spiral);
+            e.SetAttackPattern(eyeAttackPattern);
+            e.AddPattern(MovementPattern.Straight(e, 400));
             e.AddPattern(MovementPattern.Stationary(e));
             e.AddPattern(MovementPattern.Straight(e));
             return e;

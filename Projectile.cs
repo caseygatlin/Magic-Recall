@@ -20,8 +20,6 @@ namespace out_and_back
         int maxLifetime;
         int lifetime = 0;
 
-
-
         /// <summary>
         /// Basic constructor for a projectile entity.
         /// </summary>
@@ -37,9 +35,6 @@ namespace out_and_back
             maxLifetime = lifetime;
             type = projType;
 
-            //Use if you want yoyo to follow the player on its return
-            AddPattern(team == Team.Player ? MovementPattern.YoyoFollow(this) : MovementPattern.Straight(this));
-
             //Use if you want straight back and forth
             //AddPattern(team == Team.Player ? MovementPattern.Yoyo(this, 1) : MovementPattern.Straight(this, float.PositiveInfinity));
             
@@ -48,6 +43,11 @@ namespace out_and_back
             {
                 AddPattern(MovementPattern.Straight(this, 100));
             }*/
+        }
+
+        new public void AddPattern(MovementPattern pattern)
+        {
+            base.AddPattern(pattern);
         }
 
         protected override void PatternComplete(object sender, System.EventArgs e)

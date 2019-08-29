@@ -21,7 +21,7 @@ namespace out_and_back.AttackPatterns
         /// <param name="wait">How long in milliseconds the entity should wait before attacking again. See <see cref="AttackPattern.DEFAULT_WAIT_TIME"/>.</param>
         /// <param name="projSpd">How fast the created projectiles should be moving. See <see cref="AttackPattern.DEFAULT_PROJECTILE_SPEED"/>.</param>
         /// <param name="projRad">The radius of the projectile. See <see cref="AttackPattern.DEFAULT_PROJECTILE_RADIUS"/>.</param>
-        public FanAttackPattern(Enemy parent, int count, float? angleOffset, int? start, int? wait, float? projSpd, int? projRad) : base(parent, start, wait, projSpd, projRad)
+        public FanAttackPattern(Enemy parent, int count, float? angleOffset, int? start, int? wait, float? projSpd, int? projRad, Projectile.ProjectileType type) : base(parent, start, wait, projSpd, projRad, type)
         {
             angleDiff = Microsoft.Xna.Framework.MathHelper.TwoPi / count;
             this.count = count;
@@ -34,7 +34,8 @@ namespace out_and_back.AttackPatterns
             float angle = angleOffset;
             for (int i = 0; i < count; ++i)
             {
-                Projectile p = new Projectile((Game1)parent.Game, parent.Team, angle, projSpd, parent.Position, projRad,-1, Projectile.ProjectileType.GHOST_FLAME);
+                Projectile p = new Projectile((Game1)parent.Game, parent.Team, angle, projSpd, parent.Position, projRad,-1, projectileType);
+                p.AddPattern(movementPattern(p));
                 angle += angleDiff;
                 projectiles.Add(p);
             }

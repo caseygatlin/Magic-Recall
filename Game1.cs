@@ -1,9 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
-
-
 
 namespace out_and_back
 {
@@ -105,14 +102,11 @@ namespace out_and_back
                 }
                 else
                 {
-                    graphics.PreferredBackBufferHeight = 450;
-                    graphics.PreferredBackBufferWidth = 800;
+                    graphics.PreferredBackBufferHeight = Globals.SCREEN_HEIGHT;
+                    graphics.PreferredBackBufferWidth = Globals.SCREEN_WIDTH;
                 }
                 graphics.ApplyChanges();
-                float xScale = graphics.PreferredBackBufferWidth / Globals.SCREEN_WIDTH;
-                float yScale = graphics.PreferredBackBufferHeight / Globals.SCREEN_HEIGHT;
-                Scale = new Vector2(xScale, yScale);
-
+                Scale = new Vector2(graphics.PreferredBackBufferWidth / Globals.SCREEN_WIDTH, graphics.PreferredBackBufferHeight / Globals.SCREEN_HEIGHT);
             }
 
             state.Update(this, gameTime);
@@ -126,11 +120,7 @@ namespace out_and_back
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(ClearOptions.Target , Color.Black, .5f, 1);
-
-
-            // TODO: Add your drawing code here
-            
+            GraphicsDevice.Clear(ClearOptions.Target , Color.Black, .5f, 1);            
             spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, Matrix.CreateScale(Scale.X, Scale.Y, 1));
             state.Draw(this, gameTime);
             base.Draw(gameTime);

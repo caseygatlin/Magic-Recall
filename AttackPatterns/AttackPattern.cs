@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 
+using out_and_back.MovementPatterns;
+
 namespace out_and_back.AttackPatterns
 {
     abstract class AttackPattern
@@ -26,8 +28,10 @@ namespace out_and_back.AttackPatterns
         protected int wait;
         protected float projSpd;
         protected float projRad;
+        protected Projectile.ProjectileType projectileType = Projectile.ProjectileType.UNDEFINED;
         private bool started = false;
         protected Enemy parent { get; private set; }
+        protected Func<Entity, MovementPattern> movementPattern;
 
         protected int time;
 
@@ -39,13 +43,20 @@ namespace out_and_back.AttackPatterns
         /// <param name="wait">How long after the attack the entity should wait before the attack happens again in milliseconds. Defaults to 1000.</param>
         /// <param name="projSpd">How fast the attack projectiles should be moving. Defaults to 50.</param>
         /// <param name="projRad">The projectile radius. Defaults to 10.</param>
-        public AttackPattern(Enemy parent, int? start, int? wait, float? projSpd, int? projRad)
+        public AttackPattern(Enemy parent, int? start, int? wait, float? projSpd, int? projRad, Projectile.ProjectileType type /*= Projectile.ProjectileType.UNDEFINED*/)
         {
             this.parent = parent;
             this.start = start ?? DEFAULT_START_TIME;
             this.wait = wait ?? DEFAULT_WAIT_TIME;
             this.projSpd = projSpd ?? DEFAULT_PROJECTILE_SPEED;
             this.projRad = projRad ?? DEFAULT_PROJECTILE_RADIUS;
+            projectileType = type;
+            movementPattern = MovementPattern.Straight;
+        }
+
+        public void SetMovementPattern(Func<Entity, MovementPattern> func)
+        {
+            movementPattern = func;
         }
 
         public virtual void Update(GameTime elapsedTime)
