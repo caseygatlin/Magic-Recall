@@ -62,6 +62,16 @@ namespace out_and_back
             }
         }
 
+        internal void ClearAll()
+        {
+            while (playerAttacks.Count != 0)
+                playerAttacks.RemoveFirst();
+            while (enemies.Count != 0)
+                enemies.RemoveFirst();
+            while (enemyAttacks.Count != 0)
+                enemyAttacks.RemoveFirst();
+        }
+
         private void AddEnemy(Entity enemy)
         {
             enemies.AddLast(enemy);

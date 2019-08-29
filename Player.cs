@@ -165,9 +165,9 @@ namespace out_and_back
             //AssetManager.Instance.DrawSprite(this, isInvincible ? AssetManager.Instance.playerInvincibleSprite : AssetManager.Instance.playerSprite);
 
             //Draw the player's health
-            AssetManager.Instance.DrawRectangle(new Rectangle(Globals.SCREEN_WIDTH - 83, 8, 75, 50), Color.White);
-            AssetManager.Instance.DrawSprite(new Vector2(Globals.SCREEN_WIDTH - 90, 10), AssetManager.Instance.playerHealthIconSprite);
-            AssetManager.Instance.PrintString("x" + health, new Vector2(Globals.SCREEN_WIDTH - 28, 40), Color.Black);
+            AssetManager.Instance.DrawRectangle(new Rectangle(Globals.SCREEN_WIDTH - 88, 8, 80, 40), Color.Black);
+            AssetManager.Instance.DrawSprite(new Vector2(Globals.SCREEN_WIDTH - 90, 10), AssetManager.Instance.playerHealthIconSprite, 0.1f);
+            AssetManager.Instance.PrintString("x" + health, new Vector2(Globals.SCREEN_WIDTH - 45, 20), Color.White);
         }
 
         public override void HandleCollision(Entity other)

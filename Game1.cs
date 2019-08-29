@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+
 
 
 namespace out_and_back
@@ -15,6 +17,8 @@ namespace out_and_back
         GraphicsDeviceManager graphics;
         internal SpriteBatch spriteBatch;
         internal EnitityManager Entities;
+        //Song song;
+
         public bool paused
         {
             get;
@@ -33,6 +37,7 @@ namespace out_and_back
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             paused = false;
+            //song = Content.Load<Song>("Music");
         }
 
 
@@ -63,6 +68,7 @@ namespace out_and_back
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             state = new GameStates.StartMenuState(this);
+            //MediaPlayer.Play(song);
         }
 
         /// <summary>
@@ -95,11 +101,11 @@ namespace out_and_back
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Black);
+            GraphicsDevice.Clear(ClearOptions.Target , Color.Black, .5f, 1);
 
 
             // TODO: Add your drawing code here
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.BackToFront);
             state.Draw(this, gameTime);
             base.Draw(gameTime);
             spriteBatch.End();

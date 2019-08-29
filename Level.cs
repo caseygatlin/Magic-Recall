@@ -125,8 +125,8 @@ namespace out_and_back
         }
         public override void Draw(GameTime gameTime)
         {
-            AssetManager.Instance.DrawRectangle(new Rectangle(8, 8, 120, 20), Color.White);
-            AssetManager.Instance.PrintString("Enemies left: " + (total_to_spawn - spawned_and_removed), new Vector2(10, 10), Color.Black);
+            AssetManager.Instance.DrawRectangle(new Rectangle(8, 8, 220, 40), Color.Black);
+            AssetManager.Instance.PrintString("Enemies left: " + (total_to_spawn - spawned_and_removed), new Vector2(15, 20), Color.White);
         }
     }
 }

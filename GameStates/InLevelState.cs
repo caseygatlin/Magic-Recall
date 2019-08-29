@@ -24,7 +24,7 @@ namespace out_and_back.GameStates
 
         public override void Draw(Game1 game, GameTime gameTime)
         {
-            game.spriteBatch.Draw(AssetManager.Instance.background, Vector2.Zero, Color.White);
+            AssetManager.Instance.DrawSprite(Vector2.Zero, AssetManager.Instance.background);
 #if RUN_LEVEL
             level.Draw(gameTime);
 #endif
