@@ -13,6 +13,20 @@ namespace out_and_back
         public bool isCasting = false;
         public int invincibility_time = 0;
         private const int WEP_SPAWN_DIST = 50;
+        private const int DEFAULT_RANGE = 50;
+        private const float DEFAULT_WEAPON_SPEED = Globals.MAX_WEAPON_SPEED;
+        private float rangeModifier = 1;
+
+
+        public float AttackRange
+        {
+            get => rangeModifier * DEFAULT_RANGE;
+        }
+
+        public float AttackSpeed
+        {
+            get => rangeModifier * DEFAULT_WEAPON_SPEED;
+        }
 
         /// <summary>
         /// Basic constructor for a player entity.
@@ -106,8 +120,8 @@ namespace out_and_back
         //Throws out the attack
         private void CastWeapon(float mouseDirection, Vector2 playerPos)
         {
-            Projectile weapon = new Projectile((Game1)Game, Team.Player, mouseDirection, Globals.MAX_WEAPON_SPEED, playerPos, PLAYER_WEAPON_RADIUS);
-            weapon.AddPattern(MovementPatterns.MovementPattern.YoyoFollow(weapon));
+            Projectile weapon = new Projectile((Game1)Game, Team.Player, mouseDirection, AttackSpeed, playerPos, PLAYER_WEAPON_RADIUS);
+            weapon.AddPattern(MovementPatterns.MovementPattern.YoyoFollow(weapon, AttackRange));
             weapon.Removed += Weapon_Removed;
         }
 
@@ -192,6 +206,11 @@ namespace out_and_back
             {
                 invincibility_time = Math.Max(invincibility_time - gameTime.ElapsedGameTime.Milliseconds, 0);
             }
+        }
+
+        public void IncreaseRange()
+        {
+            rangeModifier += .1f;
         }
     }
 }

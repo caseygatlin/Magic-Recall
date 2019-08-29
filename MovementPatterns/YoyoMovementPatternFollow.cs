@@ -6,7 +6,7 @@ namespace out_and_back.MovementPatterns
     class YoyoMovementPatternFollow : ParameterizedMovementPattern
     {
         bool limitReached = false;
-        int maxDistance = 50;
+        readonly float maxDistance = 50;
         int multiplier = 1;
         Game1 game;
         private Vector2 destination;
@@ -17,10 +17,10 @@ namespace out_and_back.MovementPatterns
         /// </summary>
         /// <param name="parent">The entity this yoyo is being created for.</param>
         /// <param name="cycles">The amount of times this pattern should be executed.</param>
-        internal YoyoMovementPatternFollow(Entity parent) : base(parent)
+        internal YoyoMovementPatternFollow(Entity parent, float maxDistance = 50) : base(parent)
         {
             game = (Game1)parent.Game;
-
+            this.maxDistance = maxDistance;
             XParam = (float time) =>
             {
                 return speed * multiplier * (float)Math.Cos(angle) * time + origin.X;

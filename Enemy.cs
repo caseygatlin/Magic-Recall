@@ -99,7 +99,10 @@ namespace out_and_back
             //Die on player or projectiles from the opposite team
             if (other is Player || (other is Projectile && other.Team != Team))
             {
-                Dispose();
+                if (other is Projectile playerProjectile)
+                {
+                    ((Game1)Game).Player.IncreaseRange();
+                }
                 Remove(null);
             }
         }
