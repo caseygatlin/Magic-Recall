@@ -15,6 +15,7 @@ namespace out_and_back
         internal SpriteBatch spriteBatch;
         internal EnitityManager Entities;
         internal bool wonGame = false;
+        private bool pauseKeyPressed = false;
         //Song song;
 
         public Vector2 Scale = Vector2.One;
@@ -92,6 +93,16 @@ namespace out_and_back
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+            if (Keyboard.GetState().IsKeyDown(Keys.F1) && !pauseKeyPressed)
+            {
+                pauseKeyPressed = true;
+                paused = !paused;
+            }
+            if (Keyboard.GetState().IsKeyUp(Keys.F1))
+            {
+                pauseKeyPressed = false;
+            }
 
             if (Keyboard.GetState().IsKeyDown(Keys.F11))
             {
