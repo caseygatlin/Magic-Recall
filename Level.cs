@@ -48,6 +48,12 @@ namespace out_and_back
         protected int current_wave_timer = 0;
         protected int total_to_spawn;
         protected const int OFF_SCREEN_OFFSET = 100;
+
+        internal int EnemiesLeft()
+        {
+            return total_to_spawn - spawned_and_removed;
+        }
+
         protected Level(Game1 game, LinkedList<Wave> waves) : base(game)
         {
             this.game = game;

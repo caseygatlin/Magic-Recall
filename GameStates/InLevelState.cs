@@ -38,6 +38,12 @@ namespace out_and_back.GameStates
                 game.paused = true;
                 game.state = new GameStates.GameOverState(game);
             }
+            else if (level.EnemiesLeft() <= 0)
+            {
+                game.wonGame = true;
+                game.paused = true;
+                game.state = new GameStates.GameOverState(game);
+            }
 
 #if RUN_LEVEL
             if (!game.paused)

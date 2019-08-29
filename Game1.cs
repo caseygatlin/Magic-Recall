@@ -17,10 +17,11 @@ namespace out_and_back
         GraphicsDeviceManager graphics;
         internal SpriteBatch spriteBatch;
         internal EnitityManager Entities;
+        internal bool wonGame = false;
         //Song song;
 
         public Vector2 Scale = Vector2.One;
-
+        
         public bool paused
         {
             get;

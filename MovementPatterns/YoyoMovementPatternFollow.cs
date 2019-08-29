@@ -38,6 +38,8 @@ namespace out_and_back.MovementPatterns
         public override void Update(int deltaTime)
         {
             checkForPaused();
+            if (game.wonGame)
+                return;
             Vector2 playerPos = game.Player.Position;
             base.Update(deltaTime);
             Vector2 currentPos = getPosition();
