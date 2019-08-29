@@ -157,7 +157,7 @@ namespace out_and_back
             if (isInvincible())
             {
                 AssetManager.Instance.DrawSprite(this, AssetManager.Instance.playerInvincibleSprite);
-                AssetManager.Instance.DrawRectangle(new Rectangle((int)Position.X-10, (int)Position.Y-10, 20, 20), Color.Red);
+                //AssetManager.Instance.DrawRectangle(new Rectangle((int)Position.X-10, (int)Position.Y-10, 20, 20), Color.Red);
             }
             else
                 AssetManager.Instance.DrawSprite(this, AssetManager.Instance.playerSprite);
