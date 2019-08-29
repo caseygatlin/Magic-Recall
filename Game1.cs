@@ -90,6 +90,9 @@ namespace out_and_back
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            if (Keyboard.GetState().IsKeyDown(Keys.F11))
+                graphics.ToggleFullScreen();
+
             state.Update(this, gameTime);
             Player = state.Player; //I couldn't figure out a better way to work through this
             base.Update(gameTime);
