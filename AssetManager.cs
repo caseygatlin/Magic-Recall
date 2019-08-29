@@ -13,6 +13,7 @@ namespace out_and_back
         public Texture2D ghostSprite;
         public Texture2D ghostAtkSprite;
         public Texture2D slimeSprite;
+        public Texture2D eyeSprite;
 
         //Background sprite
         public Texture2D background;
@@ -59,20 +60,32 @@ namespace out_and_back
             retroFontLarge = game.Content.Load<SpriteFont>("RetroFontLarge");
             batch = game.spriteBatch;
 
-            //Loads up the sprites
+            /*----------- Loads up the sprites ----------*/
+            //Player sprites
             playerSprite = game.Content.Load<Texture2D>("Wizard");
             playerInvincibleSprite = game.Content.Load<Texture2D>("WizardInvincible");
             playerHealthIconSprite = game.Content.Load<Texture2D>("WizardHealth");
-            weaponSprite = game.Content.Load<Texture2D>("FireAttack(Forward)");
+
+            //Enemy sprites
             ghostSprite = game.Content.Load<Texture2D>("Ghost");
-            ghostAtkSprite = game.Content.Load<Texture2D>("GhostAttack");
             slimeSprite = game.Content.Load<Texture2D>("Slime");
+            eyeSprite = game.Content.Load<Texture2D>("Eyeball");
+
+            //Projectile attacks
+            ghostAtkSprite = game.Content.Load<Texture2D>("GhostAttack");
+            weaponSprite = game.Content.Load<Texture2D>("FireAttack(Forward)");
+
+            //Background sprites
             background = game.Content.Load<Texture2D>("BG16-9");
             backgroundSmaller = game.Content.Load<Texture2D>("BG");
+
+            //UI
             titleIcon = game.Content.Load<Texture2D>("Title");
             uiRect = new Texture2D(game.GraphicsDevice, 1, 1);
             uiRect.SetData(new Color[] { Color.White });
             uiOverlay = game.Content.Load<Texture2D>("DarkOverlay");
+
+            /*------------------------------------------*/
 
             //In case we need to scale anything, use scale variable
             scale = new Vector2(targetX / playerSprite.Width, targetX / playerSprite.Width);

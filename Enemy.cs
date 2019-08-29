@@ -54,6 +54,7 @@ namespace out_and_back
             e.AddPattern(MovementPattern.Straight(e, 400));
             e.AddPattern(MovementPattern.Stationary(e));
             e.AddPattern(MovementPattern.Straight(e));
+            e.sprite = AssetManager.Instance.eyeSprite;
             return e;
         }
 
