@@ -17,13 +17,6 @@ namespace out_and_back.MovementPatterns
 
         protected override Vector2 ComputeDelta(int deltaTime)
         {
-            //Failsafe: if you've reach the target exactly, stop
-            if (target.Position == current_position)
-            {
-                CompleteMovement(null);
-                return Vector2.Zero;
-            }
-
             //Move toward the target entity (speed * delta) * (difference/distance)
             return speed * deltaTime / 1000  * (target.Position - current_position) / Vector2.Distance(target.Position, current_position);
         }
