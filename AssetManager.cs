@@ -14,6 +14,7 @@ namespace out_and_back
         public Texture2D ghostAtkSprite;
         public Texture2D slimeSprite;
         public Texture2D eyeSprite;
+        public Texture2D spiderSprite;
 
         //Background sprite
         public Texture2D background;
@@ -70,6 +71,7 @@ namespace out_and_back
             ghostSprite = game.Content.Load<Texture2D>("Ghost");
             slimeSprite = game.Content.Load<Texture2D>("Slime");
             eyeSprite = game.Content.Load<Texture2D>("Eyeball");
+            spiderSprite = game.Content.Load<Texture2D>("Spider");
 
             //Projectile attacks
             ghostAtkSprite = game.Content.Load<Texture2D>("GhostAttack");

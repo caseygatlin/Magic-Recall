@@ -36,9 +36,19 @@ namespace out_and_back
         }
 
 
-        //Slime enemy. Pursues the player.
+        //Spider enemy. Pursues the player.
+        public static Enemy Spider(Game1 game, float direction, Vector2 position)
+        {
+            Enemy s = new Enemy(game, Team.Enemy, direction, 80, position, 30);
+            s.AddPattern(MovementPattern.PursueEntity(s, game.Player));
+            s.sprite = AssetManager.Instance.spiderSprite;
+            return s;
+        }
+
+        //Slime enemy. Pursues the braziers.
         public static Enemy Slime(Game1 game, float direction, Vector2 position)
         {
+            throw new System.NotImplementedException("Slimes will follow braziers, which have not yet been added to the game.");
             Enemy s = new Enemy(game, Team.Enemy, direction, 50, position, 30);
             s.AddPattern(MovementPattern.PursueEntity(s, game.Player));
             s.sprite = AssetManager.Instance.slimeSprite;

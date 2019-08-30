@@ -70,13 +70,13 @@ namespace out_and_back
 
             //Wave 1: A single slime
             waves.AddLast(new Wave(8));
-            waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Slime, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH / 2, -OFF_SCREEN_OFFSET)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Spider, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH / 2, -OFF_SCREEN_OFFSET)));
 
             //Wave 2: Three slimes!
             waves.AddLast(new Wave(10));
-            waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Slime, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH / 2, Globals.SCREEN_HEIGHT + OFF_SCREEN_OFFSET)));
-            waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Slime, Globals.RIGHT_DIR, new Vector2(-OFF_SCREEN_OFFSET, Globals.SCREEN_HEIGHT / 2)));
-            waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Slime, Globals.LEFT_DIR, new Vector2(Globals.SCREEN_WIDTH + OFF_SCREEN_OFFSET, Globals.SCREEN_HEIGHT / 2)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Spider, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH / 2, Globals.SCREEN_HEIGHT + OFF_SCREEN_OFFSET)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Spider, Globals.RIGHT_DIR, new Vector2(-OFF_SCREEN_OFFSET, Globals.SCREEN_HEIGHT / 2)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Spider, Globals.LEFT_DIR, new Vector2(Globals.SCREEN_WIDTH + OFF_SCREEN_OFFSET, Globals.SCREEN_HEIGHT / 2)));
 
             //Wave 3: A single ghost down the middle
             waves.AddLast(new Wave(10));
@@ -89,9 +89,9 @@ namespace out_and_back
 
             //Wave 5: Two slimes from the top and a ghost across the bottom
             waves.AddLast(new Wave(8));
-            waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Slime, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH / 2, -OFF_SCREEN_OFFSET)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Spider, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH / 2, -OFF_SCREEN_OFFSET)));
             waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Ghost, Globals.RIGHT_DIR, new Vector2(-OFF_SCREEN_OFFSET, Globals.SCREEN_HEIGHT * 6 / 7)));
-            waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Slime, Globals.RIGHT_DIR, new Vector2(-OFF_SCREEN_OFFSET, Globals.SCREEN_HEIGHT * 1 / 3)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Spider, Globals.RIGHT_DIR, new Vector2(-OFF_SCREEN_OFFSET, Globals.SCREEN_HEIGHT * 1 / 3)));
 
             //Wave 6: Four ghosts from all around!
             waves.AddLast(new Wave(10));
