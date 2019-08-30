@@ -10,13 +10,17 @@ namespace out_and_back
         const int PLAYER_RADIUS = 30;
         const int PLAYER_WEAPON_RADIUS = 10;
         public int health;
-        public bool isCasting = false;
+        public bool IsCasting
+        {
+            get => primaryProjectile != null;
+        }
         public int invincibility_time = 0;
         private const int WEP_SPAWN_DIST = 50;
         private const int DEFAULT_RANGE = 50;
         private const float DEFAULT_WEAPON_SPEED = Globals.MAX_WEAPON_SPEED;
         private float rangeModifier = 1;
-        private Projectile primaryProjectile;
+        private Projectile primaryProjectile = null;
+        private int castAmount = 3;
 
         public float AttackRange
         {
@@ -120,17 +124,32 @@ namespace out_and_back
         //Throws out the attack
         private void CastWeapon(float mouseDirection, Vector2 playerPos)
         {
-            Projectile weapon = new Projectile((Game1)Game, Team.Player, mouseDirection, AttackSpeed, playerPos, PLAYER_WEAPON_RADIUS);
-            weapon.AddPattern(MovementPatterns.MovementPattern.YoyoFollow(weapon, AttackRange));
-            // Todo: Set this to check the brazier
-            weapon.Removed += Weapon_Removed;
+            for (int i = 0; i < castAmount; ++i)
+            {
+                float direction = mouseDirection + FanAttackModifier(i);
+                
+                Projectile weapon = new Projectile((Game1)Game, Team.Player, direction, AttackSpeed, playerPos, PLAYER_WEAPON_RADIUS);
+                weapon.AddPattern(MovementPatterns.MovementPattern.YoyoFollow(weapon, AttackRange));
+                // Todo: Set this to check the brazier
+                if (i == 0)
+                {
+                    weapon.Removed += Weapon_Removed;
+                    primaryProjectile = weapon;
+                }
+            }
         }
 
+
+        private float FanAttackModifier(int iteration)
+        {
+            if (iteration == 0) return 0;
+            else return MathHelper.PiOver4 * (iteration % 2 == 0 ? iteration - 1 : -iteration);
+        }
 
         //Allows the player to cast again after the attack is done
         private void Weapon_Removed(object sender, System.EventArgs e)
         {
-            isCasting = false;
+            primaryProjectile = null;
         }
 
         //Main drawing loop for the player
@@ -179,7 +198,7 @@ namespace out_and_back
             KeepOnScreen();
 
             // Projectile firing code
-            if (Mouse.GetState().LeftButton == ButtonState.Pressed && isCasting == false)
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed && IsCasting == false)
             {
                 Game1 g = (Game1)Game;
                 Vector2 mousePos = new Vector2(Mouse.GetState().X / g.Scale.X, Mouse.GetState().Y / g.Scale.Y);
@@ -192,9 +211,6 @@ namespace out_and_back
                 Vector2 castPos = new Vector2(castPosX + Position.X, castPosY + Position.Y);
 
                 CastWeapon(castDirection, castPos);
-                //CastWeapon(castDirection - MathHelper.PiOver4, castPos);
-                //CastWeapon(castDirection + MathHelper.PiOver4, castPos);
-                isCasting = true;
             }
 
             if (isInvincible())
