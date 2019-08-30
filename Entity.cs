@@ -124,11 +124,21 @@ namespace out_and_back
         /// </summary>
         /// <param name="other">The other entity colliding with this object.</param>
         public abstract void HandleCollision(Entity other);
-
+        
+        /// <summary>
+        /// This is triggered when some event causes this entity to be removed
+        /// from the game.
+        /// </summary>
         public event EventHandler Removed;
 
         protected virtual void Remove(EventArgs e)
         {
+            // If the unit is already marked for despawning, don't fire the
+            // event again
+            if (shouldDespawn)
+                return;
+            // Mark that the unit is despawning
+            shouldDespawn = true;
             EventHandler handler = Removed;
             handler?.Invoke(this, e);
         }
