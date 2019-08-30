@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 namespace out_and_back
 {
@@ -14,9 +15,13 @@ namespace out_and_back
         GraphicsDeviceManager graphics;
         internal SpriteBatch spriteBatch;
         internal EnitityManager Entities;
+
         internal bool wonGame = false;
+        internal bool playMusic = false;
+
+        //For tracking key presses
         private bool pauseKeyPressed = false;
-        //Song song;
+        private bool muteKeyPressed = false;
 
         public Vector2 Scale = Vector2.One;
         
@@ -42,7 +47,6 @@ namespace out_and_back
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             paused = false;
-            //song = Content.Load<Song>("Music");
             Window.Title = "Magic Recall";
         }
 
@@ -74,7 +78,6 @@ namespace out_and_back
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             state = new GameStates.StartMenuState(this);
-            //MediaPlayer.Play(song);
         }
 
         /// <summary>
@@ -93,18 +96,39 @@ namespace out_and_back
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            //Exits the application at any time
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+
+            /*---------- Pausing -----------*/
+            //Tracks the F11 key so it doesn't pause and unpause repeatedly
+            if (Keyboard.GetState().IsKeyUp(Keys.F1))
+                pauseKeyPressed = false;
+
+            //Pauses the game
             if (Keyboard.GetState().IsKeyDown(Keys.F1) && !pauseKeyPressed)
             {
                 pauseKeyPressed = true;
                 paused = !paused;
             }
-            if (Keyboard.GetState().IsKeyUp(Keys.F1))
+            /*------------------------------*/
+
+
+
+            /*---------- Music -----------*/
+            //Tracks the M key so it doesn't mute and unmute repeatedly
+            if (Keyboard.GetState().IsKeyUp(Keys.M))
+                muteKeyPressed = false;
+
+            if (Keyboard.GetState().IsKeyDown(Keys.M) && !muteKeyPressed)
             {
-                pauseKeyPressed = false;
+                playMusic = !playMusic;
+                muteKeyPressed = true;
             }
+            /*----------------------------*/
+
+
 
             if (Keyboard.GetState().IsKeyDown(Keys.F11))
             {

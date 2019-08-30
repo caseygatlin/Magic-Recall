@@ -15,9 +15,10 @@ namespace out_and_back
         public Texture2D slimeSprite;
         public Texture2D eyeSprite;
 
-        //Background sprite
+        //Background/Environment sprites
         public Texture2D background;
         public Texture2D backgroundSmaller;
+        public Texture2D clouds;
 
         //Start menu sprites
         public Texture2D titleIcon;
