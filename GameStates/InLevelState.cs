@@ -25,7 +25,7 @@ namespace out_and_back.GameStates
         public InLevelState(Game1 currentGame)
         {
             game = currentGame;
-            Player = new Player(game, 0, new Vector2(250, 250));
+            Player = new Player(game, 0, new Vector2(Globals.SCREEN_WIDTH/2, Globals.SCREEN_HEIGHT/2));
 #if RUN_LEVEL
             level = Level.Level1(game);
 #endif
