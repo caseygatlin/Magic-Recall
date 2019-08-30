@@ -25,11 +25,11 @@ namespace out_and_back
     /// </summary>
     internal class Spawn
     {
-        public Func<Game1, float, Vector2, Enemy> what;
+        public Func<Game1, float, Vector2, Entity> what;
         public float direction;
         public Vector2 position;
 
-        public Spawn(Func<Game1, float, Vector2, Enemy> what, float direction, Vector2 position)
+        public Spawn(Func<Game1, float, Vector2, Entity> what, float direction, Vector2 position)
         {
             this.what = what;
             this.direction = direction;
@@ -58,15 +58,24 @@ namespace out_and_back
         {
             this.game = game;
             this.waves = waves;
-            total_to_spawn = waves.Sum(x => x.spawns.Count());
+
+            total_to_spawn = waves.Skip(1).Sum(x => x.spawns.Count());//Wave 0 spawns only terrain features, waves 1+ spawn only enemies
         }
         public static Level Level1(Game1 game)
         {
             //Set up each wave of spawns
             LinkedList<Wave> waves = new LinkedList<Wave>();
 
-            //Wave 0: Give the player a little bit of time to orient themselves
+            //Wave 0: Give the player a little bit of time to orient themselves; also add terrain features
             waves.AddLast(new Wave(5));
+            waves.Last.Value.spawns.AddLast(new Spawn(PLACEHOLDERFOROBSTACLES.Crystal, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH / 2 - 100, Globals.SCREEN_HEIGHT / 2)));
+            waves.Last.Value.spawns.AddLast(new Spawn(PLACEHOLDERFOROBSTACLES.Crystal, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH / 2 + 100, Globals.SCREEN_HEIGHT / 2)));
+            waves.Last.Value.spawns.AddLast(new Spawn(PLACEHOLDERFOROBSTACLES.Crystal, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH / 2, Globals.SCREEN_HEIGHT / 2 - 100)));
+            waves.Last.Value.spawns.AddLast(new Spawn(PLACEHOLDERFOROBSTACLES.Crystal, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH / 2, Globals.SCREEN_HEIGHT / 2 + 100)));
+            waves.Last.Value.spawns.AddLast(new Spawn(PLACEHOLDERFOROBSTACLES.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * 1 / 6, Globals.SCREEN_HEIGHT * 1 / 6)));
+            waves.Last.Value.spawns.AddLast(new Spawn(PLACEHOLDERFOROBSTACLES.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * 5 / 6, Globals.SCREEN_HEIGHT * 1 / 6)));
+            waves.Last.Value.spawns.AddLast(new Spawn(PLACEHOLDERFOROBSTACLES.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * 1 / 6, Globals.SCREEN_HEIGHT * 5 / 6)));
+            waves.Last.Value.spawns.AddLast(new Spawn(PLACEHOLDERFOROBSTACLES.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * 5 / 6, Globals.SCREEN_HEIGHT * 5 / 6)));
 
             //Wave 1: A single slime
             waves.AddLast(new Wave(8));
@@ -80,11 +89,11 @@ namespace out_and_back
 
             //Wave 3: A single ghost down the middle
             waves.AddLast(new Wave(10));
-            waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Ghost, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH/2, -OFF_SCREEN_OFFSET)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Ghost, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH / 2, -OFF_SCREEN_OFFSET)));
 
             //Wave 4: Two ghosts from left and right
             waves.AddLast(new Wave(8));
-            waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Ghost, Globals.RIGHT_DIR, new Vector2(-OFF_SCREEN_OFFSET, Globals.SCREEN_HEIGHT*1/3)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Ghost, Globals.RIGHT_DIR, new Vector2(-OFF_SCREEN_OFFSET, Globals.SCREEN_HEIGHT * 1 / 3)));
             waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Ghost, Globals.LEFT_DIR, new Vector2(Globals.SCREEN_WIDTH + OFF_SCREEN_OFFSET, Globals.SCREEN_HEIGHT * 2 / 3)));
 
             //Wave 5: Two slimes from the top and a ghost across the bottom
@@ -123,8 +132,9 @@ namespace out_and_back
                     //Spawn the current wave
                     foreach (Spawn s in wave.spawns)
                     {
-                        Enemy e = s.what(game, s.direction, s.position);
-                        e.Removed += EnemyRemoved;
+                        Entity e = s.what(game, s.direction, s.position);
+                        if (e is Enemy)
+                            e.Removed += EnemyRemoved;
                     }
                 }
             }

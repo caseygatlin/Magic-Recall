@@ -76,6 +76,7 @@
     <Compile Include="MovementPatterns\SpiralMovementPattern.cs" />
     <Compile Include="MovementPatterns\YoyoMovementPatternFollow.cs" />
     <Compile Include="MovementPatterns\StationaryMovementPattern.cs" />
+    <Compile Include="PLACEHOLDERFOROBSTACLES.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="Game1.cs" />
