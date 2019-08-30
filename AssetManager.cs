@@ -21,6 +21,14 @@ namespace out_and_back
         public Texture2D backgroundSmaller;
         public Texture2D clouds;
 
+        //Terrain sprites
+        public Texture2D crystalSprite;
+        public Texture2D treeSprite;
+        public Texture2D brazierTripleLitSprite;
+        public Texture2D brazierRangeLitSprite;
+        public Texture2D brazierTripleUnlitSprite;
+        public Texture2D brazierRangeUnlitSprite;
+
         //Start menu sprites
         public Texture2D titleIcon;
 
@@ -81,6 +89,14 @@ namespace out_and_back
             //Background sprites
             background = game.Content.Load<Texture2D>("BG16-9");
             backgroundSmaller = game.Content.Load<Texture2D>("BG");
+
+            //Terrain sprites
+            crystalSprite = game.Content.Load<Texture2D>("Crystal");
+            treeSprite = game.Content.Load<Texture2D>("Tree");
+            brazierTripleLitSprite = game.Content.Load<Texture2D>("BrazierTripleLit");
+            brazierRangeLitSprite = game.Content.Load<Texture2D>("BrazierRangeLit");
+            brazierTripleUnlitSprite = game.Content.Load<Texture2D>("BrazierTripleUnlit");
+            brazierRangeUnlitSprite = game.Content.Load<Texture2D>("BrazierRangeUnlit");
 
             //UI
             titleIcon = game.Content.Load<Texture2D>("Title");
