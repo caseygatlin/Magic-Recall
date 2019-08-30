@@ -27,7 +27,7 @@ namespace out_and_back.GameStates
             game = currentGame;
             Player = new Player(game, 0, new Vector2(Globals.SCREEN_WIDTH/2, Globals.SCREEN_HEIGHT/2));
 #if RUN_LEVEL
-            level = Level.Level1(game);
+            level = Level.Level2(game);
 #endif
 
             songPt1 = game.Content.Load<SoundEffect>("Level1MusPt1");
@@ -40,7 +40,7 @@ namespace out_and_back.GameStates
 
         public override void Draw(Game1 game, GameTime gameTime)
         {
-            AssetManager.Instance.DrawSprite(Vector2.Zero, AssetManager.Instance.background);         
+            AssetManager.Instance.DrawSprite(Vector2.Zero, AssetManager.Instance.background, depth:.9f);         
 
 #if RUN_LEVEL
             level.Draw(gameTime);

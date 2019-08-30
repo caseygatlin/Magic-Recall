@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using out_and_back.MovementPatterns;
+using System.Linq;
 
 namespace out_and_back
 {
@@ -45,12 +46,19 @@ namespace out_and_back
             return s;
         }
 
-        //Slime enemy. Pursues the braziers.
+        //Slime enemy. Pursues the nearest brazier.
         public static Enemy Slime(Game1 game, float direction, Vector2 position)
         {
-            throw new System.NotImplementedException("Slimes will follow braziers, which have not yet been added to the game.");
             Enemy s = new Enemy(game, Team.Enemy, direction, 50, position, 30);
-            s.AddPattern(MovementPattern.PursueEntity(s, game.Player));
+            Entity target_brazier = game.Entities.Braziers.First();
+            foreach(Entity brazier in game.Entities.Braziers)
+            {
+                if(Vector2.Distance(position, brazier.Position) < Vector2.Distance(position, target_brazier.Position))
+                {
+                    target_brazier = brazier;
+                }
+            }
+            s.AddPattern(MovementPattern.PursueEntity(s, target_brazier));
             s.sprite = AssetManager.Instance.slimeSprite;
             return s;
         }

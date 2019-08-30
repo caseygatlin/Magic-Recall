@@ -38,7 +38,7 @@ namespace out_and_back
         public override void Draw(GameTime gameTime)
         {
             if (sprite != null)
-                AssetManager.Instance.DrawSprite(this, sprite);
+                AssetManager.Instance.DrawSprite(this, sprite, 0, depth:.8f);   //Obstacles should be drawn in front of the background but behind everything else
             else
                 AssetManager.Instance.PrintString("[]", Position, Color.Black);
 

@@ -6,8 +6,8 @@ namespace out_and_back
     class EnitityManager : DrawableGameComponent
     {
         public Player Player { get; private set; }
+        public LinkedList<PLACEHOLDERFOROBSTACLES> Braziers { get; } = new LinkedList<PLACEHOLDERFOROBSTACLES>();
         LinkedList<Projectile> playerAttacks = new LinkedList<Projectile>();
-
         LinkedList<Entity> enemies = new LinkedList<Entity>();
         LinkedList<Projectile> enemyAttacks = new LinkedList<Projectile>();
         LinkedList<Entity> removalQueue = new LinkedList<Entity>();
@@ -31,6 +31,9 @@ namespace out_and_back
                     break;
                 case Player pl:
                     Player = pl;
+                    break;
+                case PLACEHOLDERFOROBSTACLES b: //Add braziers to the list so slimes can easily find and pursue them
+                    Braziers.AddLast(b);
                     break;
                 default:
                     enemies.AddLast(e);
@@ -56,6 +59,9 @@ namespace out_and_back
                 case Player pl:
                     Player = null;
                     break;
+                case PLACEHOLDERFOROBSTACLES b:
+                    Braziers.Remove(b);
+                    break;
                 default:
                     enemies.Remove(e);
                     break;
@@ -70,6 +76,8 @@ namespace out_and_back
                 enemies.RemoveFirst();
             while (enemyAttacks.Count != 0)
                 enemyAttacks.RemoveFirst();
+            while (Braziers.Count != 0)
+                Braziers.RemoveFirst();
         }
 
         private void AddEnemy(Entity enemy)
@@ -89,6 +97,7 @@ namespace out_and_back
             foreach (var patk in playerAttacks) patk.Draw(gameTime);
             foreach (var enemy in enemies) enemy.Draw(gameTime);
             foreach (var proj in enemyAttacks) proj.Draw(gameTime);
+            foreach (var brazier in Braziers) brazier.Draw(gameTime);
         }
 
         public override void Update(GameTime gameTime)
