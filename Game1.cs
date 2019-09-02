@@ -17,7 +17,7 @@ namespace out_and_back
         internal EnitityManager Entities;
 
         internal bool wonGame = false;
-        internal bool playMusic = false;
+        internal bool playMusic = true;
 
         //For tracking key presses
         private bool pauseKeyPressed = false;

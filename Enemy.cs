@@ -71,7 +71,7 @@ namespace out_and_back
         public static Enemy Eye(Game1 game, float direction, Vector2 position)
         {
             Enemy e = new Enemy(game, Team.Enemy, direction, 25, position, 30);
-            var eyeAttackPattern = new AttackPatterns.FanAttackPattern(e, 3, null, null, 2000, null, null, Projectile.ProjectileType.GHOST_FLAME);
+            var eyeAttackPattern = new AttackPatterns.FanAttackPattern(e, 3, null, null, 2000, null, null, Projectile.ProjectileType.EYE_BLAST);
             eyeAttackPattern.SetMovementPattern(MovementPattern.Spiral);
             e.SetAttackPattern(eyeAttackPattern);
             e.AddPattern(MovementPattern.Straight(e, 400));
