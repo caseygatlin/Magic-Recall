@@ -12,7 +12,8 @@ namespace out_and_back
         {
             UNDEFINED,
             FIREBALL,
-            GHOST_FLAME
+            GHOST_FLAME,
+            EYE_BLAST
         }
 
         private ProjectileType type;
@@ -68,6 +69,10 @@ namespace out_and_back
             else if (type == ProjectileType.GHOST_FLAME)
             {
                 AssetManager.Instance.DrawSprite(this, AssetManager.Instance.ghostAtkSprite, 3 * MathHelper.Pi / 2);
+            }
+            else if (type == ProjectileType.EYE_BLAST)
+            {
+                AssetManager.Instance.DrawSprite(this, AssetManager.Instance.eyeAtkSprite,  MathHelper.Pi / 2);
             }
             else if (type == ProjectileType.UNDEFINED)
             {

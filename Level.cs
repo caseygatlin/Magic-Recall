@@ -140,11 +140,12 @@ namespace out_and_back
             waves.Last.Value.spawns.AddLast(new Spawn(Obstacle.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .75f, Globals.SCREEN_HEIGHT * .50f)));
             waves.Last.Value.spawns.AddLast(new Spawn(Obstacle.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .80f, Globals.SCREEN_HEIGHT * .50f)));
             waves.Last.Value.spawns.AddLast(new Spawn(Obstacle.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .85f, Globals.SCREEN_HEIGHT * .50f)));
-            waves.Last.Value.spawns.AddLast(new Spawn(Obstacle.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .65f, Globals.SCREEN_HEIGHT * .65f)));
             waves.Last.Value.spawns.AddLast(new Spawn(Obstacle.Crystal, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .3f, Globals.SCREEN_HEIGHT * .35f)));
             waves.Last.Value.spawns.AddLast(new Spawn(Obstacle.Crystal, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .25f, Globals.SCREEN_HEIGHT * .4f)));
             waves.Last.Value.spawns.AddLast(new Spawn(Obstacle.Crystal, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .70f, Globals.SCREEN_HEIGHT * .55f)));
             waves.Last.Value.spawns.AddLast(new Spawn(Obstacle.Crystal, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .65f, Globals.SCREEN_HEIGHT * .60f)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Obstacle.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .65f, Globals.SCREEN_HEIGHT * .65f)));
+
 
             //Wave 1: Four spiders from NE; pushes toward south-center and away from triple brazier
             waves.AddLast(new Wave(2));

@@ -14,6 +14,7 @@ namespace out_and_back
         public Texture2D ghostAtkSprite;
         public Texture2D slimeSprite;
         public Texture2D eyeSprite;
+        public Texture2D eyeAtkSprite;
         public Texture2D spiderSprite;
 
         // Cursor images (in Content/Cursors)
@@ -91,6 +92,7 @@ namespace out_and_back
 
             //Projectile attacks
             ghostAtkSprite = game.Content.Load<Texture2D>("GhostAttack");
+            eyeAtkSprite = game.Content.Load<Texture2D>("EyeBlast");
             weaponSprite = game.Content.Load<Texture2D>("FireAttack(Forward)");
 
             //Background sprites

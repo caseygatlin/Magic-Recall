@@ -68,6 +68,7 @@ namespace out_and_back.GameStates
                 instance.Stop();
                 instance.Dispose();
                 game.paused = true;
+                game.paused_nonPlyr = false;
                 game.state = new GameStates.GameOverState(game);
                 inTransition = true;
             }
@@ -77,6 +78,7 @@ namespace out_and_back.GameStates
                 instance.Dispose();
                 game.wonGame = true;
                 game.paused = true;
+                game.paused_nonPlyr = false;
                 game.state = new GameStates.GameOverState(game);
                 inTransition = true;
             }

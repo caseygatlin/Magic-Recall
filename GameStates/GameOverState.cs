@@ -36,7 +36,8 @@ namespace out_and_back.GameStates
                 game.Entities.ClearAll();
                 bool previously_won = game.wonGame;
                 game.wonGame = false;
-                game.paused = false;                
+                game.paused = false;
+                game.paused_nonPlyr = false;
                 game.state = new GameStates.InLevelState(game, (previously_won ? Level.Level2(game) : Level.Level1(game)));
             }
         }
