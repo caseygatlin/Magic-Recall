@@ -146,7 +146,7 @@ namespace out_and_back
                     graphics.PreferredBackBufferWidth = Globals.SCREEN_WIDTH;
                 }
                 graphics.ApplyChanges();
-                Scale = new Vector2(graphics.PreferredBackBufferWidth / Globals.SCREEN_WIDTH, graphics.PreferredBackBufferHeight / Globals.SCREEN_HEIGHT);
+                Scale = new Vector2((float)graphics.PreferredBackBufferWidth / Globals.SCREEN_WIDTH, (float)graphics.PreferredBackBufferHeight / Globals.SCREEN_HEIGHT);
             }
 
             state.Update(this, gameTime);
