@@ -22,7 +22,6 @@ namespace out_and_back.GameStates
 
         public StartMenuState(Game1 game)
         {
-            AssetManager.Initialize(game);
             assetManager = AssetManager.Instance;
             titleIcon = assetManager.titleIcon;
             songPt1 = game.Content.Load<SoundEffect>("TitleMusicPt1");

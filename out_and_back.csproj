@@ -59,6 +59,7 @@
     <Compile Include="AssetManager.cs" />
     <Compile Include="AttackPatterns\AttackPattern.cs" />
     <Compile Include="AttackPatterns\FanAttackPattern.cs" />
+    <Compile Include="AttackStateChangeEventArgs.cs" />
     <Compile Include="Brazier.cs" />
     <Compile Include="Obstacle.cs" />
     <Compile Include="Collider.cs" />

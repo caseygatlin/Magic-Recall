@@ -77,6 +77,8 @@ namespace out_and_back
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            AssetManager.Initialize(this);
+            Mouse.SetCursor(MouseCursor.FromTexture2D(AssetManager.Instance.StaffFullAndOutRange, 0, 0));
             state = new GameStates.StartMenuState(this);
         }
 
@@ -148,8 +150,36 @@ namespace out_and_back
             }
 
             state.Update(this, gameTime);
-            Player = state.Player; //I couldn't figure out a better way to work through this
+            if (state.Player != Player)
+            {
+                Player = state.Player; //I couldn't figure out a better way to work through this
+                Player.AttackStateChanged += Player_AttackStateChanged;
+            }
+
             base.Update(gameTime);
+        }
+
+        private void Player_AttackStateChanged(object sender, System.EventArgs e)
+        {
+            var ascea = e as AttackStateChangeEventArgs;
+            MouseCursor cursor;
+            AssetManager am = AssetManager.Instance;
+            switch (ascea.AttackState)
+            {
+                case AttackState.AbleInRange:
+                    cursor = MouseCursor.FromTexture2D(am.StaffFullAndInRange, 0, 0);
+                    break;
+                case AttackState.AbleOutOfRange:
+                    cursor = MouseCursor.FromTexture2D(am.StaffFullAndOutRange, 0, 0);
+                    break;
+                case AttackState.Unable:
+                    cursor = MouseCursor.FromTexture2D(am.StaffEmpty, 0, 0);
+                    break;
+                default:
+                    throw new System.NotImplementedException($"{ascea.AttackState} is not implemented");
+            }
+
+            Mouse.SetCursor(cursor);
         }
 
         /// <summary>
