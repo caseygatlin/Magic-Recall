@@ -34,15 +34,6 @@ namespace out_and_back
         {
             maxLifetime = lifetime;
             type = projType;
-
-            //Use if you want straight back and forth
-            //AddPattern(team == Team.Player ? MovementPattern.Yoyo(this, 1) : MovementPattern.Straight(this, float.PositiveInfinity));
-            
-            
-            /*if (Pattern is YoyoMovementPattern)
-            {
-                AddPattern(MovementPattern.Straight(this, 100));
-            }*/
         }
 
         new public void AddPattern(MovementPattern pattern)
@@ -93,7 +84,7 @@ namespace out_and_back
             if (Team == other.Team || Team == Team.Player) return;
 
             //Ignore invincible players
-            if (other is Player && ((Player)other).isInvincible()) return;
+            if (other is Player && ((Player)other).IsInvincible()) return;
 
             // It's hit an enemy and should therefore despawn.
             Remove(null);

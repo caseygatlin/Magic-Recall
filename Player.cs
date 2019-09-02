@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 
-
 namespace out_and_back
 {
 
@@ -23,21 +22,35 @@ namespace out_and_back
         private const float DEFAULT_WEAPON_SPEED = Globals.MAX_WEAPON_SPEED;
         private float rangeModifier = 1;
         private Projectile primaryProjectile = null;
-        private int castAmount = 3;
 
+        private const int BONUS_FIREBALL_COUNT = 3;
+        private const int NORMAL_FIREBALL_COUNT = 1;
+        private int castAmount = NORMAL_FIREBALL_COUNT;
+
+        /// <summary>
+        /// How far the player's attack can go.
+        /// </summary>
         public float AttackRange
         {
-            get => rangeModifier * DEFAULT_RANGE;
+            get => DEFAULT_RANGE * (RangeBrazierLit ? rangeModifier : 1);
         }
 
+        /// <summary>
+        /// How fast the player's attack goes.
+        /// </summary>
         public float AttackSpeed
         {
-            get => rangeModifier * DEFAULT_WEAPON_SPEED;
+            get => DEFAULT_WEAPON_SPEED * (RangeBrazierLit ? rangeModifier : 1);
         }
-        private bool hittingWall = false;
-        private float obstacleDir = 0f;
-        private float obstacleX = -1f;
-        private float obstacleY = -1f;
+
+        public bool RangeBrazierLit
+        {
+            get; private set;
+        } = false;
+        public bool TripleBrazierLit
+        {
+            get; private set;
+        } = false;
 
         /// <summary>
         /// Basic constructor for a player entity.
@@ -77,7 +90,6 @@ namespace out_and_back
                 Speed = Globals.MAX_PLAYER_SPEED;
 
             }
-
 
             if (Keyboard.GetState().IsKeyDown(Keys.S))
             {
@@ -146,7 +158,6 @@ namespace out_and_back
             }
         }
 
-
         private float FanAttackModifier(int iteration)
         {
             if (iteration == 0) return 0;
@@ -163,12 +174,12 @@ namespace out_and_back
         public override void Draw(GameTime gameTime)
         {
             //Draw the player
-            AssetManager.Instance.DrawSprite(this, isInvincible() ? AssetManager.Instance.playerInvincibleSprite : AssetManager.Instance.playerSprite);
+            AssetManager.Instance.DrawSprite(this, IsInvincible() ? AssetManager.Instance.playerInvincibleSprite : AssetManager.Instance.playerSprite);
 
             //Draw the player's health
             AssetManager.Instance.DrawRectangle(new Rectangle(Globals.SCREEN_WIDTH - 80, 8, 72, 40), Color.Black);
             AssetManager.Instance.DrawSprite(new Vector2(Globals.SCREEN_WIDTH - 87, 10), AssetManager.Instance.playerHealthIconSprite, 0.1f);
-            AssetManager.Instance.PrintString("x" + health, new Vector2(Globals.SCREEN_WIDTH - 35, 30), Color.White);
+            AssetManager.Instance.PrintString($"x{health}", new Vector2(Globals.SCREEN_WIDTH - 35, 30), Color.White);
         }
 
         public override void HandleCollision(Entity other)
@@ -186,12 +197,10 @@ namespace out_and_back
             }
 
             //If invincible, return.
-            if (isInvincible()) return;
+            if (IsInvincible()) return;
 
             // It hits an entity on the same team, return.
             if (Team == other.Team) return;
-
-            
 
             // It's hit an entity either enemy or projectile - and should therefore lose health.
             health--;
@@ -205,7 +214,7 @@ namespace out_and_back
             }
         }
 
-        public bool isInvincible()
+        public bool IsInvincible()
         {
             return invincibility_time > 0;
         }
@@ -233,10 +242,8 @@ namespace out_and_back
                 CastWeapon(castDirection, castPos);
             }
 
-            if (isInvincible())
-            {
+            if (IsInvincible())
                 invincibility_time = Math.Max(invincibility_time - gameTime.ElapsedGameTime.Milliseconds, 0);
-            }
 
             //Retains a list of the player's positions from the last 10 frames
             if (positionsList.Count < 10)
@@ -250,9 +257,31 @@ namespace out_and_back
             }
         }
 
+        /// <summary>
+        /// If the player has the range brazier lit, increases the range the player can
+        /// fire by 10% of the base range.
+        /// </summary>
         public void IncreaseRange()
         {
-            rangeModifier += .1f;
+            if (RangeBrazierLit)
+                rangeModifier += .1f;
+        }
+
+        /// <summary>
+        /// Toggles whether or not the player can get extra range by defeating enemies.
+        /// </summary>
+        public void ToggleRangeBrazierLit()
+        {
+            RangeBrazierLit = !RangeBrazierLit;
+        }
+
+        /// <summary>
+        /// Causes the player to toggle whether or not they have the Bonus Brazier lit.
+        /// </summary>
+        public void ToggleTripleBrazierLit()
+        {
+            TripleBrazierLit = !TripleBrazierLit;
+            castAmount = TripleBrazierLit ? BONUS_FIREBALL_COUNT : NORMAL_FIREBALL_COUNT;
         }
     }
 }

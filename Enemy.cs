@@ -69,7 +69,7 @@ namespace out_and_back
         public static Enemy Eye(Game1 game, float direction, Vector2 position)
         {
             Enemy e = new Enemy(game, Team.Enemy, direction, 25, position, 30);
-            var eyeAttackPattern = new AttackPatterns.FanAttackPattern(e, 3, null, null, 2000, null, null, Projectile.ProjectileType.FIREBALL);
+            var eyeAttackPattern = new AttackPatterns.FanAttackPattern(e, 3, null, null, 2000, null, null, Projectile.ProjectileType.GHOST_FLAME);
             eyeAttackPattern.SetMovementPattern(MovementPattern.Spiral);
             e.SetAttackPattern(eyeAttackPattern);
             e.AddPattern(MovementPattern.Straight(e, 400));
@@ -116,7 +116,7 @@ namespace out_and_back
             if (Team == other.Team) return;
 
             //Ignore invincible players
-            if (other is Player && ((Player)other).isInvincible()) return;
+            if (other is Player && ((Player)other).IsInvincible()) return;
 
             //Die on player or projectiles from the opposite team
             if (other is Player || (other is Projectile && other.Team != Team))
