@@ -16,6 +16,11 @@ namespace out_and_back
         public Texture2D eyeSprite;
         public Texture2D spiderSprite;
 
+        // Cursor images (in Content/Cursors)
+        public Texture2D StaffFullAndInRange;
+        public Texture2D StaffFullAndOutRange;
+        public Texture2D StaffEmpty;
+
         //Background/Environment sprites
         public Texture2D background;
         public Texture2D backgroundSmaller;
@@ -100,7 +105,14 @@ namespace out_and_back
             brazierTripleUnlitSprite = game.Content.Load<Texture2D>("BrazierTripleUnlit");
             brazierRangeUnlitSprite = game.Content.Load<Texture2D>("BrazierRangeUnlit");
 
+            // Cursor sprites
+            game.Content.RootDirectory = "Content/Cursors";
+            StaffEmpty = game.Content.Load<Texture2D>("empty");
+            StaffFullAndInRange = game.Content.Load<Texture2D>("full_in_range");
+            StaffFullAndOutRange = game.Content.Load<Texture2D>("full_out_range");
+
             //UI
+            game.Content.RootDirectory = "Content";
             titleIcon = game.Content.Load<Texture2D>("Title");
             gameOverIcon = game.Content.Load<Texture2D>("GameOver");
             uiRect = new Texture2D(game.GraphicsDevice, 1, 1);
