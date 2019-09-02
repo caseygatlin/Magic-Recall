@@ -109,9 +109,9 @@ namespace out_and_back
             waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Ghost, Globals.UP_RIGHT_DIR, new Vector2(-OFF_SCREEN_OFFSET, Globals.SCREEN_HEIGHT + OFF_SCREEN_OFFSET)));
             waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Ghost, Globals.DOWN_LEFT_DIR, new Vector2(Globals.SCREEN_WIDTH + OFF_SCREEN_OFFSET, -OFF_SCREEN_OFFSET)));
 
-            // Wave 7: Eyes see you
-            //waves.AddLast(new Wave(5));
-            //waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Eye, 0, new Vector2(0, 100)));
+            // Wave 7: Eye see you...
+            waves.AddLast(new Wave(10));
+            waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Eye, Globals.LEFT_DIR, new Vector2(Globals.SCREEN_WIDTH + OFF_SCREEN_OFFSET, Globals.SCREEN_HEIGHT / 2)));
 
             return new Level(game, waves);
         }
@@ -179,8 +179,8 @@ namespace out_and_back
             waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Ghost, Globals.DOWN_LEFT_DIR, new Vector2(Globals.SCREEN_WIDTH + OFF_SCREEN_OFFSET, -OFF_SCREEN_OFFSET)));
             waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Spider, Globals.UP_DIR, new Vector2(Globals.SCREEN_WIDTH * .6f, Globals.SCREEN_HEIGHT + OFF_SCREEN_OFFSET)));
             waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Spider, Globals.UP_DIR, new Vector2(Globals.SCREEN_WIDTH * .8f, Globals.SCREEN_HEIGHT + OFF_SCREEN_OFFSET)));
-            waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Spider, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .6f, Globals.SCREEN_HEIGHT - OFF_SCREEN_OFFSET)));
-            waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Spider, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .8f, Globals.SCREEN_HEIGHT - OFF_SCREEN_OFFSET)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Spider, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .6f, -OFF_SCREEN_OFFSET)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Enemy.Spider, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .8f, -OFF_SCREEN_OFFSET)));
 
             //Wave 7: Slime rush on range brazier to ensure they haven't forgotten about it
             waves.AddLast(new Wave(12));
