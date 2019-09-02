@@ -21,7 +21,7 @@ namespace out_and_back.GameStates
             assetManager.DrawSprite(Vector2.Zero, AssetManager.Instance.background);
 
             if (!game.wonGame)
-                assetManager.PrintStringCenter("Game Over", new Vector2(Globals.SCREEN_WIDTH / 2, Globals.SCREEN_HEIGHT / 3), Color.White, assetManager.retroFontLarge);
+                assetManager.DrawIcon(assetManager.gameOverIcon, new Vector2(Globals.SCREEN_WIDTH / 2, Globals.SCREEN_HEIGHT / 2), 0.1f);
             else
                 assetManager.PrintStringCenter("Enemies Defeated: ALL OF THEM", new Vector2(Globals.SCREEN_WIDTH / 2, Globals.SCREEN_HEIGHT / 3), Color.White, assetManager.retroFontLarge);
 

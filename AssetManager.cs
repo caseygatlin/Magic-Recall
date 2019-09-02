@@ -32,6 +32,9 @@ namespace out_and_back
         //Start menu sprites
         public Texture2D titleIcon;
 
+        //Game Over sprite
+        public Texture2D gameOverIcon;
+
         //Base sprite for simple rectangles (nice for UI)
         public Texture2D uiRect;
 
@@ -100,10 +103,10 @@ namespace out_and_back
 
             //UI
             titleIcon = game.Content.Load<Texture2D>("Title");
+            gameOverIcon = game.Content.Load<Texture2D>("GameOver");
             uiRect = new Texture2D(game.GraphicsDevice, 1, 1);
             uiRect.SetData(new Color[] { Color.White });
             uiOverlay = game.Content.Load<Texture2D>("DarkOverlay");
-
             /*------------------------------------------*/
 
             //In case we need to scale anything, use scale variable
