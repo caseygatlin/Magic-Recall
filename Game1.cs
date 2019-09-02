@@ -21,11 +21,18 @@ namespace out_and_back
 
         //For tracking key presses
         private bool pauseKeyPressed = false;
+        private bool pauseKeyPressed_nonPlyr = false;
         private bool muteKeyPressed = false;
 
         public Vector2 Scale = Vector2.One;
         
         public bool paused
+        {
+            get;
+            internal set;
+        }
+
+        public bool paused_nonPlyr
         {
             get;
             internal set;
@@ -47,6 +54,7 @@ namespace out_and_back
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             paused = false;
+            paused_nonPlyr = false;
             Window.Title = "Magic Recall";
         }
 
@@ -104,15 +112,51 @@ namespace out_and_back
 
 
             /*---------- Pausing -----------*/
-            //Tracks the F11 key so it doesn't pause and unpause repeatedly
-            if (Keyboard.GetState().IsKeyUp(Keys.F1))
+            //Tracks the P key so it doesn't pause and unpause repeatedly
+            if (Keyboard.GetState().IsKeyUp(Keys.P))
                 pauseKeyPressed = false;
 
             //Pauses the game
-            if (Keyboard.GetState().IsKeyDown(Keys.F1) && !pauseKeyPressed)
+            if (Keyboard.GetState().IsKeyDown(Keys.P) && !pauseKeyPressed && (state is GameStates.InLevelState))
             {
                 pauseKeyPressed = true;
-                paused = !paused;
+                if (paused)
+                {
+                    paused = false;
+                    paused_nonPlyr = false;
+                }
+                else
+                {
+                    paused = true;
+                }
+            }
+            /*------------------------------*/
+
+
+
+            /*---------- Pause all Except Player (Use for Demo) -----------*/
+            //Tracks the F1 key so it doesn't pause and unpause repeatedly
+            if (Keyboard.GetState().IsKeyUp(Keys.F1))
+                pauseKeyPressed_nonPlyr = false;
+
+            //Pauses the game for all except player
+            if (Keyboard.GetState().IsKeyDown(Keys.F1) &&
+                !pauseKeyPressed_nonPlyr &&
+                (state is GameStates.InLevelState))
+            {
+                pauseKeyPressed_nonPlyr = true;
+                if (paused && !paused_nonPlyr)
+                    paused_nonPlyr = true;
+                else if (paused && paused_nonPlyr)
+                {
+                    paused = false;
+                    paused_nonPlyr = false;
+                }
+                else if (!paused && !paused_nonPlyr)
+                {
+                    paused = true;
+                    paused_nonPlyr = true;
+                }
             }
             /*------------------------------*/
 
@@ -150,7 +194,7 @@ namespace out_and_back
             }
 
             state.Update(this, gameTime);
-            if (state.Player != Player)
+            if (state.Player != Player && state.Player != null)
             {
                 Player = state.Player; //I couldn't figure out a better way to work through this
                 Player.AttackStateChanged += Player_AttackStateChanged;

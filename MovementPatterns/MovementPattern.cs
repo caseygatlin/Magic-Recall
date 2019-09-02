@@ -10,6 +10,7 @@ namespace out_and_back.MovementPatterns
     {
         protected float speed;
         protected bool paused = false;
+        protected bool paused_nonPlyr = false;
         private Entity parentEntity;
 
         public MovementPattern(Entity parent)
@@ -24,6 +25,7 @@ namespace out_and_back.MovementPatterns
         protected void checkForPaused()
         {
             paused = parentEntity.currentGame.paused;
+            paused_nonPlyr = parentEntity.currentGame.paused_nonPlyr;
         }
 
         /// <summary>

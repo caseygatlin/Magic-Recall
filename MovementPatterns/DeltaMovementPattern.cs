@@ -8,9 +8,12 @@ namespace out_and_back.MovementPatterns
     /// </summary>
     internal abstract class DeltaMovementPattern : MovementPattern
     {
+
+        private Entity parent;
         protected Vector2 current_position;
         public DeltaMovementPattern(Entity parent) : base(parent)
         {
+            this.parent = parent;
             current_position = parent.Position;
         }
 
@@ -30,7 +33,18 @@ namespace out_and_back.MovementPatterns
         public sealed override void Update(int deltaTime)
         {
             checkForPaused();
-            if (paused) return;
+            if (parent.Team == Team.Player)
+            {
+                if (paused && !paused_nonPlyr)
+                    return;
+            }            
+            else
+            {
+                if (paused)
+                    return;
+            }
+                
+
             current_position += ComputeDelta(deltaTime);
         }
         /// <summary>

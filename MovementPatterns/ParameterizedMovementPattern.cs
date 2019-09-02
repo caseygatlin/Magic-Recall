@@ -11,6 +11,7 @@ namespace out_and_back.MovementPatterns
         protected Vector2 origin;
         protected float angle;
         private int timeflow = 1;
+        private Entity parent;
 
         public float Lifetime
         {
@@ -23,6 +24,7 @@ namespace out_and_back.MovementPatterns
         /// </summary>
         public ParameterizedMovementPattern(Entity parent) : base(parent)
         {
+            this.parent = parent;
             origin = parent.Position;
             angle = parent.Direction;
         }
@@ -52,7 +54,18 @@ namespace out_and_back.MovementPatterns
         public override void Update(int deltaTime)
         {
             checkForPaused();
-            if (paused) return;
+            if (parent.Team == Team.Player)
+            {
+                if (paused && !paused_nonPlyr)
+                    return;
+            }
+            else
+            {
+                if (paused)
+                    return;
+            }
+                
+            
             Lifetime += deltaTime * timeflow;
         }
 

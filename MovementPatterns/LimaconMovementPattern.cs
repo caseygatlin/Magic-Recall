@@ -10,6 +10,7 @@ namespace out_and_back.MovementPatterns
     {
         private readonly float a;
         private readonly float b;
+        private Entity parent;
         
         /// <summary>
         /// Creates a pattern that moves an object like a limacon.
@@ -19,6 +20,7 @@ namespace out_and_back.MovementPatterns
         /// <param name="b">Affects how far out the looping goes.</param>
         public LimaconMovementPattern(Entity parent, float a, float b) : base(parent)
         {
+            this.parent = parent;
             this.a = a;
             this.b = b;
 
@@ -31,6 +33,18 @@ namespace out_and_back.MovementPatterns
         public override void Update(int deltaTime)
         {
             checkForPaused();
+            if (parent.Team == Team.Player)
+            {
+                if (paused && !paused_nonPlyr)
+                    return;
+            }
+            else
+            {
+                if (paused)
+                    return;
+            }
+                    
+
             base.Update(deltaTime);
             // TODO: At 2Pi, the limacon is done.
             if (Lifetime > MathHelper.TwoPi)

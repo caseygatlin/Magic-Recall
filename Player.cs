@@ -8,6 +8,7 @@ namespace out_and_back
 
     class Player : Entity
     {
+        private Game1 game;
         private LinkedList<Vector2> positionsList = new LinkedList<Vector2>();
         const int PLAYER_RADIUS = 30;
         const int PLAYER_WEAPON_RADIUS = 10;
@@ -69,6 +70,7 @@ namespace out_and_back
         public Player(Game1 game, float direction, Vector2 position, float speed = 0, Team team = Team.Player) : base(game, team, direction, speed, position, PLAYER_RADIUS)
         {
             health = Globals.MAX_PLAYER_HEALTH;
+            this.game = game;
         }
 
         //Detects input from WASD and assigns speed and direction
@@ -231,6 +233,11 @@ namespace out_and_back
 
         public override void Update(GameTime gameTime)
         {
+            //If the game is regularly paused, return
+            if (game.paused && !game.paused_nonPlyr)
+                return;
+
+
             base.Update(gameTime);
 
             MovementInput();

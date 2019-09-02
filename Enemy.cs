@@ -13,6 +13,7 @@ namespace out_and_back
         AttackPatterns.AttackPattern attackPattern;
         Texture2D sprite;
         public bool CanExtinguishBraziers { get; private set; }
+        private Game1 game;
 
         /// <summary>
         /// Basic constructor for an enemy entity.
@@ -26,6 +27,7 @@ namespace out_and_back
         internal Enemy(Game1 game, Team team, float direction, float speed, Vector2 position, float radius) : base(game, team, direction, speed, position, radius)
         {
             CanExtinguishBraziers = false;
+            this.game = game;
         }
 
         //Ghost enemy. Moves in a straight line and shoots a small spread of bullets.
@@ -81,6 +83,8 @@ namespace out_and_back
 
         public override void Update(GameTime gameTime)
         {
+            if (game.paused)
+                return;
             base.Update(gameTime);
             if (attackPattern != null)
                 attackPattern.Update(gameTime);

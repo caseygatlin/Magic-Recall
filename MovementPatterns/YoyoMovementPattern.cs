@@ -13,6 +13,8 @@ namespace out_and_back.MovementPatterns
         int multiplier = 1;
         int cycles;
         int cycleCount = 0;
+        Game1 game;
+
 
         /// <summary>
         /// Creates a Yoyo Movement Pattern.
@@ -21,6 +23,7 @@ namespace out_and_back.MovementPatterns
         /// <param name="cycles">The amount of times this pattern should be executed.</param>
         internal YoyoMovementPattern(Entity parent, int cycles = 1) : base(parent)
         {
+            game = parent.currentGame;
             this.cycles = cycles;
             XParam = (float time) =>
             {
@@ -38,7 +41,9 @@ namespace out_and_back.MovementPatterns
         /// <param name="deltaTime">The amount of time, in milliseconds, that has passed since last update.</param>
         public override void Update(int deltaTime)
         {
-            checkForPaused();
+            if (game.wonGame || (game.paused && !game.paused_nonPlyr))
+                return;
+
             base.Update(deltaTime);
             Vector2 currentPos = getPosition();
             float distance = Vector2.Distance(origin, currentPos);
