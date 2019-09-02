@@ -116,8 +116,6 @@ namespace out_and_back
             }
             /*------------------------------*/
 
-
-
             /*---------- Music -----------*/
             //Tracks the M key so it doesn't mute and unmute repeatedly
             if (Keyboard.GetState().IsKeyUp(Keys.M))
@@ -129,8 +127,6 @@ namespace out_and_back
                 muteKeyPressed = true;
             }
             /*----------------------------*/
-
-
 
             if (Keyboard.GetState().IsKeyDown(Keys.F11))
             {
@@ -150,7 +146,7 @@ namespace out_and_back
             }
 
             state.Update(this, gameTime);
-            if (state.Player != Player)
+            if (state.Player != Player && state.Player != null)
             {
                 Player = state.Player; //I couldn't figure out a better way to work through this
                 Player.AttackStateChanged += Player_AttackStateChanged;
@@ -166,11 +162,8 @@ namespace out_and_back
             AssetManager am = AssetManager.Instance;
             switch (ascea.AttackState)
             {
-                case AttackState.AbleInRange:
-                    cursor = MouseCursor.FromTexture2D(am.StaffFullAndInRange, 0, 0);
-                    break;
-                case AttackState.AbleOutOfRange:
-                    cursor = MouseCursor.FromTexture2D(am.StaffFullAndOutRange, 0, 0);
+                case AttackState.Able:
+                    cursor = MouseCursor.FromTexture2D((sender as Player).MouseInAttackRange ? am.StaffFullAndInRange : am.StaffFullAndOutRange, 0, 0);
                     break;
                 case AttackState.Unable:
                     cursor = MouseCursor.FromTexture2D(am.StaffEmpty, 0, 0);
@@ -192,6 +185,12 @@ namespace out_and_back
             spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, Matrix.CreateScale(Scale.X, Scale.Y, 1));
             state.Draw(this, gameTime);
             base.Draw(gameTime);
+            string not = "not ";
+            /*if (Player != null)
+            {
+                AssetManager.Instance.PrintString($"Cursor is {(Player.MouseInAttackRange ? string.Empty : not)}in range", new Vector2(0, 100), Color.White);
+                AssetManager.Instance.PrintString($"Cursor distance to player: {Player.MouseDistanceFromPlayer}", new Vector2(0, 120), Color.White);
+            }*/
             spriteBatch.End();
         }
     }

@@ -4,8 +4,7 @@ namespace out_and_back
 {
     enum AttackState
     {
-        AbleInRange,
-        AbleOutOfRange,
+        Able,
         Unable
     }
 

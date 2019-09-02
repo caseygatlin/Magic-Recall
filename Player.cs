@@ -41,6 +41,12 @@ namespace out_and_back
             private set;
         }
 
+        public float MouseDistanceFromPlayer
+        {
+            get;
+            private set;
+        }
+
         /// <summary>
         /// How fast the player's attack goes.
         /// </summary>
@@ -175,7 +181,7 @@ namespace out_and_back
         private void Weapon_Removed(object sender, System.EventArgs e)
         {
             primaryProjectile = null;
-            ChangeAttackState(MouseInAttackRange ? AttackState.AbleInRange : AttackState.AbleOutOfRange);
+            ChangeAttackState(AttackState.Able);
         }
 
         //Main drawing loop for the player
@@ -188,8 +194,6 @@ namespace out_and_back
             AssetManager.Instance.DrawRectangle(new Rectangle(Globals.SCREEN_WIDTH - 80, 8, 72, 40), Color.Black);
             AssetManager.Instance.DrawSprite(new Vector2(Globals.SCREEN_WIDTH - 87, 10), AssetManager.Instance.playerHealthIconSprite, 0.1f);
             AssetManager.Instance.PrintString($"x{health}", new Vector2(Globals.SCREEN_WIDTH - 35, 30), Color.White);
-
-           
         }
 
         public override void HandleCollision(Entity other)
@@ -238,14 +242,15 @@ namespace out_and_back
 
             Game1 g = (Game1)Game;
             Vector2 mousePos = new Vector2(Mouse.GetState().X / g.Scale.X, Mouse.GetState().Y / g.Scale.Y);
+            MouseDistanceFromPlayer = Vector2.Distance(mousePos, Position);
             // Mouse has been found in range
-            if (Vector2.Distance(mousePos, Position) <=  2 * AttackRange)
+            if (MouseDistanceFromPlayer > AttackRange + WEP_SPAWN_DIST)
             {
                 // And this is different
                 if (!MouseInAttackRange && !IsCasting)
                 {
-                    ChangeAttackState(AttackState.AbleInRange);
                     MouseInAttackRange = true;
+                    ChangeAttackState(AttackState.Able);
                 }
             }
             // Mouse has been found out of range
@@ -253,8 +258,8 @@ namespace out_and_back
             {
                 if (MouseInAttackRange && !IsCasting)
                 {
-                    ChangeAttackState(AttackState.AbleOutOfRange);
                     MouseInAttackRange = false;
+                    ChangeAttackState(AttackState.Able);
                 }
             }
             // Projectile firing code
