@@ -1,12 +1,15 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
+
 
 namespace out_and_back
 {
 
     class Player : Entity
     {
+        private LinkedList<Vector2> positionsList = new LinkedList<Vector2>();
         const int PLAYER_RADIUS = 30;
         const int PLAYER_WEAPON_RADIUS = 10;
         public int health;
@@ -31,6 +34,10 @@ namespace out_and_back
         {
             get => rangeModifier * DEFAULT_WEAPON_SPEED;
         }
+        private bool hittingWall = false;
+        private float obstacleDir = 0f;
+        private float obstacleX = -1f;
+        private float obstacleY = -1f;
 
         /// <summary>
         /// Basic constructor for a player entity.
@@ -166,17 +173,30 @@ namespace out_and_back
 
         public override void HandleCollision(Entity other)
         {
+            //If it's hitting an obstacle
+            if (other is Obstacle)
+            {
+                //Move the player to their last position out of the collision area (a rectangle in this case)
+                while (Math.Abs(Position.X - other.Position.X) <= Globals.OBSTACLE_RADIUS && Math.Abs(Position.Y - other.Position.Y) <= Globals.OBSTACLE_RADIUS)
+                {
+                    positionsList.RemoveFirst();
+                    Position = positionsList.First.Value;
+                }
+                return;
+            }
+
             //If invincible, return.
             if (isInvincible()) return;
 
             // It hits an entity on the same team, return.
             if (Team == other.Team) return;
 
+            
+
             // It's hit an entity either enemy or projectile - and should therefore lose health.
             health--;
             if (health <= 0)
             {
-                // TODO: end the game / bring up a game over UI
                 Remove(null);
             }
             else
@@ -216,6 +236,17 @@ namespace out_and_back
             if (isInvincible())
             {
                 invincibility_time = Math.Max(invincibility_time - gameTime.ElapsedGameTime.Milliseconds, 0);
+            }
+
+            //Retains a list of the player's positions from the last 10 frames
+            if (positionsList.Count < 10)
+            {
+                positionsList.AddFirst(Position);
+            }
+            else
+            {
+                positionsList.RemoveLast();
+                positionsList.AddFirst(Position);
             }
         }
 

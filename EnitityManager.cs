@@ -6,7 +6,8 @@ namespace out_and_back
     class EnitityManager : DrawableGameComponent
     {
         public Player Player { get; private set; }
-        public LinkedList<PLACEHOLDERFOROBSTACLES> Braziers { get; } = new LinkedList<PLACEHOLDERFOROBSTACLES>();
+        public LinkedList<Brazier> Braziers { get; } = new LinkedList<Brazier>();
+        LinkedList<Obstacle> walls = new LinkedList<Obstacle>();
         LinkedList<Projectile> playerAttacks = new LinkedList<Projectile>();
         LinkedList<Entity> enemies = new LinkedList<Entity>();
         LinkedList<Projectile> enemyAttacks = new LinkedList<Projectile>();
@@ -32,8 +33,11 @@ namespace out_and_back
                 case Player pl:
                     Player = pl;
                     break;
-                case PLACEHOLDERFOROBSTACLES b: //Add braziers to the list so slimes can easily find and pursue them
+                case Brazier b: //Add braziers to the list so slimes can easily find and pursue them
                     Braziers.AddLast(b);
+                    break;
+                case Obstacle w: //Add all other obstacles to the list so they can collide with player
+                    walls.AddLast(w);
                     break;
                 default:
                     enemies.AddLast(e);
@@ -59,8 +63,11 @@ namespace out_and_back
                 case Player pl:
                     Player = null;
                     break;
-                case PLACEHOLDERFOROBSTACLES b:
+                case Brazier b:
                     Braziers.Remove(b);
+                    break;
+                case Obstacle w:
+                    walls.Remove(w);
                     break;
                 default:
                     enemies.Remove(e);
@@ -78,6 +85,8 @@ namespace out_and_back
                 enemyAttacks.RemoveFirst();
             while (Braziers.Count != 0)
                 Braziers.RemoveFirst();
+            while (walls.Count != 0)
+                walls.RemoveFirst();
         }
 
         private void AddEnemy(Entity enemy)
@@ -98,6 +107,7 @@ namespace out_and_back
             foreach (var enemy in enemies) enemy.Draw(gameTime);
             foreach (var proj in enemyAttacks) proj.Draw(gameTime);
             foreach (var brazier in Braziers) brazier.Draw(gameTime);
+            foreach (var wall in walls) wall.Draw(gameTime);
         }
 
         public override void Update(GameTime gameTime)
@@ -118,6 +128,16 @@ namespace out_and_back
                 proj.Update(gameTime);
                 Collider.DoCollide(proj, Player);
             }
+            foreach (var wall in walls)
+            {
+                Collider.DoCollide(wall, Player);
+            }
+            foreach (var brazier in Braziers)
+            {
+                brazier.Update(gameTime); //To update lit or unlit state
+                Collider.DoCollide(brazier, Player);
+            }
+
             updating = false;
             foreach (var entity in removalQueue)
                 RemoveEntity(entity);

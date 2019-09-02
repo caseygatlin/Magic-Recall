@@ -68,14 +68,14 @@ namespace out_and_back
 
             //Wave 0: Give the player a little bit of time to orient themselves; also add terrain features
             waves.AddLast(new Wave(5));
-            waves.Last.Value.spawns.AddLast(new Spawn(PLACEHOLDERFOROBSTACLES.Crystal, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH / 2 - 100, Globals.SCREEN_HEIGHT / 2)));
-            waves.Last.Value.spawns.AddLast(new Spawn(PLACEHOLDERFOROBSTACLES.Crystal, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH / 2 + 100, Globals.SCREEN_HEIGHT / 2)));
-            waves.Last.Value.spawns.AddLast(new Spawn(PLACEHOLDERFOROBSTACLES.Crystal, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH / 2, Globals.SCREEN_HEIGHT / 2 - 100)));
-            waves.Last.Value.spawns.AddLast(new Spawn(PLACEHOLDERFOROBSTACLES.Crystal, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH / 2, Globals.SCREEN_HEIGHT / 2 + 100)));
-            waves.Last.Value.spawns.AddLast(new Spawn(PLACEHOLDERFOROBSTACLES.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * 1 / 6, Globals.SCREEN_HEIGHT * 1 / 6)));
-            waves.Last.Value.spawns.AddLast(new Spawn(PLACEHOLDERFOROBSTACLES.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * 5 / 6, Globals.SCREEN_HEIGHT * 1 / 6)));
-            waves.Last.Value.spawns.AddLast(new Spawn(PLACEHOLDERFOROBSTACLES.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * 1 / 6, Globals.SCREEN_HEIGHT * 5 / 6)));
-            waves.Last.Value.spawns.AddLast(new Spawn(PLACEHOLDERFOROBSTACLES.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * 5 / 6, Globals.SCREEN_HEIGHT * 5 / 6)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Obstacle.Crystal, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH / 2 - 100, Globals.SCREEN_HEIGHT / 2)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Obstacle.Crystal, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH / 2 + 100, Globals.SCREEN_HEIGHT / 2)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Obstacle.Crystal, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH / 2, Globals.SCREEN_HEIGHT / 2 - 100)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Obstacle.Crystal, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH / 2, Globals.SCREEN_HEIGHT / 2 + 100)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Obstacle.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * 1 / 6, Globals.SCREEN_HEIGHT * 1 / 6)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Obstacle.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * 5 / 6, Globals.SCREEN_HEIGHT * 1 / 6)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Obstacle.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * 1 / 6, Globals.SCREEN_HEIGHT * 5 / 6)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Obstacle.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * 5 / 6, Globals.SCREEN_HEIGHT * 5 / 6)));
 
             //Wave 1: A single slime
             waves.AddLast(new Wave(8));
@@ -123,28 +123,28 @@ namespace out_and_back
 
             //Wave 0: Give the player a little bit of time to orient themselves; also add terrain features
             waves.AddLast(new Wave(4));
-            waves.Last.Value.spawns.AddLast(new Spawn(PLACEHOLDERFOROBSTACLES.BrazierRange, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .2f, Globals.SCREEN_HEIGHT * .3f)));
-            waves.Last.Value.spawns.AddLast(new Spawn(PLACEHOLDERFOROBSTACLES.BrazierTriple, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .75f, Globals.SCREEN_HEIGHT * .65f)));
-            waves.Last.Value.spawns.AddLast(new Spawn(PLACEHOLDERFOROBSTACLES.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .30f, Globals.SCREEN_HEIGHT * .30f)));
-            waves.Last.Value.spawns.AddLast(new Spawn(PLACEHOLDERFOROBSTACLES.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .20f, Globals.SCREEN_HEIGHT * .45f)));
-            waves.Last.Value.spawns.AddLast(new Spawn(PLACEHOLDERFOROBSTACLES.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .15f, Globals.SCREEN_HEIGHT * .45f)));
-            waves.Last.Value.spawns.AddLast(new Spawn(PLACEHOLDERFOROBSTACLES.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .10f, Globals.SCREEN_HEIGHT * .45f)));
-            waves.Last.Value.spawns.AddLast(new Spawn(PLACEHOLDERFOROBSTACLES.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .60f, Globals.SCREEN_HEIGHT * .20f)));
-            waves.Last.Value.spawns.AddLast(new Spawn(PLACEHOLDERFOROBSTACLES.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .60f, Globals.SCREEN_HEIGHT * .25f)));
-            waves.Last.Value.spawns.AddLast(new Spawn(PLACEHOLDERFOROBSTACLES.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .60f, Globals.SCREEN_HEIGHT * .30f)));
-            waves.Last.Value.spawns.AddLast(new Spawn(PLACEHOLDERFOROBSTACLES.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .60f, Globals.SCREEN_HEIGHT * .35f)));
-            waves.Last.Value.spawns.AddLast(new Spawn(PLACEHOLDERFOROBSTACLES.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .35f, Globals.SCREEN_HEIGHT * .60f)));
-            waves.Last.Value.spawns.AddLast(new Spawn(PLACEHOLDERFOROBSTACLES.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .35f, Globals.SCREEN_HEIGHT * .65f)));
-            waves.Last.Value.spawns.AddLast(new Spawn(PLACEHOLDERFOROBSTACLES.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .35f, Globals.SCREEN_HEIGHT * .70f)));
-            waves.Last.Value.spawns.AddLast(new Spawn(PLACEHOLDERFOROBSTACLES.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .35f, Globals.SCREEN_HEIGHT * .75f)));
-            waves.Last.Value.spawns.AddLast(new Spawn(PLACEHOLDERFOROBSTACLES.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .75f, Globals.SCREEN_HEIGHT * .50f)));
-            waves.Last.Value.spawns.AddLast(new Spawn(PLACEHOLDERFOROBSTACLES.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .80f, Globals.SCREEN_HEIGHT * .50f)));
-            waves.Last.Value.spawns.AddLast(new Spawn(PLACEHOLDERFOROBSTACLES.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .85f, Globals.SCREEN_HEIGHT * .50f)));
-            waves.Last.Value.spawns.AddLast(new Spawn(PLACEHOLDERFOROBSTACLES.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .65f, Globals.SCREEN_HEIGHT * .65f)));
-            waves.Last.Value.spawns.AddLast(new Spawn(PLACEHOLDERFOROBSTACLES.Crystal, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .3f, Globals.SCREEN_HEIGHT * .35f)));
-            waves.Last.Value.spawns.AddLast(new Spawn(PLACEHOLDERFOROBSTACLES.Crystal, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .25f, Globals.SCREEN_HEIGHT * .4f)));
-            waves.Last.Value.spawns.AddLast(new Spawn(PLACEHOLDERFOROBSTACLES.Crystal, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .70f, Globals.SCREEN_HEIGHT * .55f)));
-            waves.Last.Value.spawns.AddLast(new Spawn(PLACEHOLDERFOROBSTACLES.Crystal, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .65f, Globals.SCREEN_HEIGHT * .60f)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Brazier.BrazierRange, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .2f, Globals.SCREEN_HEIGHT * .3f)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Brazier.BrazierTriple, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .75f, Globals.SCREEN_HEIGHT * .65f)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Obstacle.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .30f, Globals.SCREEN_HEIGHT * .30f)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Obstacle.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .20f, Globals.SCREEN_HEIGHT * .45f)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Obstacle.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .15f, Globals.SCREEN_HEIGHT * .45f)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Obstacle.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .10f, Globals.SCREEN_HEIGHT * .45f)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Obstacle.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .60f, Globals.SCREEN_HEIGHT * .20f)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Obstacle.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .60f, Globals.SCREEN_HEIGHT * .25f)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Obstacle.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .60f, Globals.SCREEN_HEIGHT * .30f)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Obstacle.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .60f, Globals.SCREEN_HEIGHT * .35f)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Obstacle.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .35f, Globals.SCREEN_HEIGHT * .60f)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Obstacle.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .35f, Globals.SCREEN_HEIGHT * .65f)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Obstacle.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .35f, Globals.SCREEN_HEIGHT * .70f)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Obstacle.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .35f, Globals.SCREEN_HEIGHT * .75f)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Obstacle.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .75f, Globals.SCREEN_HEIGHT * .50f)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Obstacle.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .80f, Globals.SCREEN_HEIGHT * .50f)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Obstacle.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .85f, Globals.SCREEN_HEIGHT * .50f)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Obstacle.Tree, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .65f, Globals.SCREEN_HEIGHT * .65f)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Obstacle.Crystal, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .3f, Globals.SCREEN_HEIGHT * .35f)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Obstacle.Crystal, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .25f, Globals.SCREEN_HEIGHT * .4f)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Obstacle.Crystal, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .70f, Globals.SCREEN_HEIGHT * .55f)));
+            waves.Last.Value.spawns.AddLast(new Spawn(Obstacle.Crystal, Globals.DOWN_DIR, new Vector2(Globals.SCREEN_WIDTH * .65f, Globals.SCREEN_HEIGHT * .60f)));
 
             //Wave 1: Four spiders from NE; pushes toward south-center and away from triple brazier
             waves.AddLast(new Wave(2));

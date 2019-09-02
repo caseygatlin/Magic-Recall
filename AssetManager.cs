@@ -19,7 +19,6 @@ namespace out_and_back
         //Background/Environment sprites
         public Texture2D background;
         public Texture2D backgroundSmaller;
-        public Texture2D clouds;
 
         //Terrain sprites
         public Texture2D crystalSprite;

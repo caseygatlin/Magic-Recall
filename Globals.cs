@@ -12,6 +12,9 @@ namespace out_and_back
         public const int MAX_PLAYER_HEALTH = 5;
         public const int INVINCIBILITY_DURATION = 3000;//ms
 
+        //The collision radius for obstacles
+        public const float OBSTACLE_RADIUS = 30;
+
         //Direction constants
         public const float PI = MathHelper.Pi;
         public const float UP_DIR = 3 * MathHelper.PiOver2;
