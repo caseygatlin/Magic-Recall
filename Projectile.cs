@@ -89,6 +89,12 @@ namespace out_and_back
             // Ignore other projectiles.
             if (other is Projectile) return;
 
+            //Get blocked on crystals
+            if(other is Obstacle && ((Obstacle)other).AbsorbsPlayerProjectiles)
+            {
+                Remove(null);
+            }
+
             // Ignore objects of the same team.
             if (Team == other.Team || Team == Team.Player) return;
 

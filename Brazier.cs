@@ -17,6 +17,7 @@ namespace out_and_back
             Brazier p = new Brazier(game, position, Globals.OBSTACLE_RADIUS);
             p.sprite = AssetManager.Instance.brazierTripleUnlitSprite;
             p.litSprite = AssetManager.Instance.brazierTripleLitSprite;
+            p.AbsorbsPlayerProjectiles = true;
             return p;
         }
         public static Obstacle BrazierRange(Game1 game, float direction, Vector2 position)
@@ -24,6 +25,7 @@ namespace out_and_back
             Brazier p = new Brazier(game, position, Globals.OBSTACLE_RADIUS);
             p.sprite = AssetManager.Instance.brazierRangeUnlitSprite;
             p.litSprite = AssetManager.Instance.brazierRangeLitSprite;
+            p.AbsorbsPlayerProjectiles = true;
             return p;
         }
 

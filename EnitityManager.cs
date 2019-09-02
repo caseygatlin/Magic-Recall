@@ -131,6 +131,8 @@ namespace out_and_back
             foreach (var wall in walls)
             {
                 Collider.DoCollide(wall, Player);
+                foreach (var patk in playerAttacks)
+                    Collider.DoCollide(patk, wall);
             }
             foreach (var brazier in Braziers)
             {
