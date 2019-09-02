@@ -135,7 +135,10 @@ namespace out_and_back
             foreach (var brazier in Braziers)
             {
                 brazier.Update(gameTime); //To update lit or unlit state
-                Collider.DoCollide(brazier, Player);
+                foreach (var patk in playerAttacks)
+                    Collider.DoCollide(brazier, patk);
+                foreach (var enemy in enemies)
+                    Collider.DoCollide(brazier, enemy);
             }
 
             updating = false;

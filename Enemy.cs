@@ -12,6 +12,7 @@ namespace out_and_back
     {
         AttackPatterns.AttackPattern attackPattern;
         Texture2D sprite;
+        public bool CanExtinguishBraziers { get; private set; }
 
         /// <summary>
         /// Basic constructor for an enemy entity.
@@ -24,6 +25,7 @@ namespace out_and_back
         /// <param name="radius">The hitbox radius of the enemy.</param>
         internal Enemy(Game1 game, Team team, float direction, float speed, Vector2 position, float radius) : base(game, team, direction, speed, position, radius)
         {
+            CanExtinguishBraziers = false;
         }
 
         //Ghost enemy. Moves in a straight line and shoots a small spread of bullets.
@@ -60,6 +62,7 @@ namespace out_and_back
             }
             s.AddPattern(MovementPattern.PursueEntity(s, target_brazier));
             s.sprite = AssetManager.Instance.slimeSprite;
+            s.CanExtinguishBraziers = true;
             return s;
         }
 
