@@ -57,7 +57,7 @@ namespace out_and_back.GameStates
             {
                 instance.Stop();
                 instance.Dispose();
-                game.state = new GameStates.InLevelState(game);
+                game.state = new GameStates.InLevelState(game, Level.Level1(game));
                 inTransition = true;
             }
             if (instance.State == SoundState.Stopped && !inTransition)

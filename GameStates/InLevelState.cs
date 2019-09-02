@@ -22,12 +22,12 @@ namespace out_and_back.GameStates
         
         //private float time = 0;
 
-        public InLevelState(Game1 currentGame)
+        public InLevelState(Game1 currentGame, Level level)
         {
             game = currentGame;
             Player = new Player(game, 0, new Vector2(Globals.SCREEN_WIDTH/2, Globals.SCREEN_HEIGHT/2));
 #if RUN_LEVEL
-            level = Level.Level2(game);
+            this.level = level;
 #endif
 
             songPt1 = game.Content.Load<SoundEffect>("Level1MusPt1");
