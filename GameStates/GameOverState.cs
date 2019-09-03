@@ -25,7 +25,7 @@ namespace out_and_back.GameStates
             else
                 assetManager.PrintStringCenter("Enemies Defeated: ALL OF THEM", new Vector2(Globals.SCREEN_WIDTH / 2, Globals.SCREEN_HEIGHT / 3), Color.White, assetManager.retroFontLarge);
 
-            assetManager.PrintStringCenter("Press Space to restart", new Vector2(Globals.SCREEN_WIDTH / 2, Globals.SCREEN_HEIGHT * 3 / 4), Color.White, assetManager.retroFontSmall);
+            assetManager.PrintStringCenter("Press Space to Continue", new Vector2(Globals.SCREEN_WIDTH / 2, Globals.SCREEN_HEIGHT * 3 / 4), Color.White, assetManager.retroFontSmall);
             assetManager.DrawDarkOverlay();
         }
 
